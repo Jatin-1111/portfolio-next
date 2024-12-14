@@ -1,10 +1,11 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Header from "./components/Header";
 import { Typewriter } from "react-simple-typewriter";
 
 export default function Home() {
+
   return (
     <div className="h-screen flex flex-col bg-primary overflow-hidden">
       <Header />

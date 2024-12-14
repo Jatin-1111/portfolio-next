@@ -42,7 +42,7 @@ export default function Header() {
 
     return (
         <header className="bg-primary text-textMain top-0 w-full z-50 flex">
-            <nav className="container mx-auto flex items-center justify-between py-4 px-6 h-[10vh]">
+            <nav className="container m-auto flex items-center justify-between py-4 px-6 h-[10vh]">
                 {/* Logo */}
                 <motion.h1
                     className="font-header text-3xl text-accentBlue cursor-pointer"
@@ -97,7 +97,7 @@ export default function Header() {
                         whileHover={{ scale: 1.1, color: "#1E90FF" }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
-                        <Link href="/" className="hover:text-accentBlue transition md:text-xl">
+                        <Link href="/" className="hover:text-accentBlue font-medium transition md:text-xl">
                             Home
                         </Link>
                     </motion.li>
@@ -105,7 +105,7 @@ export default function Header() {
                         whileHover={{ scale: 1.1, color: "#1E90FF" }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
-                        <Link href="/about" className="hover:text-accentBlue transition md:text-xl">
+                        <Link href="/about" className="hover:text-accentBlue font-medium transition md:text-xl">
                             About
                         </Link>
                     </motion.li>
@@ -113,7 +113,7 @@ export default function Header() {
                         whileHover={{ scale: 1.1, color: "#1E90FF" }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
-                        <Link href="/services" className="hover:text-accentBlue transition md:text-xl">
+                        <Link href="/services" className="hover:text-accentBlue font-medium transition md:text-xl">
                             Services
                         </Link>
                     </motion.li>
@@ -121,7 +121,7 @@ export default function Header() {
                         whileHover={{ scale: 1.1, color: "#1E90FF" }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
-                        <Link href="/work" className="hover:text-accentBlue transition md:text-xl">
+                        <Link href="/work" className="hover:text-accentBlue font-medium transition md:text-xl">
                             Work
                         </Link>
                     </motion.li>
@@ -129,7 +129,7 @@ export default function Header() {
                         whileHover={{ scale: 1.1, color: "#1E90FF" }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
-                        <Link href="/contact" className="hover:text-accentBlue transition md:text-xl">
+                        <Link href="/contact" className="hover:text-accentBlue font-medium transition md:text-xl">
                             Contact
                         </Link>
                     </motion.li>
@@ -167,7 +167,7 @@ export default function Header() {
                             >
                                 <HiX className="text-3xl" />
                             </button>
-                            <h1 className="font-header text-3xl text-accentBlue">
+                            <h1 className="font-header text-3xl font-semibold text-accentBlue">
                                 <Link href="/" onClick={handleToggle}>
                                     Jatin
                                 </Link>
