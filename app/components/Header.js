@@ -158,7 +158,7 @@ export default function Header() {
                                 </Link>
                             </h1>
                             <ul className="flex flex-col items-center space-y-6 text-lg font-body">
-                                {["Home", "About", "Services", "Work", "Contact"].map((item) => (
+                                {["About", "Services", "Work", "Contact"].map((item) => (
                                     <li key={item}>
                                         <Link
                                             href={item === "Home" ? `/` : `/${item.toLowerCase()}`}
