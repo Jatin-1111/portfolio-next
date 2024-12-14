@@ -1,22 +1,47 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "emailjs-com";
 import Header from "../components/Header";
 
 export default function Contact() {
+    const [formStatus, setFormStatus] = useState(""); // For success/error message
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        emailjs
+            .sendForm(
+                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+                e.target,
+                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+            )
+            .then(
+                (result) => {
+                    setFormStatus("Your message has been sent successfully!");
+                    e.target.reset(); // Clear form
+                },
+                (error) => {
+                    setFormStatus("Oops! Something went wrong. Please try again.");
+                }
+            );
+    };
+
     const socialLinks = [
         {
             name: "GitHub",
-            url: "https://github.com/yourusername",
+            url: "https://github.com/Jatin-1111",
             icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
         },
         {
             name: "LinkedIn",
-            url: "https://linkedin.com/in/yourusername",
+            url: "https://linkedin.com/in/jatin1011",
             icon: "https://cdn-icons-png.flaticon.com/512/174/174857.png",
         },
         {
             name: "Instagram",
-            url: "https://instagram.com/yourusername",
+            url: "https://www.instagram.com/_jatin_1011/",
             icon: "https://cdn-icons-png.flaticon.com/512/174/174855.png", // Instagram Icon
         },
     ];
@@ -52,8 +77,7 @@ export default function Contact() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     <motion.form
-                        action="https://formspree.io/f/{your-form-id}" // Replace with your Formspree endpoint
-                        method="POST"
+                        onSubmit={handleSubmit}
                         className="bg-primary border border-accentBlue rounded-lg p-6 shadow-lg space-y-4"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -129,6 +153,11 @@ export default function Contact() {
                             Send Message
                         </motion.button>
                     </motion.form>
+
+                    {/* Form Status */}
+                    {formStatus && (
+                        <p className="mt-4 text-center text-sm text-accentBlue">{formStatus}</p>
+                    )}
                 </motion.div>
 
                 {/* Social Links */}
