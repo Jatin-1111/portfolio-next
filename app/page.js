@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "./components/Header";
+import { Typewriter } from "react-simple-typewriter";
 
 export default function Home() {
   return (
@@ -49,12 +50,20 @@ export default function Home() {
           transition={{ duration: 0.8 }}
         >
           <motion.h1
-            className="text-accentBlue font-header text-4xl sm:text-5xl lg:text-6xl"
+            className="text-accentBlue font-header text-3xl my-3 md:my-0 font-semibold sm:text-5xl lg:text-6xl"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            Hi, I&apos;m Jatin
+            <Typewriter
+              words={["Hi, I'm Jatin", "A Web Developer", "A Tech Enthusiast"]}
+              loop={true} // Enable looping
+              cursor
+              cursorStyle="|"
+              typeSpeed={90}
+              deleteSpeed={50}
+              delaySpeed={1500} // Delay before typing the next word
+            />
           </motion.h1>
 
           <motion.p

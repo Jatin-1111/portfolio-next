@@ -20,11 +20,11 @@ export default function Header() {
         };
 
         if (isOpen) {
-            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("click", handleClickOutside);
         }
 
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("click", handleClickOutside);
         };
     }, [isOpen]);
 
@@ -50,7 +50,9 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                    <Link href="/" className="md:text-4xl">Jatin</Link>
+                    <Link href="/" className="md:text-4xl font-semibold">
+                        Jatin
+                    </Link>
                 </motion.h1>
 
                 {/* Hamburger Menu Icon (Mobile) */}
@@ -133,13 +135,26 @@ export default function Header() {
                     </motion.li>
                 </motion.ul>
 
+                {/* Black Overlay */}
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            onClick={handleToggle} // Close menu on clicking overlay
+                        ></motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* Mobile Sliding Menu */}
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
                             ref={menuRef} // Attach the menuRef to the sliding menu
-                            className="fixed top-0 right-0 h-full w-64 bg-primary shadow-lg text-textMain flex flex-col items-center justify-center space-y-8 lg:hidden"
+                            className="fixed top-0 right-0 h-full w-64 bg-primary shadow-lg text-textMain flex flex-col items-center justify-center space-y-8 lg:hidden z-50"
                             variants={menuVariants} // Add open and closed animations
                             initial="closed"
                             animate="open"
@@ -170,7 +185,6 @@ export default function Header() {
                                     </li>
                                 ))}
                             </ul>
-
                         </motion.div>
                     )}
                 </AnimatePresence>
