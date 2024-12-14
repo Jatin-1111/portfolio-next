@@ -7,26 +7,27 @@ import React, { useState, useEffect } from "react";
 
 const projects = [
     {
-        name: "Portfolio Website",
-        category: "Web Development",
-        description: "A modern portfolio showcasing my skills, projects, and achievements.",
-        image: "/portfolio.jpeg", // Replace with your image path
-        link: "https://jatin0111.vercel.app/",
+        "name": "Portfolio Website",
+        "category": "Web Development",
+        "description": "A portfolio showcasing my skills and projects, built with Next.js, Tailwind CSS, Framer Motion, and Acentricity UI.",
+        "image": "/portfolio.jpeg",
+        "link": "https://jatin0111.vercel.app/"
     },
     {
-        name: "E-Commerce Platform",
-        category: "Full-Stack Application",
-        description: "An e-commerce platform with a responsive design and secure payment gateway.",
-        image: "/ecommerce.jpg", // Replace with your image path
-        link: "https://example.com/ecommerce",
+        "name": "Social It Up",
+        "category": "Full-Stack Application",
+        "description": "Conducted comprehensive UI/UX testing to enhance user interface design and improve the overall user experience for their marketing platforms.",
+        "image": "/socialituplogo.png",
+        "link": "https://social-it-up.vercel.app/"
     },
     {
-        name: "Task Management App",
-        category: "Productivity Tool",
-        description: "A task management app to organize your daily activities with real-time collaboration.",
-        image: "/taskmanager.jpg", // Replace with your image path
-        link: "https://example.com/taskmanager",
-    },
+        "name": "Edusphere",
+        "category": "Full-Stack Application",
+        "description": "An educational platform for students to learn and grow, built with React.js, Tailwind CSS, Framer Motion, and Firebase for the backend.",
+        "image": "/edulogo.jpg",
+        "link": "https://edu-react-nine.vercel.app/"
+    }
+    ,
 ];
 
 export default function AnimatedProjects({ autoplay = false }) {
@@ -83,8 +84,8 @@ export default function AnimatedProjects({ autoplay = false }) {
                                             key={project.image}
                                             initial={{ opacity: 0, scale: 0.9, z: -100 }}
                                             animate={{
-                                                opacity: isActive(index) ? 1 : 0.7,
-                                                scale: isActive(index) ? 1 : 0.95,
+                                                opacity: isActive(index) ? 1 : 0,
+                                                scale: isActive(index) ? 1 : 0.9,
                                                 z: isActive(index) ? 0 : -100,
                                             }}
                                             exit={{ opacity: 0, scale: 0.9, z: 100 }}
@@ -112,7 +113,7 @@ export default function AnimatedProjects({ autoplay = false }) {
                                 initial={{ y: 20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
                                 exit={{ y: -20, opacity: 0 }}
-                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
                             >
                                 <h3 className="text-2xl font-bold text-accentBlue">
                                     {projects[active].name}
