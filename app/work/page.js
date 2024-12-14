@@ -64,7 +64,7 @@ export default function AnimatedProjects({ autoplay = false }) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <h1 className="text-4xl sm:text-5xl font-header text-accentBlue">
+                    <h1 className="text-4xl sm:text-5xl font-header font-semibold text-accentBlue">
                         My Projects
                     </h1>
                     <p className="mt-4 text-base sm:text-lg text-textSecondary">

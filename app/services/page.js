@@ -33,7 +33,7 @@ export default function Services() {
       <section className="flex-grow overflow-y-auto px-4 sm:px-6 lg:px-20 py-6 sm:py-12 lg:py-20">
         {/* Heading */}
         <motion.h1
-          className="text-3xl sm:text-4xl lg:text-5xl font-header text-center text-accentBlue"
+          className="text-3xl sm:text-4xl lg:text-5xl  font-semibold font-header text-center text-accentBlue"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
