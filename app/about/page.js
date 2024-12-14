@@ -37,7 +37,7 @@ export default function About() {
       <Header />
 
       {/* About Content */}
-      <section className="flex-grow px-6 sm:px-12 lg:px-20 py-10 sm:py-16 lg:py-20 overflow-y-auto">
+      <section className="flex-grow px-6 sm:px-12 lg:px-20 py-10 sm:py-16 lg:py-20 overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-primary scrollbar-track-secondary scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
         {/* Introduction Section */}
         <motion.div
           className="flex flex-col lg:flex-row items-center lg:items-center lg:justify-center gap-28"
@@ -68,7 +68,7 @@ export default function About() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl sm:text-5xl font-header text-accentBlue">
+            <h1 className="text-4xl sm:text-5xl font-header font-semibold text-accentBlue">
               About Me
             </h1>
             <p className="mt-4 text-base sm:text-lg text-textSecondary">
@@ -78,7 +78,7 @@ export default function About() {
               focus lies in delivering clean and efficient code to meet your
               project needs.
             </p>
-            <p className="mt-4 px-3 text-base sm:text-lg text-textSecondary">
+            <p className="mt-4 px-3 md:px-0 text-base sm:text-lg text-textSecondary">
               With a strong foundation in UI/UX design and performance
               optimization, I aim to create applications that are not only
               visually appealing but also highly functional and user-friendly.

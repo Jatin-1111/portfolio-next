@@ -8,9 +8,11 @@
   --font-body: var(--font-roboto);
   --font-code: var(--font-fira-code);
 }
+
 body {
   font-family: var(--font-body);
 }
+
 h1,
 h2,
 h3,
@@ -19,7 +21,37 @@ h5,
 h6 {
   font-family: var(--font-header);
 }
+
 code,
 pre {
   font-family: var(--font-code);
+}
+
+/* Scrollbar Styling */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  /* For Firefox */
+}
+
+.scrollbar-thumb-primary {
+  scrollbar-color: #1E90FF #121212;
+  /* Thumb (Dodger Blue), Track (Primary Background) */
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+  /* Thin scrollbar width */
+  height: 8px;
+  /* Thin scrollbar height */
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #1E90FF, #00FFAB);
+  /* Blue to Green gradient */
+  border-radius: 4px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+  background: #121212;
+  /* Primary Background */
 }

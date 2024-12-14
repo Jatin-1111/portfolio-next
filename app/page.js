@@ -1,16 +1,15 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Header from "./components/Header";
 import { Typewriter } from "react-simple-typewriter";
 
 export default function Home() {
-
   return (
     <div className="h-screen flex flex-col bg-primary overflow-hidden">
       <Header />
       {/* Main Content */}
-      <section className="flex-grow h-[90%] flex flex-col lg:flex-row items-center justify-center text-center lg:text-left px-6 lg:px-20 md:ml-9">
+      <section className="flex-grow h-[90%] flex flex-col lg:flex-row items-center justify-center text-center lg:text-left px-6 lg:px-20 overflow-x-hidden overflow-y-auto scrollbar scrollbar-thin scrollbar-thumb-primary scrollbar-track-secondary scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
         {/* Profile Image */}
         <motion.div
           className="relative flex-shrink-0 w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full shadow-lg"
@@ -51,13 +50,13 @@ export default function Home() {
           transition={{ duration: 0.8 }}
         >
           <motion.h1
-            className="text-accentBlue font-header text-3xl my-3 md:my-0 font-semibold sm:text-5xl lg:text-6xl"
+            className="text-accentBlue font-header text-2xl md:text-4xl my-3 md:my-0 font-semibold sm:text-5xl lg:text-6xl"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <Typewriter
-              words={["Hi, I'm Jatin", "A Web Developer", "A Tech Enthusiast"]}
+              words={["Hello, I'm Jatin", "A Web Developer", "A Tech Enthusiast"]}
               loop={true} // Enable looping
               cursor
               cursorStyle="|"
@@ -105,4 +104,4 @@ export default function Home() {
       </section>
     </div>
   );
-};
+}

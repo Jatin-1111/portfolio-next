@@ -27,7 +27,7 @@ export default function Contact() {
             <Header />
 
             {/* Contact Content */}
-            <section className="flex-grow px-6 sm:px-12 lg:px-20 py-10 sm:py-16 lg:py-20 overflow-y-auto">
+            <section className="flex-grow px-6 sm:px-12 lg:px-20 py-10 sm:py-16 lg:py-20 overflow-y-auto scrollbar-thin scrollbar-thumb-accentBlue scrollbar-track-textSecondary/20 scrollbar-thumb-rounded-full scrollbar-track-rounded-full md:scrollbar-none">
                 {/* Header */}
                 <motion.div
                     className="text-center"
@@ -159,7 +159,6 @@ export default function Contact() {
                             </motion.a>
                         ))}
                     </div>
-
                 </motion.div>
             </section>
         </div>
