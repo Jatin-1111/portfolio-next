@@ -161,7 +161,7 @@ export default function Header() {
                                 {["Home", "About", "Services", "Work", "Contact"].map((item) => (
                                     <li key={item}>
                                         <Link
-                                            href={`/${item.toLowerCase()}`}
+                                            href={item === "Home" ? `/` : `/${item.toLowerCase()}`}
                                             onClick={handleToggle}
                                             className="hover:text-accentBlue"
                                         >
@@ -170,6 +170,7 @@ export default function Header() {
                                     </li>
                                 ))}
                             </ul>
+
                         </motion.div>
                     )}
                 </AnimatePresence>
