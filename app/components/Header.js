@@ -1,18 +1,47 @@
-"use client"
+"use client";
 import Link from "next/link";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX } from "react-icons/hi";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef(null); // Reference to the sliding menu container
 
     const handleToggle = () => {
-        setIsOpen(!isOpen);
+        setIsOpen((prev) => !prev);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsOpen(false); // Close the menu if clicking outside
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isOpen]);
+
+    // Framer Motion Variants
+    const menuVariants = {
+        open: { x: 0, opacity: 1 },
+        closed: { x: "100%", opacity: 0 },
+    };
+
+    const menuTransition = {
+        type: "tween",
+        duration: 0.4,
+        ease: "easeInOut",
     };
 
     return (
-        <header className="bg-primary text-textMain shadow-md top-0 w-full z-50 flex">
+        <header className="bg-primary text-textMain top-0 w-full z-50 flex">
             <nav className="container mx-auto flex items-center justify-between py-4 px-6 h-[10vh]">
                 {/* Logo */}
                 <motion.h1
@@ -32,9 +61,25 @@ export default function Header() {
                         className="text-textMain focus:outline-none"
                     >
                         {isOpen ? (
-                            <HiX className="text-3xl hover:accentBlue" />
+                            <motion.div
+                                key="close"
+                                initial={{ rotate: 180, opacity: 0 }}
+                                animate={{ rotate: 0, opacity: 1 }}
+                                exit={{ rotate: 90, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <HiX className="text-3xl hover:text-accentBlue" />
+                            </motion.div>
                         ) : (
-                            <HiMenu className="text-3xl hover:accentBlue" />
+                            <motion.div
+                                key="menu"
+                                initial={{ rotate: -90, opacity: 0 }}
+                                animate={{ rotate: 0, opacity: 1 }}
+                                exit={{ rotate: -180, opacity: 0 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <HiMenu className="text-3xl hover:text-accentBlue" />
+                            </motion.div>
                         )}
                     </button>
                 </div>
@@ -58,16 +103,16 @@ export default function Header() {
                         whileHover={{ scale: 1.1, color: "#1E90FF" }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
-                        <Link href="/services" className="hover:text-accentBlue transition md:text-xl">
-                            Services
+                        <Link href="/about" className="hover:text-accentBlue transition md:text-xl">
+                            About
                         </Link>
                     </motion.li>
                     <motion.li
                         whileHover={{ scale: 1.1, color: "#1E90FF" }}
                         transition={{ type: "spring", stiffness: 300 }}
                     >
-                        <Link href="/resume" className="hover:text-accentBlue transition md:text-xl">
-                            Resume
+                        <Link href="/services" className="hover:text-accentBlue transition md:text-xl">
+                            Services
                         </Link>
                     </motion.li>
                     <motion.li
@@ -90,30 +135,44 @@ export default function Header() {
 
 
                 {/* Mobile Sliding Menu */}
-                <motion.div
-                    className="fixed top-0 right-0 h-full w-64 bg-primary shadow-lg text-textMain flex flex-col items-center justify-center space-y-8 lg:hidden"
-                    initial={{ x: "100%" }}
-                    animate={{ x: isOpen ? "0%" : "100%" }}
-                    exit={{ x: "100%" }}
-                    transition={{ type: "tween", duration: 0.4 }}
-                >
-                    <button
-                        onClick={handleToggle}
-                        className="absolute top-4 right-4 accentBlue focus:outline-none"
-                    >
-                        <HiX className="text-3xl" />
-                    </button>
-                    <h1 className="font-header text-3xl text-accentBlue">
-                        <Link href="/" onClick={handleToggle}>Jatin</Link>
-                    </h1>
-                    <ul className="flex flex-col items-center space-y-6 text-lg font-body">
-                        <li><Link href="/" onClick={handleToggle} className="hover:accentBlue">Home</Link></li>
-                        <li><Link href="/services" onClick={handleToggle} className="hover:accentBlue">Services</Link></li>
-                        <li><Link href="/resume" onClick={handleToggle} className="hover:accentBlue">Resume</Link></li>
-                        <li><Link href="/work" onClick={handleToggle} className="hover:accentBlue">Work</Link></li>
-                        <li><Link href="/contact" onClick={handleToggle} className="hover:accentBlue">Contact</Link></li>
-                    </ul>
-                </motion.div>
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            ref={menuRef} // Attach the menuRef to the sliding menu
+                            className="fixed top-0 right-0 h-full w-64 bg-primary shadow-lg text-textMain flex flex-col items-center justify-center space-y-8 lg:hidden"
+                            variants={menuVariants} // Add open and closed animations
+                            initial="closed"
+                            animate="open"
+                            exit="closed"
+                            transition={menuTransition}
+                        >
+                            <button
+                                onClick={handleToggle}
+                                className="absolute top-4 right-4 text-accentBlue focus:outline-none"
+                            >
+                                <HiX className="text-3xl" />
+                            </button>
+                            <h1 className="font-header text-3xl text-accentBlue">
+                                <Link href="/" onClick={handleToggle}>
+                                    Jatin
+                                </Link>
+                            </h1>
+                            <ul className="flex flex-col items-center space-y-6 text-lg font-body">
+                                {["Home", "About", "Services", "Work", "Contact"].map((item) => (
+                                    <li key={item}>
+                                        <Link
+                                            href={`/${item.toLowerCase()}`}
+                                            onClick={handleToggle}
+                                            className="hover:text-accentBlue"
+                                        >
+                                            {item}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </nav>
         </header>
     );
