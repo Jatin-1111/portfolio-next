@@ -16,7 +16,7 @@ const projects = [
     {
         "name": "Social It Up",
         "category": "Full-Stack Application",
-        "description": "Conducted comprehensive UI/UX testing to enhance user interface design and improve the overall user experience for their marketing platforms.",
+        "description": "Conducted UI/UX testing to enhance user experience and tested the backend admin and review panels for seamless functionality.",
         "image": "/socialituplogo.png",
         "link": "https://social-it-up.vercel.app/"
     },
