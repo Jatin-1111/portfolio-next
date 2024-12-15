@@ -64,7 +64,7 @@ export default function Contact() {
                         Contact Me
                     </h1>
                     <p className="mt-4 text-base sm:text-lg text-textSecondary">
-                        I’d love to hear from you! Feel free to reach out via the form below
+                        I&apos;d love to hear from you! Feel free to reach out via the form below
                         or connect with me on social media.
                     </p>
                 </motion.div>
