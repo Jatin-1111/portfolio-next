@@ -4,6 +4,24 @@ import Image from "next/image";
 import Header from "../components/Header"; // Include Header if needed
 
 export default function About() {
+  const education = [
+    {
+      degree: "Bachelor of Technology in Information Technology",
+      institution: "University Institute of Engineering and Technology (UIET), Chandigarh",
+      duration: "2024 - Present",
+    },
+    {
+      degree: "Senior Secondary Education (Class 12)",
+      institution: "Vivekananda World School",
+      duration: "2023 - 2024",
+    },
+    {
+      degree: "High School (Class 10)",
+      institution: "D.C. Model International School",
+      duration: "2020 - 2021",
+    },
+  ];
+
   const skills = [
     {
       name: "Next.js",
@@ -84,6 +102,38 @@ export default function About() {
               visually appealing but also highly functional and user-friendly.
             </p>
           </motion.div>
+        </motion.div>
+
+        {/* Education Section */}
+        <motion.div
+          className="mt-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <h2 className="text-3xl sm:text-4xl font-header text-accentBlue text-center lg:text-left">
+            Education
+          </h2>
+          <div className="mt-6 space-y-6">
+            {education.map((edu, index) => (
+              <motion.div
+                key={index}
+                className="bg-primary border border-accentBlue rounded-md p-4 shadow hover:shadow-lg transition-all space-y-2"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h3 className="text-lg sm:text-xl font-body text-textMain">
+                  {edu.degree}
+                </h3>
+                <p className="text-sm sm:text-base text-textSecondary">
+                  {edu.institution}
+                </p>
+                <p className="text-sm sm:text-base text-textSecondary">
+                  {edu.duration}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Skills Section */}
