@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/portfolio.png" />
       </head>
       <body
         className={`${montserrat.variable} ${roboto.variable} ${firaCode.variable} text-textMain antialiased`}

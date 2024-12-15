@@ -10,7 +10,7 @@ const projects = [
         "name": "Portfolio Website",
         "category": "Web Development",
         "description": "A portfolio showcasing my skills and projects, built with Next.js, Tailwind CSS, Framer Motion, and Acentricity UI.",
-        "image": "/portfolio.jpeg",
+        "image": "/portfolio.png",
         "link": "https://jatin0111.vercel.app/"
     },
     {
