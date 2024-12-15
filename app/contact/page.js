@@ -6,9 +6,12 @@ import Header from "../components/Header";
 
 export default function Contact() {
     const [formStatus, setFormStatus] = useState(""); // For success/error message
+    const [sending, setsending] = useState(false);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setsending(true);
 
         emailjs
             .sendForm(
@@ -21,9 +24,11 @@ export default function Contact() {
                 (result) => {
                     setFormStatus("Your message has been sent successfully!");
                     e.target.reset(); // Clear form
+                    setsending(false);
                 },
                 (error) => {
                     setFormStatus("Oops! Something went wrong. Please try again.");
+                    setsending(false);
                 }
             );
     };
@@ -140,17 +145,65 @@ export default function Contact() {
                             ></textarea>
                         </motion.div>
 
-                        {/* Submit Button */}
+                        {/* Submit Button with Animation */}
                         <motion.button
                             type="submit"
-                            className="w-full bg-accentBlue text-primary font-semibold py-2 px-4 rounded hover:bg-accentGreen transition"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            className="w-full bg-accentBlue text-primary font-semibold py-2 px-4 rounded hover:bg-accentGreen transition flex justify-center items-center relative"
+                            whileHover={{ scale: sending ? 1 : 1.05 }} // Disable hover effect while sending
+                            whileTap={{ scale: sending ? 1 : 0.95 }}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.8 }}
                         >
-                            Send Message
+                            {/* Button Content */}
+                            {sending ? (
+                                <div className="flex items-center space-x-1">
+                                    <span>Sending</span>
+                                    <motion.span
+                                        className="inline-block"
+                                        animate={{
+                                            opacity: [0.3, 1, 0.3], // Loop opacity for dots
+                                        }}
+                                        transition={{
+                                            repeat: Infinity,
+                                            duration: 0.8,
+                                            ease: "easeInOut",
+                                        }}
+                                    >
+                                        .
+                                    </motion.span>
+                                    <motion.span
+                                        className="inline-block"
+                                        animate={{
+                                            opacity: [0.3, 1, 0.3], // Loop opacity for dots
+                                        }}
+                                        transition={{
+                                            repeat: Infinity,
+                                            duration: 0.8,
+                                            delay: 0.2, // Stagger dots
+                                            ease: "easeInOut",
+                                        }}
+                                    >
+                                        .
+                                    </motion.span>
+                                    <motion.span
+                                        className="inline-block"
+                                        animate={{
+                                            opacity: [0.3, 1, 0.3], // Loop opacity for dots
+                                        }}
+                                        transition={{
+                                            repeat: Infinity,
+                                            duration: 0.8,
+                                            delay: 0.4, // Stagger dots
+                                            ease: "easeInOut",
+                                        }}
+                                    >
+                                        .
+                                    </motion.span>
+                                </div>
+                            ) : (
+                                "Send Message"
+                            )}
                         </motion.button>
                     </motion.form>
 
