@@ -51,7 +51,7 @@ export default function Header() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
                     <Link href="/" className="md:text-4xl font-semibold">
-                        Jatin the great
+                        Jatin
                     </Link>
                 </motion.h1>
 
