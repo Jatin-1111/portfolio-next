@@ -21,11 +21,11 @@ const projects = [
         "link": "https://social-it-up.vercel.app/"
     },
     {
-        "name": "Edusphere",
+        "name": "The UnCoders",
         "category": "Full-Stack Application",
-        "description": "An educational platform for students to learn and grow, built with React.js, Tailwind CSS, Framer Motion, and Firebase for the backend.",
-        "image": "/edulogo.jpg",
-        "link": "https://edu-react-nine.vercel.app/"
+        "description": "An educational platform for students to learn and grow, built with React.js, Tailwind CSS, Framer Motion, ShadCN, and Firebase for the backend.",
+        "image": "/tuclogo.png",
+        "link": "https://theuncodersuiet.vercel.app/"
     }
     ,
 ];
