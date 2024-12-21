@@ -4,7 +4,23 @@ import Image from "next/image";
 import Header from "./components/Header";
 import { Typewriter } from "react-simple-typewriter";
 
+
+
 export default function Home() {
+  const handleDownload = () => {
+    // Replace '/path/to/your/resume.pdf' with your actual resume file path
+    const resumePath = 'My_Resume.pdf';
+
+    // Create an anchor element
+    const link = document.createElement('a');
+    link.href = resumePath;
+    link.download = 'resume.pdf'; // The name the file will download as
+
+    // Trigger the download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <div className="h-screen flex flex-col bg-primary overflow-hidden">
       <Header />
@@ -81,23 +97,24 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             whileHover={{
-              scale: 1.1, // Slightly enlarge on hover
+              scale: 1.1,
             }}
             whileTap={{
-              scale: 0.95, // Slightly shrink on click
+              scale: 0.95,
             }}
-            aria-label="View My Resume"
+            onClick={handleDownload}
+            aria-label="Download Resume"
           >
             {/* Outer Animated Border */}
             <motion.span
               className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#1E90FF_0%,#00FFAB_50%,#1E90FF_100%)]"
               whileHover={{
-                filter: "brightness(1.2)", // Brighten the spinning effect on hover
+                filter: "brightness(1.2)",
               }}
             />
             {/* Inner Content */}
             <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-textMain backdrop-blur-3xl">
-              View My Resume
+              Download Resume
             </span>
           </motion.button>
         </motion.div>
