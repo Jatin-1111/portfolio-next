@@ -9,7 +9,7 @@ import { Typewriter } from "react-simple-typewriter";
 export default function Home() {
   const handleDownload = () => {
     // Replace '/path/to/your/resume.pdf' with your actual resume file path
-    const resumePath = 'My_Resume.pdf';
+    const resumePath = './My_Resume.pdf';
 
     // Create an anchor element
     const link = document.createElement('a');
