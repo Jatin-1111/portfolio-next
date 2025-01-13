@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Header from "../components/Header";
+import Link from "next/link";
 
 export default function Services() {
   const services = [
@@ -34,7 +35,7 @@ export default function Services() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.p 
+          <motion.p
             className="text-sm text-blue-400 tracking-wider mb-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -42,7 +43,7 @@ export default function Services() {
           >
             WHAT I OFFER
           </motion.p>
-          <motion.h1 
+          <motion.h1
             className="text-4xl lg:text-5xl text-gray-100 font-serif font-light mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -50,7 +51,7 @@ export default function Services() {
           >
             Professional Services
           </motion.h1>
-          <motion.div 
+          <motion.div
             className="h-px w-20 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto mb-8"
             initial={{ width: 0 }}
             animate={{ width: 80 }}
@@ -62,7 +63,7 @@ export default function Services() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Delivering comprehensive web development solutions that combine technical expertise 
+            Delivering comprehensive web development solutions that combine technical expertise
             with creative innovation to help bring your digital vision to life.
           </motion.p>
         </motion.div>
@@ -77,13 +78,13 @@ export default function Services() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 + index * 0.1 }}
-              whileHover={{ 
+              whileHover={{
                 y: -4,
                 boxShadow: "0 4px 20px -2px rgba(66, 153, 225, 0.1)"
               }}
             >
               {/* Service Icon */}
-              <motion.div 
+              <motion.div
                 className="text-4xl mb-6 transition-transform duration-300 group-hover:scale-110"
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
@@ -105,7 +106,7 @@ export default function Services() {
               {/* Service Highlights */}
               <div className="space-y-2">
                 {service.highlights.map((highlight, hIndex) => (
-                  <div 
+                  <div
                     key={hIndex}
                     className="flex items-center text-sm text-gray-400"
                   >
@@ -132,17 +133,19 @@ export default function Services() {
           <p className="text-gray-400 font-light mb-8">
             Interested in working together? Let&apos;s discuss your project.
           </p>
-          <motion.button
-            className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg text-white 
+          <Link href={'/contact'}>
+            <motion.button
+              className="px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg text-white 
               shadow-lg shadow-blue-500/20 transition-all duration-300"
-            whileHover={{ 
-              y: -2,
-              shadow: "0 20px 25px -5px rgb(59 130 246 / 0.3)"
-            }}
-            whileTap={{ y: 0 }}
-          >
-            Get in Touch
-          </motion.button>
+              whileHover={{
+                y: -2,
+                shadow: "0 20px 25px -5px rgb(59 130 246 / 0.3)"
+              }}
+              whileTap={{ y: 0 }}
+            >
+              Get in Touch
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
     </div>
