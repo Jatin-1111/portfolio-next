@@ -11,7 +11,6 @@ const projects = [
         description: "An elegantly crafted portfolio that showcases professional accomplishments through modern web technologies. Built with Next.js and enhanced with Tailwind CSS for sophisticated styling and Framer Motion for fluid animations.",
         image: "/portfolio.png",
         link: "https://jatin0111.vercel.app/",
-        github: "https://github.com/yourusername/portfolio",
         technologies: ["Next.js", "Tailwind CSS", "Framer Motion", "emailjs"],
         highlights: [
             "Responsive design principles",
@@ -25,7 +24,6 @@ const projects = [
         description: "A comprehensive social platform with advanced UI/UX implementation. Features extensive testing protocols for backend administration and review systems, ensuring optimal user experience and system reliability.",
         image: "/socialituplogo.png",
         link: "https://social-it-up.vercel.app/",
-        github: "https://github.com/yourusername/social-it-up",
         technologies: ["Next.js", "Firebase", "Framer Motion", "ShadCN", "Tailwind CSS", "Gemini"],
         highlights: [
             "Real-time data synchronization",
@@ -39,7 +37,6 @@ const projects = [
         description: "A sophisticated educational platform leveraging modern web technologies to deliver an exceptional learning experience. Integrates React.js with Firebase for robust backend functionality and ShadCN for refined UI components.",
         image: "/tuclogo.png",
         link: "https://theuncodersuiet.vercel.app/",
-        github: "https://github.com/yourusername/uncoders",
         technologies: ["React", "Firebase", "ShadCN"],
         highlights: [
             "Adaptive learning system",
@@ -274,18 +271,6 @@ export default function ProjectShowcase({ autoplay = false }) {
                                 >
                                     <IconExternalLink size={20} />
                                     View Project
-                                </motion.a>
-                                <motion.a
-                                    href={filteredProjects[active].github}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-8 py-3 bg-gray-800/50 rounded-lg text-gray-300
-                                        hover:bg-gray-800 transition-all duration-300"
-                                    whileHover={{ y: -2 }}
-                                    whileTap={{ y: 0 }}
-                                >
-                                    <IconBrandGithub size={20} />
-                                    Source
                                 </motion.a>
                             </motion.div>
                         </motion.div>
