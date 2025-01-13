@@ -1,168 +1,319 @@
 "use client";
-import Header from "../components/Header"; // Adjust the path if needed
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconExternalLink, IconBrandGithub } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
 const projects = [
     {
-        "name": "Portfolio Website",
-        "category": "Web Development",
-        "description": "A portfolio showcasing my skills and projects, built with Next.js, Tailwind CSS, Framer Motion, and Acentricity UI.",
-        "image": "/portfolio.png",
-        "link": "https://jatin0111.vercel.app/"
+        name: "Portfolio Website",
+        category: "Web Development",
+        description: "An elegantly crafted portfolio that showcases professional accomplishments through modern web technologies. Built with Next.js and enhanced with Tailwind CSS for sophisticated styling and Framer Motion for fluid animations.",
+        image: "/portfolio.png",
+        link: "https://jatin0111.vercel.app/",
+        github: "https://github.com/yourusername/portfolio",
+        technologies: ["Next.js", "Tailwind CSS", "Framer Motion", "emailjs"],
+        highlights: [
+            "Responsive design principles",
+            "Performance optimization",
+            "Modern UI/UX patterns"
+        ]
     },
     {
-        "name": "Social It Up",
-        "category": "Full-Stack Application",
-        "description": "Conducted UI/UX testing to enhance user experience and tested the backend admin and review panels for seamless functionality.",
-        "image": "/socialituplogo.png",
-        "link": "https://social-it-up.vercel.app/"
+        name: "Social It Up",
+        category: "Full-Stack Application",
+        description: "A comprehensive social platform with advanced UI/UX implementation. Features extensive testing protocols for backend administration and review systems, ensuring optimal user experience and system reliability.",
+        image: "/socialituplogo.png",
+        link: "https://social-it-up.vercel.app/",
+        github: "https://github.com/yourusername/social-it-up",
+        technologies: ["Next.js", "Firebase", "Framer Motion", "ShadCN", "Tailwind CSS", "Gemini"],
+        highlights: [
+            "Real-time data synchronization",
+            "Advanced admin interface",
+            "Secure authentication"
+        ]
     },
     {
-        "name": "The UnCoders",
-        "category": "Full-Stack Application",
-        "description": "An educational platform for students to learn and grow, built with React.js, Tailwind CSS, Framer Motion, ShadCN, and Firebase for the backend.",
-        "image": "/tuclogo.png",
-        "link": "https://theuncodersuiet.vercel.app/"
-    }
-    ,
+        name: "The UnCoders",
+        category: "Full-Stack Application",
+        description: "A sophisticated educational platform leveraging modern web technologies to deliver an exceptional learning experience. Integrates React.js with Firebase for robust backend functionality and ShadCN for refined UI components.",
+        image: "/tuclogo.png",
+        link: "https://theuncodersuiet.vercel.app/",
+        github: "https://github.com/yourusername/uncoders",
+        technologies: ["React", "Firebase", "ShadCN"],
+        highlights: [
+            "Adaptive learning system",
+            "Progress analytics",
+            "Collaborative features"
+        ]
+    },
 ];
 
-export default function AnimatedProjects({ autoplay = false }) {
+const categories = ["All", "Web Development", "Full-Stack Application"];
+
+export default function ProjectShowcase({ autoplay = false }) {
     const [active, setActive] = useState(0);
+    const [selectedCategory, setSelectedCategory] = useState("All");
+    const [isHovered, setIsHovered] = useState(false);
+    const [filteredProjects, setFilteredProjects] = useState(projects);
+    const [direction, setDirection] = useState(0);
 
     const handleNext = () => {
-        setActive((prev) => (prev + 1) % projects.length);
+        setDirection(1);
+        setActive((prev) => (prev + 1) % filteredProjects.length);
     };
 
     const handlePrev = () => {
-        setActive((prev) => (prev - 1 + projects.length) % projects.length);
+        setDirection(-1);
+        setActive((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
     };
 
-    const isActive = (index) => index === active;
+    const handleCategoryChange = (category) => {
+        setSelectedCategory(category);
+        setActive(0);
+        setDirection(0);
+        if (category === "All") {
+            setFilteredProjects(projects);
+        } else {
+            setFilteredProjects(projects.filter(project => project.category === category));
+        }
+    };
 
     useEffect(() => {
-        if (autoplay) {
-            const interval = setInterval(handleNext, 5000);
+        if (autoplay && !isHovered) {
+            const interval = setInterval(handleNext, 6000);
             return () => clearInterval(interval);
         }
-    }, [autoplay]);
+    }, [autoplay, isHovered]);
+
+    const slideVariants = {
+        enter: (direction) => ({
+            x: direction > 0 ? 1000 : -1000,
+            opacity: 0,
+            scale: 0.9
+        }),
+        center: {
+            x: 0,
+            opacity: 1,
+            scale: 1
+        },
+        exit: (direction) => ({
+            x: direction < 0 ? 1000 : -1000,
+            opacity: 0,
+            scale: 0.9
+        })
+    };
 
     return (
-        <div className="h-screen flex flex-col bg-primary text-textMain overflow-hidden">
-            {/* Header Section */}
-            <Header />
-
-            {/* Projects Section */}
-            <section className="flex-grow px-6 sm:px-12 lg:px-20 py-10 sm:py-16 lg:py-20 overflow-y-auto">
-                {/* Title Section */}
+        <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100 py-16">
+            <div className="max-w-7xl mx-auto px-6 py-24">
+                {/* Header Section */}
                 <motion.div
-                    className="text-center"
-                    initial={{ opacity: 0, y: -20 }}
+                    className="text-center mb-20"
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.8 }}
                 >
-                    <h1 className="text-4xl sm:text-5xl font-header font-semibold text-accentBlue">
-                        My Projects
+                    <h1 className="text-6xl font-serif font-light tracking-tight">
+                        <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                            Portfolio
+                        </span>
                     </h1>
-                    <p className="mt-4 text-base sm:text-lg text-textSecondary">
-                        Explore some of the projects I’ve worked on, showcasing my skills and expertise in modern web development.
+                    <motion.div
+                        className="h-px w-32 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto mt-6"
+                        initial={{ width: 0 }}
+                        animate={{ width: 128 }}
+                        transition={{ delay: 0.3, duration: 1 }}
+                    />
+                    <p className="mt-8 text-lg text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
+                        A curated selection of projects showcasing expertise in modern web development,
+                        emphasizing clean design, performance, and innovative solutions.
                     </p>
                 </motion.div>
 
-                {/* Animated Projects Section */}
-                <div className="max-w-sm md:max-w-4xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-10">
-                    <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
-                        {/* Image Section */}
-                        <div>
-                            <div className="relative h-80 w-full">
-                                <AnimatePresence>
-                                    {projects.map((project, index) => (
-                                        <motion.div
-                                            key={project.image}
-                                            initial={{ opacity: 0, scale: 0.9, z: -100 }}
-                                            animate={{
-                                                opacity: isActive(index) ? 1 : 0,
-                                                scale: isActive(index) ? 1 : 0.9,
-                                                z: isActive(index) ? 0 : -100,
-                                            }}
-                                            exit={{ opacity: 0, scale: 0.9, z: 100 }}
-                                            transition={{ duration: 0.4, ease: "easeInOut" }}
-                                            className="absolute inset-0 origin-bottom"
-                                        >
-                                            <Image
-                                                src={project.image}
-                                                alt={project.name}
-                                                width={500}
-                                                height={500}
-                                                draggable={false}
-                                                className="h-full w-full rounded-3xl object-cover object-center"
-                                            />
-                                        </motion.div>
-                                    ))}
-                                </AnimatePresence>
-                            </div>
+                {/* Category Filter */}
+                <motion.div
+                    className="flex justify-center gap-6 mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                >
+                    {categories.map((category, index) => (
+                        <motion.button
+                            key={category}
+                            className={`px-8 py-3 rounded-lg text-sm tracking-wide transition-all duration-300
+                                ${selectedCategory === category
+                                    ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20'
+                                    : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800'}`}
+                            onClick={() => handleCategoryChange(category)}
+                            whileHover={{ y: -2 }}
+                            whileTap={{ y: 0 }}
+                        >
+                            {category}
+                        </motion.button>
+                    ))}
+                </motion.div>
+
+                {/* Projects Showcase */}
+                <div
+                    className="relative max-w-6xl mx-auto"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        {/* Project Image */}
+                        <div className="relative h-96 w-full overflow-hidden rounded-2xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />
+                            <AnimatePresence initial={false} custom={direction}>
+                                <motion.div
+                                    key={active}
+                                    custom={direction}
+                                    variants={slideVariants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    transition={{
+                                        duration: 0.8,
+                                        ease: [0.4, 0, 0.2, 1]
+                                    }}
+                                    className="absolute inset-0"
+                                >
+                                    <div className="relative h-full w-full group">
+                                        <Image
+                                            src={filteredProjects[active].image}
+                                            alt={filteredProjects[active].name}
+                                            width={600}
+                                            height={400}
+                                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
                         </div>
 
-                        {/* Project Info Section */}
-                        <div className="flex justify-between flex-col py-4">
-                            <motion.div
-                                key={active}
-                                initial={{ y: 20, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                exit={{ y: -20, opacity: 0 }}
-                                transition={{ duration: 0.3, ease: "easeInOut" }}
-                            >
-                                <h3 className="text-2xl font-bold text-accentBlue">
-                                    {projects[active].name}
-                                </h3>
-                                <p className="text-sm text-textSecondary">
-                                    {projects[active].category}
-                                </p>
-                                <motion.p className="text-lg text-textSecondary mt-8">
-                                    {projects[active].description.split(" ").map((word, index) => (
-                                        <motion.span
-                                            key={index}
-                                            initial={{ filter: "blur(10px)", opacity: 0, y: 5 }}
-                                            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                                            transition={{ duration: 0.2, ease: "easeInOut", delay: 0.02 * index }}
-                                            className="inline-block"
-                                        >
-                                            {word}&nbsp;
-                                        </motion.span>
-                                    ))}
+                        {/* Project Details */}
+                        <motion.div
+                            key={active}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.6 }}
+                            className="space-y-8"
+                        >
+                            <div>
+                                <motion.p
+                                    className="text-sm text-blue-400 tracking-wider mb-2"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.3 }}
+                                >
+                                    {filteredProjects[active].category}
                                 </motion.p>
-                                <a
-                                    href={projects[active].link}
+                                <motion.h2
+                                    className="text-4xl font-light text-gray-100 mb-4"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                >
+                                    {filteredProjects[active].name}
+                                </motion.h2>
+                            </div>
+
+                            <motion.p
+                                className="text-lg text-gray-400 leading-relaxed"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                {filteredProjects[active].description}
+                            </motion.p>
+
+                            {/* Technologies */}
+                            <div className="space-y-4">
+                                <motion.h3
+                                    className="text-sm uppercase tracking-wider text-blue-400"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.6 }}
+                                >
+                                    Technologies
+                                </motion.h3>
+                                <motion.div
+                                    className="flex flex-wrap gap-3"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.7 }}
+                                >
+                                    {filteredProjects[active].technologies.map((tech) => (
+                                        <span
+                                            key={tech}
+                                            className="px-4 py-2 bg-gray-800/50 rounded-lg text-sm text-gray-300"
+                                        >
+                                            {tech}
+                                        </span>
+                                    ))}
+                                </motion.div>
+                            </div>
+
+                            {/* Project Links */}
+                            <motion.div
+                                className="flex gap-4 pt-4"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.8 }}
+                            >
+                                <motion.a
+                                    href={filteredProjects[active].link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="mt-4 inline-block text-accentGreen hover:underline"
+                                    className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 
+                                        rounded-lg text-white shadow-lg shadow-blue-500/20 transition-all duration-300"
+                                    whileHover={{ y: -2, shadow: "0 20px 25px -5px rgb(59 130 246 / 0.3)" }}
+                                    whileTap={{ y: 0 }}
                                 >
+                                    <IconExternalLink size={20} />
                                     View Project
-                                </a>
+                                </motion.a>
+                                <motion.a
+                                    href={filteredProjects[active].github}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-8 py-3 bg-gray-800/50 rounded-lg text-gray-300
+                                        hover:bg-gray-800 transition-all duration-300"
+                                    whileHover={{ y: -2 }}
+                                    whileTap={{ y: 0 }}
+                                >
+                                    <IconBrandGithub size={20} />
+                                    Source
+                                </motion.a>
                             </motion.div>
+                        </motion.div>
+                    </div>
 
-                            {/* Navigation Buttons */}
-                            <div className="flex gap-4 pt-12 md:pt-0">
-                                <button
-                                    onClick={handlePrev}
-                                    className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
-                                >
-                                    <IconArrowLeft className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
-                                </button>
-                                <button
-                                    onClick={handleNext}
-                                    className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
-                                >
-                                    <IconArrowRight className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
-                                </button>
-                            </div>
-                        </div>
+                    {/* Navigation */}
+                    <div className="flex justify-center gap-6 mt-16">
+                        <motion.button
+                            onClick={handlePrev}
+                            className="p-4 rounded-lg bg-gray-800/50 text-gray-400 hover:bg-gray-800 
+                                hover:text-white transition-all duration-300"
+                            whileHover={{ x: -2 }}
+                            whileTap={{ x: 0 }}
+                        >
+                            <IconArrowLeft size={24} />
+                        </motion.button>
+                        <motion.button
+                            onClick={handleNext}
+                            className="p-4 rounded-lg bg-gray-800/50 text-gray-400 hover:bg-gray-800 
+                                hover:text-white transition-all duration-300"
+                            whileHover={{ x: 2 }}
+                            whileTap={{ x: 0 }}
+                        >
+                            <IconArrowRight size={24} />
+                        </motion.button>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     );
 }

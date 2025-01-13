@@ -27,31 +27,32 @@ pre {
   font-family: var(--font-code);
 }
 
-/* Scrollbar Styling */
-.scrollbar-thin {
+/* Add this to your globals.css or relevant stylesheet */
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.1);
+  /* Subtle dark background */
+  backdrop-filter: blur(10px);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #3B82F6, #6366F1);
+  /* Blue to Indigo gradient */
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #2563EB, #4F46E5);
+  /* Darker gradient on hover */
+}
+
+/* For Firefox */
+* {
   scrollbar-width: thin;
-  /* For Firefox */
-}
-
-.scrollbar-thumb-primary {
-  scrollbar-color: #1E90FF #121212;
-  /* Thumb (Dodger Blue), Track (Primary Background) */
-}
-
-.scrollbar::-webkit-scrollbar {
-  width: 8px;
-  /* Thin scrollbar width */
-  height: 8px;
-  /* Thin scrollbar height */
-}
-
-.scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #1E90FF, #00FFAB);
-  /* Blue to Green gradient */
-  border-radius: 4px;
-}
-
-.scrollbar::-webkit-scrollbar-track {
-  background: #121212;
-  /* Primary Background */
+  scrollbar-color: #3B82F6 rgba(15, 23, 42, 0.1);
 }

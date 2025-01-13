@@ -2,193 +2,264 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiMenu, HiX } from "react-icons/hi";
+import { HiMenu, HiX, HiHome, HiUser, HiCode, HiBriefcase, HiMail } from "react-icons/hi";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
-    const menuRef = useRef(null); // Reference to the sliding menu container
+    const [scrolled, setScrolled] = useState(false);
+    const menuRef = useRef(null);
+    const headerRef = useRef(null);
 
     const handleToggle = () => {
         setIsOpen((prev) => !prev);
     };
 
     useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setIsOpen(false); // Close the menu if clicking outside
+                setIsOpen(false);
             }
         };
 
         if (isOpen) {
             document.addEventListener("click", handleClickOutside);
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
         }
 
         return () => {
             document.removeEventListener("click", handleClickOutside);
+            document.body.style.overflow = "unset";
         };
     }, [isOpen]);
 
-    // Framer Motion Variants
-    const menuVariants = {
-        open: { x: 0, opacity: 1 },
-        closed: { x: "100%", opacity: 0 },
+    const navItems = [
+        { name: "Home", href: "/", icon: HiHome },
+        { name: "About", href: "/about", icon: HiUser },
+        { name: "Services", href: "/services", icon: HiCode },
+        { name: "Work", href: "/work", icon: HiBriefcase },
+        { name: "Contact", href: "/contact", icon: HiMail },
+    ];
+
+    const headerVariants = {
+        initial: { y: -100, opacity: 0 },
+        animate: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                duration: 0.8
+            }
+        }
     };
 
-    const menuTransition = {
-        type: "tween",
-        duration: 0.4,
-        ease: "easeInOut",
+    const menuVariants = {
+        open: {
+            x: 0,
+            opacity: 1,
+            transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 20
+            }
+        },
+        closed: {
+            x: "100%",
+            opacity: 0,
+            transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 20
+            }
+        }
     };
 
     return (
-        <header className="bg-primary text-textMain top-0 w-full z-50 flex">
-            <nav className="container m-auto flex items-center justify-between py-4 px-6 h-[10vh]">
+        <motion.header
+            ref={headerRef}
+            className={`fixed w-full z-50 transition-all duration-500 ${scrolled
+                    ? "bg-gray-900/95 backdrop-blur-md shadow-lg"
+                    : "bg-transparent"
+                }`}
+            variants={headerVariants}
+            initial="initial"
+            animate="animate"
+        >
+            <nav className="container mx-auto flex items-center justify-between py-6 px-6">
                 {/* Logo */}
-                <motion.h1
-                    className="font-header text-3xl text-accentBlue cursor-pointer"
+                <motion.div
+                    className="relative z-10"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    <Link href="/" className="text-2xl md:text-3xl font-serif text-gray-100 group flex items-center">
+                        <span className="relative">
+                            Jatin
+                            <motion.span
+                                className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-indigo-500 group-hover:w-full transition-all duration-500"
+                            />
+                        </span>
+                    </Link>
+                </motion.div>
+
+                {/* Desktop Navigation */}
+                <motion.ul
+                    className="hidden lg:flex items-center space-x-8"
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    <Link href="/" className="md:text-4xl font-semibold">
-                        Jatin
-                    </Link>
-                </motion.h1>
+                    {navItems.map(({ name, href, icon: Icon }) => (
+                        <motion.li
+                            key={name}
+                            whileHover={{ y: -2 }}
+                            whileTap={{ y: 0 }}
+                        >
+                            <Link
+                                href={href}
+                                className="text-gray-300 hover:text-gray-100 font-light tracking-wide flex items-center gap-2 group"
+                            >
+                                <Icon className="text-lg opacity-70 group-hover:opacity-100 transition-opacity" />
+                                <span className="relative">
+                                    {name}
+                                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-indigo-500 group-hover:w-full transition-all duration-500" />
+                                </span>
+                            </Link>
+                        </motion.li>
+                    ))}
+                </motion.ul>
 
-                {/* Hamburger Menu Icon (Mobile) */}
-                <div className="lg:hidden">
-                    <button
-                        onClick={handleToggle}
-                        aria-label="Toggle Menu"
-                        className="text-textMain focus:outline-none"
-                    >
+                {/* Mobile Menu Button */}
+                <motion.button
+                    onClick={handleToggle}
+                    aria-label="Toggle Menu"
+                    className="lg:hidden relative z-10 text-gray-300 hover:text-gray-100 focus:outline-none"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    <AnimatePresence mode="wait">
                         {isOpen ? (
                             <motion.div
                                 key="close"
                                 initial={{ rotate: 180, opacity: 0 }}
                                 animate={{ rotate: 0, opacity: 1 }}
-                                exit={{ rotate: 90, opacity: 0 }}
+                                exit={{ rotate: -180, opacity: 0 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <HiX className="text-3xl hover:text-accentBlue" />
+                                <HiX className="text-2xl" />
                             </motion.div>
                         ) : (
                             <motion.div
                                 key="menu"
-                                initial={{ rotate: -90, opacity: 0 }}
+                                initial={{ rotate: -180, opacity: 0 }}
                                 animate={{ rotate: 0, opacity: 1 }}
-                                exit={{ rotate: -180, opacity: 0 }}
+                                exit={{ rotate: 180, opacity: 0 }}
                                 transition={{ duration: 0.3 }}
                             >
-                                <HiMenu className="text-3xl hover:text-accentBlue" />
+                                <HiMenu className="text-2xl" />
                             </motion.div>
                         )}
-                    </button>
-                </div>
+                    </AnimatePresence>
+                </motion.button>
 
-                {/* Navigation Links (Desktop) */}
-                <motion.ul
-                    className="hidden lg:flex space-x-6"
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delayChildren: 0.4, staggerChildren: 0.1 }}
-                >
-                    <motion.li
-                        whileHover={{ scale: 1.1, color: "#1E90FF" }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                    >
-                        <Link href="/" className="hover:text-accentBlue font-medium transition md:text-xl">
-                            Home
-                        </Link>
-                    </motion.li>
-                    <motion.li
-                        whileHover={{ scale: 1.1, color: "#1E90FF" }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                    >
-                        <Link href="/about" className="hover:text-accentBlue font-medium transition md:text-xl">
-                            About
-                        </Link>
-                    </motion.li>
-                    <motion.li
-                        whileHover={{ scale: 1.1, color: "#1E90FF" }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                    >
-                        <Link href="/services" className="hover:text-accentBlue font-medium transition md:text-xl">
-                            Services
-                        </Link>
-                    </motion.li>
-                    <motion.li
-                        whileHover={{ scale: 1.1, color: "#1E90FF" }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                    >
-                        <Link href="/work" className="hover:text-accentBlue font-medium transition md:text-xl">
-                            Work
-                        </Link>
-                    </motion.li>
-                    <motion.li
-                        whileHover={{ scale: 1.1, color: "#1E90FF" }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                    >
-                        <Link href="/contact" className="hover:text-accentBlue font-medium transition md:text-xl">
-                            Contact
-                        </Link>
-                    </motion.li>
-                </motion.ul>
-
-                {/* Black Overlay */}
+                {/* Mobile Menu Overlay */}
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
-                            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
-                            onClick={handleToggle} // Close menu on clicking overlay
-                        ></motion.div>
+                            transition={{ duration: 0.5 }}
+                            onClick={handleToggle}
+                        />
                     )}
                 </AnimatePresence>
 
-                {/* Mobile Sliding Menu */}
+                {/* Mobile Menu */}
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
-                            ref={menuRef} // Attach the menuRef to the sliding menu
-                            className="fixed top-0 right-0 h-full w-64 bg-primary shadow-lg text-textMain flex flex-col items-center justify-center space-y-8 lg:hidden z-50"
-                            variants={menuVariants} // Add open and closed animations
+                            ref={menuRef}
+                            className="fixed top-0 right-0 h-full w-80 bg-gray-900/95 backdrop-blur-md shadow-xl text-gray-100 flex flex-col p-8 lg:hidden z-50"
+                            variants={menuVariants}
                             initial="closed"
                             animate="open"
                             exit="closed"
-                            transition={menuTransition}
                         >
-                            <button
-                                onClick={handleToggle}
-                                className="absolute top-4 right-4 text-accentBlue focus:outline-none"
+                            <motion.div
+                                className="absolute top-6 right-6"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
                             >
-                                <HiX className="text-3xl" />
-                            </button>
-                            <h1 className="font-header text-3xl font-semibold text-accentBlue">
-                                <Link href="/" onClick={handleToggle}>
+                                <button
+                                    onClick={handleToggle}
+                                    className="text-gray-400 hover:text-gray-100 focus:outline-none transition-colors duration-300"
+                                    aria-label="Close Menu"
+                                >
+                                    <HiX className="text-2xl" />
+                                </button>
+                            </motion.div>
+
+                            <motion.div
+                                className="text-2xl font-serif mb-12"
+                                initial={{ x: 20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                            >
+                                <Link href="/" onClick={handleToggle} className="text-gray-100">
                                     Jatin
                                 </Link>
-                            </h1>
-                            <ul className="flex flex-col items-center space-y-6 text-lg font-body">
-                                {["About", "Services", "Work", "Contact"].map((item) => (
-                                    <li key={item}>
+                            </motion.div>
+
+                            <ul className="flex flex-col space-y-6">
+                                {navItems.map(({ name, href, icon: Icon }, index) => (
+                                    <motion.li
+                                        key={name}
+                                        initial={{ x: 20, opacity: 0 }}
+                                        animate={{ x: 0, opacity: 1 }}
+                                        transition={{ delay: 0.3 + index * 0.1 }}
+                                        whileHover={{ x: 4 }}
+                                    >
                                         <Link
-                                            href={`/${item.toLowerCase()}`}
+                                            href={href}
                                             onClick={handleToggle}
-                                            className="hover:text-accentBlue"
+                                            className="text-gray-300 hover:text-gray-100 flex items-center gap-4 group transition-colors duration-300"
                                         >
-                                            {item}
+                                            <Icon className="text-xl opacity-70 group-hover:opacity-100 transition-opacity" />
+                                            <span className="relative font-light tracking-wide">
+                                                {name}
+                                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-indigo-500 group-hover:w-full transition-all duration-500" />
+                                            </span>
                                         </Link>
-                                    </li>
+                                    </motion.li>
                                 ))}
                             </ul>
+
+                            <motion.div
+                                className="mt-auto text-sm text-gray-500"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.8 }}
+                            >
+                                © 2024 Jatin
+                            </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
             </nav>
-        </header>
+        </motion.header>
     );
 }

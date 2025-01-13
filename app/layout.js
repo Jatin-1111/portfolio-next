@@ -1,5 +1,6 @@
 import { Montserrat, Roboto, Fira_Code } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
 
 // Load fonts with specific subsets and assign CSS variables for easy use
 const montserrat = Montserrat({
@@ -22,8 +23,8 @@ const firaCode = Fira_Code({
 
 // Metadata for the project
 export const metadata = {
-  title: "Portfolio",
-  description: "Showcasing my projects and experience",
+  title: "Jatin",
+  description: "This is my portfolio website Jatin made using NextJS.",
 };
 
 export default function RootLayout({ children }) {
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.variable} ${roboto.variable} ${firaCode.variable} text-textMain antialiased`}
       >
+        <Header />
         <main className="min-h-screen">
           {children}
         </main>
