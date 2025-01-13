@@ -89,10 +89,8 @@ export default function Header() {
     return (
         <motion.header
             ref={headerRef}
-            className={`fixed w-full z-50 transition-all duration-500 ${scrolled
-                    ? "bg-gray-900/95 backdrop-blur-md shadow-lg"
-                    : "bg-transparent"
-                }`}
+            className={`fixed w-full z-40 transition-all duration-500 ${scrolled ? "bg-gray-900 shadow-lg" : "bg-transparent"
+                } ${isOpen ? "bg-transparent shadow-none" : ""}`}
             variants={headerVariants}
             initial="initial"
             animate="animate"
@@ -100,7 +98,7 @@ export default function Header() {
             <nav className="container mx-auto flex items-center justify-between py-6 px-6">
                 {/* Logo */}
                 <motion.div
-                    className="relative z-10"
+                    className="relative z-50"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                 >
@@ -145,7 +143,7 @@ export default function Header() {
                 <motion.button
                     onClick={handleToggle}
                     aria-label="Toggle Menu"
-                    className="lg:hidden relative z-10 text-gray-300 hover:text-gray-100 focus:outline-none"
+                    className="lg:hidden relative z-50 text-gray-300 hover:text-gray-100 focus:outline-none"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                 >
@@ -178,7 +176,7 @@ export default function Header() {
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
-                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+                            className="fixed inset-0 bg-gray-900/95 backdrop-blur-md z-40"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -193,7 +191,7 @@ export default function Header() {
                     {isOpen && (
                         <motion.div
                             ref={menuRef}
-                            className="fixed top-0 right-0 h-full w-80 bg-gray-900/95 backdrop-blur-md shadow-xl text-gray-100 flex flex-col p-8 lg:hidden z-50"
+                            className="fixed top-0 right-0 h-full w-80 bg-gray-900 shadow-xl text-gray-100 flex flex-col p-8 lg:hidden z-50"
                             variants={menuVariants}
                             initial="closed"
                             animate="open"

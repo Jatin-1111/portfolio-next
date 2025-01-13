@@ -102,27 +102,27 @@ export default function ProjectShowcase({ autoplay = false }) {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100 py-16">
-            <div className="max-w-7xl mx-auto px-6 py-24">
+        <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100 py-8 sm:py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-24">
                 {/* Header Section */}
                 <motion.div
-                    className="text-center mb-20"
+                    className="text-center mb-12 sm:mb-20"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <h1 className="text-6xl font-serif font-light tracking-tight">
+                    <h1 className="text-4xl sm:text-6xl font-serif font-light tracking-tight">
                         <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
                             Portfolio
                         </span>
                     </h1>
                     <motion.div
-                        className="h-px w-32 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto mt-6"
+                        className="h-px w-24 sm:w-32 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto mt-4 sm:mt-6"
                         initial={{ width: 0 }}
-                        animate={{ width: 128 }}
+                        animate={{ width: "8rem" }}
                         transition={{ delay: 0.3, duration: 1 }}
                     />
-                    <p className="mt-8 text-lg text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
+                    <p className="mt-6 sm:mt-8 text-base sm:text-lg text-gray-400 max-w-3xl mx-auto font-light leading-relaxed px-4">
                         A curated selection of projects showcasing expertise in modern web development,
                         emphasizing clean design, performance, and innovative solutions.
                     </p>
@@ -130,15 +130,15 @@ export default function ProjectShowcase({ autoplay = false }) {
 
                 {/* Category Filter */}
                 <motion.div
-                    className="flex justify-center gap-6 mb-16"
+                    className="flex flex-wrap justify-center gap-3 sm:gap-6 mb-12 sm:mb-16 px-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
                 >
-                    {categories.map((category, index) => (
+                    {categories.map((category) => (
                         <motion.button
                             key={category}
-                            className={`px-8 py-3 rounded-lg text-sm tracking-wide transition-all duration-300
+                            className={`px-4 sm:px-8 py-2 sm:py-3 rounded-lg text-sm tracking-wide transition-all duration-300
                                 ${selectedCategory === category
                                     ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20'
                                     : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800'}`}
@@ -157,9 +157,9 @@ export default function ProjectShowcase({ autoplay = false }) {
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
                 >
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16 items-center">
                         {/* Project Image */}
-                        <div className="relative h-96 w-full overflow-hidden rounded-2xl">
+                        <div className="relative h-64 sm:h-96 w-full overflow-hidden rounded-2xl">
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />
                             <AnimatePresence initial={false} custom={direction}>
                                 <motion.div
@@ -196,7 +196,7 @@ export default function ProjectShowcase({ autoplay = false }) {
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -20 }}
                             transition={{ duration: 0.6 }}
-                            className="space-y-8"
+                            className="space-y-6 sm:space-y-8 px-4 sm:px-0"
                         >
                             <div>
                                 <motion.p
@@ -208,7 +208,7 @@ export default function ProjectShowcase({ autoplay = false }) {
                                     {filteredProjects[active].category}
                                 </motion.p>
                                 <motion.h2
-                                    className="text-4xl font-light text-gray-100 mb-4"
+                                    className="text-3xl sm:text-4xl font-light text-gray-100 mb-4"
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.4 }}
@@ -218,7 +218,7 @@ export default function ProjectShowcase({ autoplay = false }) {
                             </div>
 
                             <motion.p
-                                className="text-lg text-gray-400 leading-relaxed"
+                                className="text-base sm:text-lg text-gray-400 leading-relaxed"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.5 }}
@@ -237,7 +237,7 @@ export default function ProjectShowcase({ autoplay = false }) {
                                     Technologies
                                 </motion.h3>
                                 <motion.div
-                                    className="flex flex-wrap gap-3"
+                                    className="flex flex-wrap gap-2 sm:gap-3"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.7 }}
@@ -245,7 +245,7 @@ export default function ProjectShowcase({ autoplay = false }) {
                                     {filteredProjects[active].technologies.map((tech) => (
                                         <span
                                             key={tech}
-                                            className="px-4 py-2 bg-gray-800/50 rounded-lg text-sm text-gray-300"
+                                            className="px-3 sm:px-4 py-2 bg-gray-800/50 rounded-lg text-sm text-gray-300"
                                         >
                                             {tech}
                                         </span>
@@ -264,8 +264,8 @@ export default function ProjectShowcase({ autoplay = false }) {
                                     href={filteredProjects[active].link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 
-                                        rounded-lg text-white shadow-lg shadow-blue-500/20 transition-all duration-300"
+                                    className="flex items-center gap-2 px-6 sm:px-8 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 
+                                        rounded-lg text-white shadow-lg shadow-blue-500/20 transition-all duration-300 text-sm sm:text-base"
                                     whileHover={{ y: -2, shadow: "0 20px 25px -5px rgb(59 130 246 / 0.3)" }}
                                     whileTap={{ y: 0 }}
                                 >
@@ -277,24 +277,24 @@ export default function ProjectShowcase({ autoplay = false }) {
                     </div>
 
                     {/* Navigation */}
-                    <div className="flex justify-center gap-6 mt-16">
+                    <div className="flex justify-center gap-4 sm:gap-6 mt-12 sm:mt-16">
                         <motion.button
                             onClick={handlePrev}
-                            className="p-4 rounded-lg bg-gray-800/50 text-gray-400 hover:bg-gray-800 
+                            className="p-3 sm:p-4 rounded-lg bg-gray-800/50 text-gray-400 hover:bg-gray-800 
                                 hover:text-white transition-all duration-300"
                             whileHover={{ x: -2 }}
                             whileTap={{ x: 0 }}
                         >
-                            <IconArrowLeft size={24} />
+                            <IconArrowLeft size={20} className="sm:w-6 sm:h-6" />
                         </motion.button>
                         <motion.button
                             onClick={handleNext}
-                            className="p-4 rounded-lg bg-gray-800/50 text-gray-400 hover:bg-gray-800 
+                            className="p-3 sm:p-4 rounded-lg bg-gray-800/50 text-gray-400 hover:bg-gray-800 
                                 hover:text-white transition-all duration-300"
                             whileHover={{ x: 2 }}
                             whileTap={{ x: 0 }}
                         >
-                            <IconArrowRight size={24} />
+                            <IconArrowRight size={20} className="sm:w-6 sm:h-6" />
                         </motion.button>
                     </div>
                 </div>
