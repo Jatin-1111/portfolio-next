@@ -4,6 +4,8 @@ const nextConfig = {
         domains: [
             "cdn.jsdelivr.net", // Devicons
             "cdn-icons-png.flaticon.com", // Flaticon
+            "cdn.iconscout.com",
+            "avatars.githubusercontent.com",
         ],
     },
 };

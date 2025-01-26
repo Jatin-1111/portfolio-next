@@ -1,4 +1,5 @@
-"use client";
+'use client'
+import React from 'react';
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -21,37 +22,72 @@ export default function About() {
     },
   ];
 
-  const skills = [
+  const skillCategories = [
     {
-      name: "Next.js",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+      title: "Languages",
+      description: "Core programming languages I specialize in",
+      skills: [
+        { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+        { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+      ],
     },
     {
-      name: "React.js",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      title: "Frontend Development",
+      description: "Modern frontend technologies and frameworks",
+      skills: [
+        { name: "React.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+        { name: "Tailwind CSS", logo: "https://raw.githubusercontent.com/devicons/devicon/v2.16.0/icons/tailwindcss/tailwindcss-original.svg" },
+        { name: "Shadcn UI", logo: "https://avatars.githubusercontent.com/u/139895814?s=200&v=4" },
+        { name: "Framer Motion", logo: "https://cdn.iconscout.com/icon/free/png-256/free-framer-3628191-3031011.png" },
+      ],
     },
     {
-      name: "Tailwind CSS",
-      logo: "https://raw.githubusercontent.com/devicons/devicon/v2.16.0/icons/tailwindcss/tailwindcss-original.svg",
+      title: "Backend Development",
+      description: "Server-side technologies and APIs",
+      skills: [
+        { name: "Express.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+      ],
     },
     {
-      name: "JavaScript",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      title: "Database & Cloud",
+      description: "Data storage and cloud infrastructure",
+      skills: [
+        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+        { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+      ],
     },
     {
-      name: "UI/UX Design",
-      logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-    },
-    {
-      name: "Performance Optimization",
-      logo: "https://cdn-icons-png.flaticon.com/512/159/159704.png",
+      title: "Other Skills",
+      description: "Additional technical competencies",
+      skills: [
+        { name: "UI/UX Design", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+        { name: "Performance Optimization", logo: "https://cdn-icons-png.flaticon.com/512/159/159704.png" },
+      ],
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 py-10">
-      <div className="max-w-7xl mx-auto px-6 py-24">
-        {/* Introduction Section */}
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-24">
+        {/* Profile Section */}
         <motion.div
           className="flex flex-col lg:flex-row items-center lg:items-start gap-16 lg:gap-24"
           initial={{ opacity: 0 }}
@@ -148,91 +184,105 @@ export default function About() {
 
         {/* Education Section */}
         <motion.section
-          className="mt-24"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="space-y-8"
         >
           <motion.h2
-            className="text-3xl font-serif text-gray-100 mb-8 font-light"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            variants={itemVariants}
+            className="text-3xl font-serif text-gray-100 font-light"
           >
             Education Journey
           </motion.h2>
-          <div className="space-y-6">
+
+          <motion.div
+            variants={containerVariants}
+            className="grid gap-6"
+          >
             {education.map((edu, index) => (
               <motion.div
                 key={index}
-                className="p-6 rounded-lg bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-blue-500/20 
-                  transition-all duration-300"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                whileHover={{
-                  y: -4,
-                  boxShadow: "0 4px 20px -2px rgba(66, 153, 225, 0.1)"
-                }}
+                variants={itemVariants}
+                className="p-6 rounded-lg bg-gray-900/50 border border-gray-800 hover:border-blue-500/20 
+                  transition-all duration-300 hover:-translate-y-1"
               >
                 <h3 className="text-xl text-gray-100 font-light mb-2">
                   {edu.degree}
                 </h3>
-                <p className="text-gray-400 mb-1 font-light">
-                  {edu.institution}
-                </p>
-                <p className="text-blue-400 text-sm">
-                  {edu.duration}
-                </p>
+                <p className="text-gray-400 mb-2">{edu.institution}</p>
+                <p className="text-blue-400 text-sm">{edu.duration}</p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.section>
 
         {/* Skills Section */}
         <motion.section
-          className="mt-24"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="space-y-12"
         >
-          <motion.h2
-            className="text-3xl font-serif text-gray-100 mb-8 font-light"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+          <motion.div
+            variants={itemVariants}
+            className="text-center space-y-4"
           >
-            Technical Expertise
-          </motion.h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {skills.map((skill, index) => (
+            <h2 className="text-4xl font-serif text-gray-100 font-light">
+              Technical Expertise
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              A comprehensive overview of my technical skills and proficiencies
+            </p>
+          </motion.div>
+
+          <motion.div
+            variants={containerVariants}
+            className="grid gap-8"
+          >
+            {skillCategories.map((category, categoryIndex) => (
               <motion.div
-                key={index}
-                className="p-6 rounded-lg bg-gray-900/50 backdrop-blur-sm border border-gray-800 
-                  hover:border-blue-500/20 group transition-all duration-300 flex flex-col items-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + index * 0.1 }}
-                whileHover={{
-                  y: -4,
-                  boxShadow: "0 4px 20px -2px rgba(66, 153, 225, 0.1)"
-                }}
+                key={categoryIndex}
+                variants={itemVariants}
+                className="bg-gray-900/40 rounded-xl p-8 border border-gray-800"
               >
-                <div className="w-12 h-12 mb-4 transition-transform duration-300 group-hover:scale-110">
-                  <Image
-                    src={skill.logo}
-                    alt={`${skill.name} Logo`}
-                    width={48}
-                    height={48}
-                    className="object-contain"
-                  />
+                <div className="mb-8">
+                  <h3 className="text-2xl text-gray-100 font-light mb-2">
+                    {category.title}
+                  </h3>
+                  <p className="text-gray-400">{category.description}</p>
                 </div>
-                <p className="text-gray-300 text-sm font-light text-center">
-                  {skill.name}
-                </p>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                  {category.skills.map((skill, skillIndex) => (
+                    <motion.div
+                      key={skillIndex}
+                      variants={itemVariants}
+                      className="group"
+                    >
+                      <div className="p-6 bg-gray-800/50 rounded-xl border border-gray-700/50 
+                        transition-all duration-300 group-hover:border-blue-500/30 
+                        group-hover:bg-gray-800/80 group-hover:-translate-y-1"
+                      >
+                        <div className="flex flex-col items-center">
+                          <div className="w-12 h-12 mb-4 p-2 bg-gray-900/50 rounded-lg">
+                            <img
+                              src={skill.logo}
+                              alt={`${skill.name} Logo`}
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <p className="text-gray-300 text-sm font-medium text-center">
+                            {skill.name}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.section>
       </div>
     </div>
