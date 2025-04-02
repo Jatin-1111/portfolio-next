@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Typewriter } from "react-simple-typewriter";
-import { Download, Github, Linkedin, Globe } from "lucide-react";
+import { Download, Github, Linkedin } from "lucide-react";
 
 export default function Home() {
   const handleDownload = () => {
@@ -38,7 +38,7 @@ export default function Home() {
             </motion.div>
 
             {/* Dynamic Title - larger and more prominent */}
-            <motion.h1
+            <motion.h2
               className="font-serif text-4xl md:text-5xl lg:text-6xl text-gray-100 text-center lg:text-left font-bold"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -53,7 +53,7 @@ export default function Home() {
                 deleteSpeed={50}
                 delaySpeed={1500}
               />
-            </motion.h1>
+            </motion.h2>
 
             {/* Separator Line - more visible and aligned */}
             <motion.div
@@ -70,7 +70,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              A dedicated and detail-oriented full-stack web developer specializing in building modern, responsive web applications. Proficient in frontend technologies including Next.js, React.js, and Tailwind CSS, complemented by strong backend expertise with Node.js, Express.js, and MongoDB. Experienced in implementing JWT authentication, RESTful APIs, and database integration. Committed to delivering high-performance applications with clean, maintainable code (95% component reusability) and exceptional UI/UX that consistently achieves 95+ Lighthouse scores.
+              Results-driven Full-Stack Web Developer skilled in Next.js, React.js, Tailwind CSS, Node.js, Express.js, and MongoDB. Expert in JWT authentication, RESTful APIs, and database integration, delivering high-performance, SEO-optimized applications with 95% component reusability and 95+ Lighthouse scores. Focused on clean, maintainable code and exceptional UI/UX for modern, responsive web apps.
             </motion.p>
 
             {/* Actions Row - better aligned and grouped */}

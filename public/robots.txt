@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /server/
+Disallow: /backend/
+Allow: /
+
+Sitemap: https://jatin0111.vercel.app/sitemap.xml

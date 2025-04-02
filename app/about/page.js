@@ -69,7 +69,7 @@ const ProfileTabs = () => {
   const about = {
     name: "Jatin Kumar",
     title: "Full-Stack Web Developer",
-    description: "A dedicated and detail-oriented full-stack web developer specializing in building modern, responsive web applications. Proficient in frontend technologies including Next.js, React.js, and Tailwind CSS, complemented by strong backend expertise with Node.js, Express.js, and MongoDB. Experienced in implementing JWT authentication, RESTful APIs, and database integration. Committed to delivering high-performance applications with clean, maintainable code (95% component reusability) and exceptional UI/UX that consistently achieves 95+ Lighthouse scores.",
+    description: "Results-driven Full-Stack Web Developer skilled in Next.js, React.js, Tailwind CSS, Node.js, Express.js, and MongoDB. Expert in JWT authentication, RESTful APIs, and database integration, delivering high-performance, SEO-optimized applications with 95% component reusability and 95+ Lighthouse scores. Focused on clean, maintainable code and exceptional UI/UX for modern, responsive web apps.",
     softSkills: [
       "Problem Solving",
       "Team Collaboration",

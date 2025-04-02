@@ -3,12 +3,14 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX, HiHome, HiUser, HiCode, HiBriefcase, HiMail } from "react-icons/hi";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const menuRef = useRef(null);
     const headerRef = useRef(null);
+    const pathname = usePathname();
 
     const handleToggle = () => {
         setIsOpen((prev) => !prev);
@@ -86,6 +88,13 @@ export default function Header() {
         }
     };
 
+    const isActive = (href) => {
+        if (href === "/") {
+            return pathname === href;
+        }
+        return pathname.startsWith(href);
+    };
+
     return (
         <motion.header
             ref={headerRef}
@@ -119,24 +128,27 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    {navItems.map(({ name, href, icon: Icon }) => (
-                        <motion.li
-                            key={name}
-                            whileHover={{ y: -2 }}
-                            whileTap={{ y: 0 }}
-                        >
-                            <Link
-                                href={href}
-                                className="text-gray-300 hover:text-gray-100 font-light tracking-wide flex items-center gap-2 group"
+                    {navItems.map(({ name, href, icon: Icon }) => {
+                        const active = isActive(href);
+                        return (
+                            <motion.li
+                                key={name}
+                                whileHover={{ y: -2 }}
+                                whileTap={{ y: 0 }}
                             >
-                                <Icon className="text-lg opacity-70 group-hover:opacity-100 transition-opacity" />
-                                <span className="relative">
-                                    {name}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-indigo-500 group-hover:w-full transition-all duration-500" />
-                                </span>
-                            </Link>
-                        </motion.li>
-                    ))}
+                                <Link
+                                    href={href}
+                                    className={`${active ? 'text-gray-100 font-normal' : 'text-gray-300 font-light'} hover:text-gray-100 tracking-wide flex items-center gap-2 group`}
+                                >
+                                    <Icon className={`text-lg ${active ? 'opacity-100' : 'opacity-70'} group-hover:opacity-100 transition-opacity`} />
+                                    <span className="relative">
+                                        {name}
+                                        <span className={`absolute -bottom-1 left-0 h-px bg-gradient-to-r from-blue-400 to-indigo-500 transition-all duration-500 ${active ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                                    </span>
+                                </Link>
+                            </motion.li>
+                        );
+                    })}
                 </motion.ul>
 
                 {/* Mobile Menu Button */}
@@ -223,27 +235,30 @@ export default function Header() {
                             </motion.div>
 
                             <ul className="flex flex-col space-y-6">
-                                {navItems.map(({ name, href, icon: Icon }, index) => (
-                                    <motion.li
-                                        key={name}
-                                        initial={{ x: 20, opacity: 0 }}
-                                        animate={{ x: 0, opacity: 1 }}
-                                        transition={{ delay: 0.3 + index * 0.1 }}
-                                        whileHover={{ x: 4 }}
-                                    >
-                                        <Link
-                                            href={href}
-                                            onClick={handleToggle}
-                                            className="text-gray-300 hover:text-gray-100 flex items-center gap-4 group transition-colors duration-300"
+                                {navItems.map(({ name, href, icon: Icon }, index) => {
+                                    const active = isActive(href);
+                                    return (
+                                        <motion.li
+                                            key={name}
+                                            initial={{ x: 20, opacity: 0 }}
+                                            animate={{ x: 0, opacity: 1 }}
+                                            transition={{ delay: 0.3 + index * 0.1 }}
+                                            whileHover={{ x: 4 }}
                                         >
-                                            <Icon className="text-xl opacity-70 group-hover:opacity-100 transition-opacity" />
-                                            <span className="relative font-light tracking-wide">
-                                                {name}
-                                                <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-blue-400 to-indigo-500 group-hover:w-full transition-all duration-500" />
-                                            </span>
-                                        </Link>
-                                    </motion.li>
-                                ))}
+                                            <Link
+                                                href={href}
+                                                onClick={handleToggle}
+                                                className={`${active ? 'text-gray-100' : 'text-gray-300'} hover:text-gray-100 flex items-center gap-4 group transition-colors duration-300`}
+                                            >
+                                                <Icon className={`text-xl ${active ? 'opacity-100' : 'opacity-70'} group-hover:opacity-100 transition-opacity`} />
+                                                <span className="relative font-light tracking-wide">
+                                                    {name}
+                                                    <span className={`absolute -bottom-1 left-0 h-px bg-gradient-to-r from-blue-400 to-indigo-500 transition-all duration-500 ${active ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                                                </span>
+                                            </Link>
+                                        </motion.li>
+                                    );
+                                })}
                             </ul>
 
                             <motion.div
