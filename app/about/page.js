@@ -1,199 +1,323 @@
 'use client'
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Briefcase,
+  GraduationCap,
+  Code,
+  User,
+  Clock,
+  MapPin,
+  ChevronRight
+} from 'lucide-react';
 
 const ProfileTabs = () => {
   const [activeTab, setActiveTab] = useState('experience');
 
   const tabs = [
-    { id: 'experience', label: 'Experience' },
-    { id: 'education', label: 'Education' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'about', label: 'About me' }
+    { id: 'experience', label: 'Experience', icon: <Briefcase className="w-5 h-5" /> },
+    { id: 'education', label: 'Education', icon: <GraduationCap className="w-5 h-5" /> },
+    { id: 'skills', label: 'Skills', icon: <Code className="w-5 h-5" /> },
+    { id: 'about', label: 'About me', icon: <User className="w-5 h-5" /> }
   ];
 
   const experiences = [
     {
-      title: "Frontend Developer",
+      title: "Web Developer",
       company: "UNIQUS EDUTECH SOLUTIONS",
       period: "Jan 2025 - Present • 3 mos",
-      location: "Remote",
-      description: "Develop responsive web applications using React.js. Implemented UI components with Tailwind CSS and improved site performance.",
-      technologies: ["React.js", "Tailwind CSS", "Framer Motion"]
+      location: "Hybrid",
+      description: "Develop responsive web applications using Next.js and React.js. Implemented UI components with Tailwind CSS and ShadCN, created backend APIs using Node.js and Express.js, and improved site performance using MongoDB.",
+      technologies: ["Next.js", "React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Framer Motion", "ShadCN", "Postman API", "MERN Stack", "JavaScript"]
     },
   ];
 
   const education = [
     {
-      degree: "Bachelor of Technology in Information Technology",
-      institution: "University Institute of Engineering and Technology (UIET), Chandigarh",
-      duration: "2024 - Present",
+      degree: "Bachelor of Engineering in Information Technology",
+      institution: "University Institute of Engineering and Technology, Chandigarh",
+      duration: "August 2024 – Present",
+      coursework: ["Data Structures & Algorithms", "Web Development", "Database Management Systems"]
     },
     {
-      degree: "Senior Secondary Education (Class 12)",
+      degree: "Higher Secondary Education (PCM)",
       institution: "Vivekananda World School",
-      duration: "2023 - 2024",
-    },
-    {
-      degree: "High School (Class 10)",
-      institution: "D.C. Model International School",
-      duration: "2020 - 2021",
-    },
+      duration: "2023",
+      percentage: "82.2%"
+    }
   ];
 
   const skills = [
     {
       category: "Frontend Development",
-      items: ["React.js", "Next.js", "Tailwind CSS", "Framer Motion", "HTML/CSS", "JavaScript", "TypeScript"]
+      items: ["React.js", "Next.js", "Tailwind CSS", "ShadCN", "Framer Motion", "HTML/CSS", "JavaScript"]
     },
     {
       category: "Backend Development",
-      items: ["Express.js", "Node.js", "REST APIs"]
+      items: ["Node.js", "Express.js", "RESTful APIs", "JWT Authentication"]
     },
     {
-      category: "Database & Tools",
-      items: ["MongoDB", "Firebase", "Git", "VS Code", "Figma"]
+      category: "Database & Deployment",
+      items: ["MongoDB", "Amazon S3", "GitHub", "Full-Stack Development"]
+    },
+    {
+      category: "Development Tools",
+      items: ["Git", "GitHub", "VS Code", "Postman API", "MERN Stack"]
     }
   ];
 
   const about = {
-    name: "Jatin",
-    title: "Full Stack Developer",
-    description: "Passionate web developer with expertise in modern frontend frameworks like React.js and Next.js, as well as backend technologies. I specialize in creating beautiful, scalable, and performant web experiences with a strong focus on UI/UX design and performance optimization.",
-    interests: ["Web Development", "Open Source", "UI/UX Design", "New Technologies"]
+    name: "Jatin Kumar",
+    title: "Full-Stack Web Developer",
+    description: "A dedicated and detail-oriented full-stack web developer specializing in building modern, responsive web applications. Proficient in frontend technologies including Next.js, React.js, and Tailwind CSS, complemented by strong backend expertise with Node.js, Express.js, and MongoDB. Experienced in implementing JWT authentication, RESTful APIs, and database integration. Committed to delivering high-performance applications with clean, maintainable code (95% component reusability) and exceptional UI/UX that consistently achieves 95+ Lighthouse scores.",
+    softSkills: [
+      "Problem Solving",
+      "Team Collaboration",
+      "Technical Documentation",
+      "UI/UX Design"
+    ]
+  };
+
+  // Animation variants optimized for performance
+  const tabContentVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.3 }
+    },
+    exit: {
+      opacity: 0,
+      transition: { duration: 0.2 }
+    }
+  };
+
+  const staggerItemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: (custom) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: custom * 0.1,
+        duration: 0.3
+      }
+    })
   };
 
   const renderContent = () => {
     switch (activeTab) {
       case 'experience':
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-8"
-          >
-            <div className="mb-8">
-              <h2 className="text-3xl text-white font-light mb-2">My experience</h2>
-              <p className="text-gray-400">Showcasing my journey through diverse development roles</p>
-            </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key="experience"
+              variants={tabContentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="space-y-8"
+            >
+              <div className="mb-8">
+                <h2 className="text-3xl text-white font-light mb-2">Professional Experience</h2>
+                <p className="text-gray-400">My journey in web development</p>
+              </div>
 
-            {experiences.map((exp, index) => (
-              <div key={index} className="bg-gray-800/50 rounded-lg p-6 border border-gray-700 hover:border-blue-500/30 transition-all">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl text-white font-medium">{exp.title}</h3>
-                    <p className="text-blue-400">{exp.company}</p>
-                    <p className="text-gray-400 text-sm mt-1">{exp.location}</p>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="text-blue-400 text-sm">{exp.period}</span>
-                    <div className="w-8 h-8 bg-gray-700 rounded-full ml-4 flex items-center justify-center">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-400">
-                        <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"></path>
-                        <path d="M12 6v6l4 2"></path>
-                      </svg>
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  custom={index}
+                  variants={staggerItemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
+                >
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
+                    <div>
+                      <h3 className="text-xl text-white font-medium">{exp.title}</h3>
+                      <p className="text-blue-400">{exp.company}</p>
+                      <p className="text-gray-400 text-sm mt-1 flex items-center gap-1">
+                        <MapPin className="w-3.5 h-3.5" /> {exp.location}
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="text-blue-400 text-sm flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5" /> {exp.period}
+                      </span>
                     </div>
                   </div>
-                </div>
-                <p className="text-gray-300 mb-4">{exp.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {exp.technologies.map((tech, i) => (
-                    <span key={i} className="px-3 py-1 bg-gray-900/70 text-blue-300 text-sm rounded-full">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </motion.div>
+
+                  <p className="text-gray-300 mb-4">{exp.description}</p>
+
+                  {exp.achievements && exp.achievements.length > 0 && (
+                    <div className="mb-4">
+                      <h4 className="text-white text-sm font-medium mb-2">Key Achievements:</h4>
+                      <ul className="space-y-1">
+                        {exp.achievements.map((achievement, i) => (
+                          <li key={i} className="text-gray-300 text-sm flex items-start gap-2">
+                            <ChevronRight className="w-3.5 h-3.5 text-blue-400 mt-1 flex-shrink-0" />
+                            <span>{achievement}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap gap-2">
+                    {exp.technologies.map((tech, i) => (
+                      <span key={i} className="px-3 py-1 bg-gray-900/70 text-blue-300 text-sm rounded-full border border-gray-700">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         );
 
       case 'education':
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-8"
-          >
-            <div className="mb-8">
-              <h2 className="text-3xl text-white font-light mb-2">Education Journey</h2>
-              <p className="text-gray-400">My academic background and qualifications</p>
-            </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key="education"
+              variants={tabContentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="space-y-8"
+            >
+              <div className="mb-8">
+                <h2 className="text-3xl text-white font-light mb-2">Education</h2>
+                <p className="text-gray-400">My academic background and qualifications</p>
+              </div>
 
-            <div className="space-y-6">
-              {education.map((edu, index) => (
-                <div key={index} className="bg-gray-800/50 rounded-lg p-6 border border-gray-700 hover:border-blue-500/30 transition-all">
-                  <h3 className="text-xl text-white font-light mb-2">{edu.degree}</h3>
-                  <p className="text-gray-300 mb-2">{edu.institution}</p>
-                  <p className="text-blue-400 text-sm">{edu.duration}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+              <div className="space-y-6">
+                {education.map((edu, index) => (
+                  <motion.div
+                    key={index}
+                    custom={index}
+                    variants={staggerItemVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
+                  >
+                    <h3 className="text-xl text-white font-medium mb-2">{edu.degree}</h3>
+                    <p className="text-gray-300 mb-2">{edu.institution}</p>
+                    <p className="text-blue-400 text-sm">{edu.duration}</p>
+
+                    {edu.percentage && (
+                      <p className="text-gray-300 text-sm mt-2">Percentage: {edu.percentage}</p>
+                    )}
+
+                    {edu.coursework && (
+                      <div className="mt-4">
+                        <h4 className="text-white text-sm font-medium mb-2">Relevant Coursework:</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {edu.coursework.map((course, i) => (
+                            <span key={i} className="px-3 py-1 bg-gray-900/70 text-blue-300 text-sm rounded-full">
+                              {course}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
         );
 
       case 'skills':
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-8"
-          >
-            <div className="mb-8">
-              <h2 className="text-3xl text-white font-light mb-2">Technical Skills</h2>
-              <p className="text-gray-400">A comprehensive overview of my technical expertise</p>
-            </div>
-
-            {skills.map((skillGroup, index) => (
-              <div key={index} className="bg-gray-800/50 rounded-lg p-6 border border-gray-700">
-                <h3 className="text-xl text-white font-light mb-4">{skillGroup.category}</h3>
-                <div className="flex flex-wrap gap-3">
-                  {skillGroup.items.map((skill, idx) => (
-                    <span key={idx} className="px-4 py-2 bg-gray-900/70 text-blue-300 rounded-lg text-sm">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key="skills"
+              variants={tabContentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="space-y-8"
+            >
+              <div className="mb-8">
+                <h2 className="text-3xl text-white font-light mb-2">Technical Skills</h2>
+                <p className="text-gray-400">A comprehensive overview of my technical expertise</p>
               </div>
-            ))}
-          </motion.div>
+
+              {skills.map((skillGroup, index) => (
+                <motion.div
+                  key={index}
+                  custom={index}
+                  variants={staggerItemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
+                >
+                  <h3 className="text-xl text-white font-medium mb-4">{skillGroup.category}</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {skillGroup.items.map((skill, idx) => (
+                      <span key={idx} className="px-4 py-2 bg-gray-900/70 text-blue-300 rounded-lg text-sm">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         );
 
       case 'about':
         return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-8"
-          >
-            <div className="flex flex-col lg:flex-row items-center gap-12">
-              <div className="space-y-6">
-                <div>
-                  <h2 className="text-3xl text-white font-light mb-2">About Me</h2>
-                  <p className="text-blue-400 text-xl">{about.title}</p>
-                </div>
-
-                <p className="text-gray-300 text-lg leading-relaxed">
-                  {about.description}
-                </p>
-
-                <div>
-                  <h3 className="text-white text-lg mb-3">Interests</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {about.interests.map((interest, idx) => (
-                      <span key={idx} className="px-3 py-1 bg-gray-800 text-blue-300 text-sm rounded-full border border-gray-700">
-                        {interest}
-                      </span>
-                    ))}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key="about"
+              variants={tabContentVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="space-y-8"
+            >
+              <div className="flex flex-col lg:flex-row items-start gap-12">
+                <motion.div
+                  className="space-y-6 w-full"
+                  variants={staggerItemVariants}
+                  custom={0}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <div>
+                    <h2 className="text-3xl text-white font-light mb-2">About Me</h2>
+                    <p className="text-blue-400 text-xl">{about.title}</p>
                   </div>
-                </div>
+
+                  <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                    <p className="text-gray-300 text-lg leading-relaxed">
+                      {about.description}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <motion.div
+                      className="bg-gray-800/50 rounded-xl p-6 border border-gray-700"
+                      variants={staggerItemVariants}
+                      custom={2}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      <h3 className="text-white text-lg font-medium mb-3">Soft Skills</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {about.softSkills.map((skill, idx) => (
+                          <span key={idx} className="px-3 py-1 bg-gray-900/70 text-blue-300 text-sm rounded-full border border-gray-700">
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
         );
 
       default:
@@ -202,7 +326,7 @@ const ProfileTabs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white py-32 px-10 md:py-44 md:px-20">
+    <div className="min-h-screen bg-gray-900 text-white pt-28 md:pt-48 px-4 sm:px-6 lg:px-8 xl:px-16">
       <div className="max-w-6xl mx-auto">
         {/* Main content with tabs */}
         <div className="flex flex-col md:flex-row gap-8">
@@ -211,13 +335,15 @@ const ProfileTabs = () => {
             {tabs.map(tab => (
               <button
                 key={tab.id}
-                className={`w-full py-4 px-6 rounded-lg text-center transition-all ${activeTab === tab.id
-                  ? 'bg-blue-400 text-black'
-                  : 'bg-gray-800 text-white hover:bg-gray-700'
+                className={`w-full py-4 px-6 rounded-lg text-left transition-all flex items-center gap-3 
+                  ${activeTab === tab.id
+                    ? 'bg-blue-500 text-white'
+                    : 'bg-gray-800 text-white hover:bg-gray-700'
                   }`}
                 onClick={() => setActiveTab(tab.id)}
               >
-                {tab.label}
+                {tab.icon}
+                <span>{tab.label}</span>
               </button>
             ))}
           </div>

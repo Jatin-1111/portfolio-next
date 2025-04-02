@@ -23,9 +23,31 @@ const firaCode = Fira_Code({
 
 // Metadata for the project
 export const metadata = {
-  title: "Jatin",
-  description: "This is my portfolio website Jatin made using NextJS.",
+  title: {
+    default: "Jatin Kumar | Full-Stack Web Developer",
+    template: "%s | Jatin Kumar - Full-Stack Developer Portfolio"
+  },
+  description: "Full-Stack Web Developer specializing in Next.js, React.js, Node.js, and MongoDB. Creating modern, responsive web applications with clean code and exceptional user experiences.",
+  keywords: ["full-stack developer", "web developer", "next.js", "react.js", "node.js", "express.js", "mongodb", "javascript", "tailwind css", "portfolio", "jatin kumar", "backend developer"],
+  authors: [{ name: "Jatin Kumar" }],
+  creator: "Jatin Kumar",
+  publisher: "Jatin Kumar",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: "https://jatin0111.vercel.app/",
+  },
+  manifest: "/site.webmanifest", // Create this file for PWA support
 };
+
 
 export default function RootLayout({ children }) {
   return (

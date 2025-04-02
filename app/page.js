@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Typewriter } from "react-simple-typewriter";
+import { Download, Github, Linkedin, Globe } from "lucide-react";
 
 export default function Home() {
   const handleDownload = () => {
@@ -16,177 +17,171 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-gray-900 to-gray-950">
-      <section className="flex-grow flex flex-col lg:flex-row items-center justify-center px-6 lg:px-20 py-24">
-        {/* Profile Image */}
-        <motion.div
-          className="relative flex-shrink-0 w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.4, 0, 0.2, 1]
-          }}
-        >
-          {/* Gradient Border */}
+      {/* Main Hero Section with improved spacing and responsive layout */}
+      <section className="flex-grow flex items-center justify-center px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 py-12 md:py-16 lg:py-20">
+        <div className="max-w-7xl w-full mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16">
+          {/* Left Side Content - Move content first on mobile for better UX */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 via-indigo-500 to-blue-600 p-1"
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{
-              duration: 5,
-              ease: "linear",
-              repeat: Infinity,
-            }}
+            className="w-full lg:w-1/2 flex flex-col items-center lg:items-start order-2 lg:order-1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            {/* Image Container */}
-            <div className="relative h-full w-full rounded-full overflow-hidden bg-gradient-to-b from-gray-900 to-gray-950">
-              <Image
-                src="/img.jpg"
-                alt="Jatin's Profile"
-                fill
-                className="object-cover rounded-full transition-transform duration-700 hover:scale-110"
+            {/* Greeting Text with more dramatic entrance */}
+            <motion.div
+              className="text-sm md:text-base font-light tracking-wider text-blue-400 mb-2 md:mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              WELCOME TO MY PORTFOLIO
+            </motion.div>
+
+            {/* Dynamic Title - larger and more prominent */}
+            <motion.h1
+              className="font-serif text-4xl md:text-5xl lg:text-6xl text-gray-100 text-center lg:text-left font-bold"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Typewriter
+                words={["Hello, I'm Jatin", "A Web Developer", "A Tech Enthusiast"]}
+                loop={true}
+                cursor
+                cursorStyle="|"
+                typeSpeed={90}
+                deleteSpeed={50}
+                delaySpeed={1500}
               />
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-gray-900/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
-            </div>
-          </motion.div>
-        </motion.div>
+            </motion.h1>
 
-        {/* Content Section */}
-        <motion.div
-          className="flex flex-col items-center lg:items-start lg:ml-20 mt-12 lg:mt-0 w-full lg:w-1/2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* Greeting Text */}
-          <motion.div
-            className="text-sm font-light tracking-wider text-blue-400 mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            WELCOME TO MY PORTFOLIO
-          </motion.div>
-
-          {/* Dynamic Title */}
-          <motion.h1
-            className="font-serif text-4xl lg:text-5xl xl:text-6xl text-gray-100 text-center lg:text-left"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <Typewriter
-              words={["Hello, I'm Jatin", "A Web Developer", "A Tech Enthusiast"]}
-              loop={true}
-              cursor
-              cursorStyle="|"
-              typeSpeed={90}
-              deleteSpeed={50}
-              delaySpeed={1500}
+            {/* Separator Line - more visible and aligned */}
+            <motion.div
+              className="h-1 w-20 bg-gradient-to-r from-blue-400 to-indigo-500 my-6 lg:my-8 mx-auto lg:mx-0"
+              initial={{ width: 0 }}
+              animate={{ width: 80 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
             />
-          </motion.h1>
 
-          {/* Separator Line */}
-          <motion.div
-            className="h-px w-20 bg-gradient-to-r from-blue-400 to-indigo-500 my-8"
-            initial={{ width: 0 }}
-            animate={{ width: 80 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          />
-
-          {/* Description */}
-          <motion.p
-            className="text-lg text-gray-400 leading-relaxed max-w-2xl text-center lg:text-left font-light"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            A dedicated and detail-oriented web developer specializing in crafting modern, responsive,
-            and user-friendly web applications. Proficient in Next.js, React.js, Tailwind CSS, and JavaScript,
-            I focus on building scalable solutions with seamless user experiences and cutting-edge design.
-          </motion.p>
-
-          {/* CTA Button */}
-          <motion.div
-            className="mt-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            <motion.button
-              onClick={handleDownload}
-              className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg 
-                text-white shadow-lg shadow-blue-500/20 overflow-hidden transition-all duration-300"
-              whileHover={{
-                y: -2,
-                shadow: "0 20px 25px -5px rgb(59 130 246 / 0.3)"
-              }}
-              whileTap={{ y: 0 }}
+            {/* Description - improved readability */}
+            <motion.p
+              className="text-base md:text-lg text-gray-400 leading-relaxed max-w-2xl text-center lg:text-left font-light"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
             >
-              {/* Background Gradient Animation */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-700"
-                initial={{ x: "100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
+              A dedicated and detail-oriented full-stack web developer specializing in building modern, responsive web applications. Proficient in frontend technologies including Next.js, React.js, and Tailwind CSS, complemented by strong backend expertise with Node.js, Express.js, and MongoDB. Experienced in implementing JWT authentication, RESTful APIs, and database integration. Committed to delivering high-performance applications with clean, maintainable code (95% component reusability) and exceptional UI/UX that consistently achieves 95+ Lighthouse scores.
+            </motion.p>
 
-              {/* Button Content */}
-              <span className="relative flex items-center gap-2 text-sm tracking-wide">
-                <svg
-                  className="w-5 h-5 transition-transform group-hover:translate-y-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            {/* Actions Row - better aligned and grouped */}
+            <motion.div
+              className="w-full flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mt-8 md:mt-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              {/* CTA Button - improved design */}
+              <motion.button
+                onClick={handleDownload}
+                className="group relative px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg 
+                  text-white shadow-lg shadow-blue-500/20 overflow-hidden transition-all duration-300"
+                whileHover={{
+                  y: -2,
+                  scale: 1.02,
+                  boxShadow: "0 20px 25px -5px rgb(59 130 246 / 0.3)"
+                }}
+                whileTap={{ y: 0, scale: 0.98 }}
+              >
+                {/* Background Gradient Animation */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-700"
+                  initial={{ x: "100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+
+                {/* Button Content with Lucide React icon */}
+                <span className="relative flex items-center gap-2 text-sm md:text-base font-medium tracking-wide">
+                  <Download
+                    className="w-5 h-5 transition-transform group-hover:translate-y-0.5"
+                    strokeWidth={2}
                   />
-                </svg>
-                Download Resume
-              </span>
-            </motion.button>
+                  Download Resume
+                </span>
+              </motion.button>
+
+              {/* Social Links - horizontally arranged and better spaced */}
+              <div className="flex items-center gap-4 md:gap-6">
+                <motion.a
+                  href="https://github.com/Jatin-1111"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  whileTap={{ y: 0, scale: 0.95 }}
+                  aria-label="GitHub Profile"
+                >
+                  <Github className="w-6 h-6 md:w-7 md:h-7" />
+                </motion.a>
+                <motion.a
+                  href="https://linkedin.com/in/jatin1011"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  whileTap={{ y: 0, scale: 0.95 }}
+                  aria-label="LinkedIn Profile"
+                >
+                  <Linkedin className="w-6 h-6 md:w-7 md:h-7" />
+                </motion.a>
+              </div>
+            </motion.div>
           </motion.div>
 
-          {/* Social Links */}
+          {/* Right Side - Profile Image with improved animation and positioning */}
           <motion.div
-            className="flex gap-6 mt-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
+            className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 order-1 lg:order-2"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              ease: [0.4, 0, 0.2, 1]
+            }}
           >
-            {/* Add your social media links here */}
-            <motion.a
-              href="https://github.com/Jatin-1111"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-100 transition-colors duration-300"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
+            {/* Outer Glow */}
+            <div className="absolute -inset-1 rounded-full bg-blue-500/20 blur-xl" />
+
+            {/* Animated Gradient Border */}
+            <motion.div
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-400 via-indigo-500 to-blue-600 p-1.5"
+              animate={{
+                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+              }}
+              transition={{
+                duration: 5,
+                ease: "linear",
+                repeat: Infinity,
+              }}
             >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" clipRule="evenodd" />
-              </svg>
-            </motion.a>
-            <motion.a
-              href="https://linkedin.com/in/jatin1011"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-100 transition-colors duration-300"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg>
-            </motion.a>
+              {/* Image Container with improved hover effects */}
+              <div className="relative h-full w-full rounded-full overflow-hidden bg-gradient-to-b from-gray-900 to-gray-950">
+                <Image
+                  src="/img.jpg"
+                  alt="Jatin's Profile"
+                  fill
+                  sizes="(max-width: 640px) 16rem, (max-width: 768px) 18rem, (max-width: 1024px) 20rem, 24rem"
+                  priority
+                  className="object-cover rounded-full transition-all duration-700 hover:scale-110 hover:filter hover:brightness-110"
+                />
+                {/* Improved overlay with subtle interaction */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/30 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500"
+                  whileHover={{ opacity: 0.7 }}
+                />
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </section>
     </div>
   );
