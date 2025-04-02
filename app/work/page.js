@@ -228,14 +228,14 @@ export default function ProjectShowcase({ autoplay = false }) {
 
                             {/* Technologies */}
                             <div className="space-y-4">
-                                <motion.h3
-                                    className="text-sm uppercase tracking-wider text-blue-400"
+                                <motion.h2
+                                    className="text-lg text-gray-100 font-light"
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.6 }}
                                 >
-                                    Technologies
-                                </motion.h3>
+                                    Technologies Used
+                                </motion.h2>
                                 <motion.div
                                     className="flex flex-wrap gap-2 sm:gap-3"
                                     initial={{ opacity: 0 }}

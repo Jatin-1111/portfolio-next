@@ -27,7 +27,7 @@ export const metadata = {
     default: "Jatin Kumar | Full-Stack Web Developer",
     template: "%s | Jatin Kumar - Full-Stack Developer Portfolio"
   },
-  description: "Full-Stack Web Developer specializing in Next.js, React.js, Node.js, and MongoDB. Creating modern, responsive web applications with clean code and exceptional user experiences.",
+  description: "Full-Stack Web Developer specializing in Next.js, React.js, Node.js and MongoDB. Building modern, responsive web apps with clean code and great UX.",
   keywords: ["full-stack developer", "web developer", "next.js", "react.js", "node.js", "express.js", "mongodb", "javascript", "tailwind css", "portfolio", "jatin kumar", "backend developer"],
   authors: [{ name: "Jatin Kumar" }],
   creator: "Jatin Kumar",
@@ -53,7 +53,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/portfolio.png" />
+        <link rel="preload" href="/portfolio.png" as="image" />
+        <link rel="preload" href="/img.jpg" as="image" />
       </head>
       <body
         className={`${montserrat.variable} ${roboto.variable} ${firaCode.variable} text-textMain antialiased`}

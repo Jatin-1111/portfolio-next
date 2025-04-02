@@ -73,6 +73,35 @@ export default function Home() {
               Results-driven Full-Stack Web Developer skilled in Next.js, React.js, Tailwind CSS, Node.js, Express.js, and MongoDB. Expert in JWT authentication, RESTful APIs, and database integration, delivering high-performance, SEO-optimized applications with 95% component reusability and 95+ Lighthouse scores. Focused on clean, maintainable code and exceptional UI/UX for modern, responsive web apps.
             </motion.p>
 
+            <motion.div
+              className="w-full mt-12 md:mt-16"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+            >
+              <h2 className="text-2xl md:text-3xl text-gray-100 text-center lg:text-left font-light mb-6">
+                My Development Expertise
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-400 font-light">
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-400 text-xl">•</span>
+                  <p>Modern Frontend with React.js & Next.js</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-400 text-xl">•</span>
+                  <p>Robust Backend with Node.js & Express</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-400 text-xl">•</span>
+                  <p>Database Design with MongoDB</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-400 text-xl">•</span>
+                  <p>Responsive UI with Tailwind CSS</p>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Actions Row - better aligned and grouped */}
             <motion.div
               className="w-full flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mt-8 md:mt-10"
