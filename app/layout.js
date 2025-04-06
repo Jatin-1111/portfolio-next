@@ -45,9 +45,8 @@ export const metadata = {
   alternates: {
     canonical: "https://jatin0111.vercel.app/",
   },
-  manifest: "/site.webmanifest", // Create this file for PWA support
+  manifest: "/manifest.json", // Create this file for PWA support
 };
-
 
 export default function RootLayout({ children }) {
   return (
