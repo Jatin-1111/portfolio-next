@@ -50,19 +50,19 @@ const ProfileTabs = () => {
     const skills = [
         {
             category: "Frontend Development",
-            items: ["React.js", "Next.js", "Tailwind CSS", "ShadCN", "Framer Motion", "HTML/CSS", "JavaScript"]
+            items: ["Next.js 13/14", "React.js", "TypeScript", "Tailwind CSS", "ShadCN", "Framer Motion", "HTML5", "CSS3"]
         },
         {
             category: "Backend Development",
-            items: ["Node.js", "Express.js", "RESTful APIs", "JWT Authentication"]
+            items: ["Node.js", "Express.js", "Firebase (Auth, Firestore)", "RESTful APIs", "Nodemailer"]
         },
         {
-            category: "Database & Deployment",
-            items: ["MongoDB", "Amazon S3", "GitHub", "Full-Stack Development"]
+            category: "Database & Authentication",
+            items: ["MongoDB", "Firebase", "JWT"]
         },
         {
             category: "Development Tools",
-            items: ["Git", "GitHub", "VS Code", "Postman API", "MERN Stack"]
+            items: ["Git", "GitHub", "Vercel", "Postman", "VS Code", "Lighthouse", "CI/CD"]
         }
     ];
 
@@ -326,7 +326,7 @@ const ProfileTabs = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white pt-28 md:pt-48 px-4 sm:px-6 lg:px-8 xl:px-16">
+        <div className="min-h-screen bg-gray-900 text-white pt-28 md:pt-36 px-4 sm:px-6 lg:px-8 xl:px-16">
             <div className="max-w-6xl mx-auto">
                 {/* Main content with tabs */}
                 <div className="flex flex-col md:flex-row gap-8">
