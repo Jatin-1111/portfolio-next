@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Briefcase,
@@ -13,6 +13,54 @@ import {
 
 const ProfileTabs = () => {
     const [activeTab, setActiveTab] = useState('experience');
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    // Update current time every hour (not every minute - waste of resources)
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 3600000); // Update every hour (1000 * 60 * 60)
+
+        return () => clearInterval(timer);
+    }, []);
+
+    // Optimized memoized calculation - O(1) time complexity
+    const calculateExperiencePeriod = React.useMemo(() => {
+        return (startDate, endDate = null) => {
+            const start = new Date(startDate);
+            const end = endDate ? new Date(endDate) : currentTime;
+
+            // Direct month calculation - more efficient than days conversion
+            const startYear = start.getFullYear();
+            const startMonth = start.getMonth();
+            const endYear = end.getFullYear();
+            const endMonth = end.getMonth();
+
+            const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth);
+            const years = Math.floor(totalMonths / 12);
+            const months = totalMonths % 12;
+
+            // Pre-computed duration string - avoid repeated string operations
+            let duration = '';
+            if (years > 0) {
+                duration += `${years} yr${years > 1 ? 's' : ''} `;
+            }
+            if (months > 0) {
+                duration += `${months} mo${months > 1 ? 's' : ''}`;
+            }
+            if (!years && !months) {
+                duration = '1 mo';
+            }
+
+            // Cache formatted dates to avoid repeated toLocaleDateString calls
+            const startFormatted = start.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            const endFormatted = endDate
+                ? end.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+                : 'Present';
+
+            return `${startFormatted} - ${endFormatted} • ${duration.trim()}`;
+        };
+    }, [currentTime]); // Only recalculate when currentTime changes
 
     const tabs = [
         { id: 'experience', label: 'Experience', icon: <Briefcase className="w-5 h-5" /> },
@@ -25,11 +73,13 @@ const ProfileTabs = () => {
         {
             title: "Web Developer",
             company: "UNIQUS EDUTECH SOLUTIONS",
-            period: "Jan 2025 - Present • 3 mos",
+            startDate: "2025-01-01", // Use actual start date
+            endDate: null, // null means current/ongoing
             location: "Hybrid",
             description: "Develop responsive web applications using Next.js and React.js. Implemented UI components with Tailwind CSS and ShadCN, created backend APIs using Node.js and Express.js, and improved site performance using MongoDB.",
             technologies: ["Next.js", "React.js", "Node.js", "Express.js", "MongoDB", "Tailwind CSS", "Framer Motion", "ShadCN", "Postman API", "MERN Stack", "JavaScript"]
         },
+        // Add more experiences here with their respective dates
     ];
 
     const education = [
@@ -140,7 +190,8 @@ const ProfileTabs = () => {
                                         </div>
                                         <div className="flex items-center">
                                             <span className="text-blue-400 text-sm flex items-center gap-1">
-                                                <Clock className="w-3.5 h-3.5" /> {exp.period}
+                                                <Clock className="w-3.5 h-3.5" />
+                                                {calculateExperiencePeriod(exp.startDate, exp.endDate)}
                                             </span>
                                         </div>
                                     </div>
