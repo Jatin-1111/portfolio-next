@@ -303,7 +303,7 @@ export default function ProjectShowcase({ autoplay = false }) {
                                                 {filteredProjects[active]?.description}
                                             </p>
                                         </div>
-                                        
+
                                         {/* Technologies */}
                                         <div>
                                             <h3 className="text-sm sm:text-base lg:text-lg font-medium text-white mb-3 sm:mb-4">
@@ -349,18 +349,6 @@ export default function ProjectShowcase({ autoplay = false }) {
                                                 <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
                                                 View Live Project
                                                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" />
-                                            </motion.a>
-
-                                            <motion.a
-                                                href={filteredProjects[active]?.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 lg:py-4 border border-gray-600 rounded-xl text-gray-300 hover:text-white hover:border-gray-500 font-medium text-sm sm:text-base transition-all duration-300"
-                                                whileHover={{ y: -2, scale: 1.02 }}
-                                                whileTap={{ y: 0, scale: 0.98 }}
-                                            >
-                                                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                                                View Code
                                             </motion.a>
                                         </div>
                                     </motion.div>
