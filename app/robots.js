@@ -13,7 +13,7 @@ export default function robots() {
                 ],
             },
         ],
-        sitemap: 'https://jatin0111.vercel.app/sitemap.xml',
-        host: 'https://jatin0111.vercel.app',
+        sitemap: 'https://jatinx.tech/sitemap.xml',
+        host: 'https://jatinx.tech',
     }
 }

@@ -1,54 +1,65 @@
-// components/LenisProvider.js
 "use client";
 import { useEffect, useRef } from 'react';
-import Lenis from '@studio-freight/lenis';
+import { usePathname } from 'next/navigation';
 
 export default function LenisProvider({ children }) {
     const lenisRef = useRef();
+    const pathname = usePathname();
 
     useEffect(() => {
-        // Initialize Lenis
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            smoothTouch: false, // Disable on touch devices for better performance
-            touchMultiplier: 2,
-            wheelMultiplier: 1,
-            infinite: false,
+        // Only initialize on desktop for better mobile performance
+        const isDesktop = window.innerWidth > 1024;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!isDesktop || prefersReducedMotion) {
+            return; // Skip Lenis on mobile or for users who prefer reduced motion
+        }
+
+        // Dynamic import to reduce initial bundle size
+        import('@studio-freight/lenis').then(({ default: Lenis }) => {
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+                wheelMultiplier: 1,
+                infinite: false,
+            });
+
+            lenisRef.current = lenis;
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+
+            if (typeof window !== 'undefined') {
+                window.lenis = lenis;
+            }
         });
 
-        lenisRef.current = lenis;
-
-        // Animation frame function
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-
-        requestAnimationFrame(raf);
-
-        // Cleanup
         return () => {
-            lenis.destroy();
-        };
-    }, []);
-
-    // Expose lenis instance globally for programmatic scrolling
-    useEffect(() => {
-        if (lenisRef.current) {
-            window.lenis = lenisRef.current;
-        }
-
-        return () => {
-            if (window.lenis) {
+            if (lenisRef.current) {
+                lenisRef.current.destroy();
+            }
+            if (typeof window !== 'undefined' && window.lenis) {
                 delete window.lenis;
             }
         };
     }, []);
+
+    // Reset scroll position on route change
+    useEffect(() => {
+        if (lenisRef.current) {
+            lenisRef.current.scrollTo(0, { immediate: true });
+        }
+    }, [pathname]);
 
     return <>{children}</>;
 }

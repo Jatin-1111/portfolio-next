@@ -3,6 +3,7 @@ import { Montserrat, Roboto, Fira_Code } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import LenisProvider from "./components/LenisProvider";
+import StructuredData from "./components/StructuredData";
 
 // Load fonts with specific subsets and assign CSS variables for easy use
 const montserrat = Montserrat({
@@ -34,6 +35,7 @@ export const metadata = {
   authors: [{ name: "Jatin Kumar" }],
   creator: "Jatin Kumar",
   publisher: "Jatin Kumar",
+  metadataBase: new URL('https://jatinx.tech'), // CRITICAL: This fixes all relative URLs
   robots: {
     index: true,
     follow: true,
@@ -45,27 +47,77 @@ export const metadata = {
     },
   },
   alternates: {
-    canonical: "https://jatin0111.vercel.app/",
+    canonical: "https://jatinx.tech/",
   },
-  manifest: "/manifest.json", // Create this file for PWA support
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://jatinx.tech/',
+    siteName: 'Jatin Kumar Portfolio',
+    title: 'Jatin Kumar | Full-Stack Web Developer',
+    description: 'Full-Stack Web Developer specializing in Next.js, React.js, Node.js and MongoDB.',
+    images: [
+      {
+        url: '/og-image.jpg', // Will resolve to https://jatinx.tech/og-image.jpg
+        width: 1200,
+        height: 630,
+        alt: 'Jatin Kumar - Full-Stack Web Developer Portfolio'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@jatinx_tech', // Create this Twitter handle!
+    creator: '@jatinx_tech',
+  },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="preload" href="/portfolio.png" as="image" />
+        {/* Critical Resource Hints */}
         <link rel="preload" href="/img.jpg" as="image" />
+        <link rel="preload" href="/portfolio.png" as="image" />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+
+        {/* Structured Data */}
+        <StructuredData />
+
+        {/* Critical CSS - Inline for above-the-fold content */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            .critical-css {
+              font-display: swap;
+              contain: layout style paint;
+            }
+            /* Add critical above-the-fold styles here */
+          `
+        }} />
       </head>
-      <body
-        className={`${montserrat.variable} ${roboto.variable} ${firaCode.variable} text-textMain antialiased`}
-      >
+      <body className={`${montserrat.variable} ${roboto.variable} ${firaCode.variable} critical-css`}>
+        {/* Add loading state */}
+        <div id="loading-screen" className="fixed inset-0 bg-gray-900 z-50 flex items-center justify-center">
+          <div className="animate-spin w-8 h-8 border-2 border-blue-500 rounded-full border-t-transparent"></div>
+        </div>
+
         <LenisProvider>
           <Header />
           <main className="min-h-screen">
             {children}
           </main>
         </LenisProvider>
+
+        {/* Remove loading screen after hydration */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.addEventListener('load', () => {
+              document.getElementById('loading-screen')?.remove();
+            });
+          `
+        }} />
       </body>
     </html>
   );

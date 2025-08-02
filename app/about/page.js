@@ -1,32 +1,21 @@
 import ProfileTabs from './About';
 
 export const metadata = {
-  title: "About Me | Jatin Kumar - Full-Stack Developer Portfolio",
-  description: "Discover Jatin Kumar, a results-driven Full-Stack Web Developer with expertise in building fast, scalable, and SEO-optimized applications using Next.js, React.js, Tailwind CSS, Node.js, Express.js, and MongoDB. Explore his technical skills, project experience, career journey, and contributions to modern web development.",
+  title: "About Jatin Kumar | IT Student & Professional Web Developer in Chandigarh",
+  description: "Meet Jatin Kumar, a passionate Computer Science student and professional web developer from Chandigarh. Currently pursuing B.E. in IT while building scalable web applications for clients worldwide.",
   keywords: [
-    "Full-Stack Web Developer Portfolio",
-    "Next.js SEO Developer",
-    "React.js Developer India",
-    "MERN Stack Engineer",
-    "Tailwind CSS expert",
-    "Jatin Kumar Web Developer",
-    "Node.js backend developer",
-    "MongoDB database engineer",
-    "Full Stack JavaScript Developer",
-    "Frontend Developer with Next.js",
-    "Backend Developer with Node.js",
-    "Express.js API Developer",
-    "JavaScript Software Engineer",
-    "Freelance Web Developer India",
-    "Web Developer for Hire",
-    "SEO-optimized Web Development"
+    "jatin kumar developer biography",
+    "computer science student chandigarh",
+    "uiet chandigarh student developer",
+    "young web developer india",
+    "student freelancer chandigarh",
+    "it engineering student portfolio"
   ],
   openGraph: {
-    title: "About Me | Jatin Kumar - Full-Stack Developer",
-    description: "Jatin Kumar is a passionate Full-Stack Developer crafting high-performance, SEO-optimized, and scalable web applications using the MERN stack, Next.js, React.js, Tailwind CSS, Node.js, and MongoDB. Learn more about his development skills and achievements."
+    title: "About Jatin Kumar | Student Developer & Tech Enthusiast",
+    description: "Passionate Computer Science student building the future of web development",
   }
 };
-
 
 export default function AboutPage() {
   return <ProfileTabs />;
