@@ -303,21 +303,7 @@ export default function ProjectShowcase({ autoplay = false }) {
                                                 {filteredProjects[active]?.description}
                                             </p>
                                         </div>
-
-                                        {/* Metrics */}
-                                        <div className="grid grid-cols-3 gap-3 sm:gap-4 p-4 sm:p-6 bg-gray-800/30 border border-gray-700/50 rounded-xl backdrop-blur-sm">
-                                            {filteredProjects[active]?.metrics && Object.entries(filteredProjects[active].metrics).map(([key, value]) => (
-                                                <div key={key} className="text-center">
-                                                    <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-400 mb-1">
-                                                        {value}
-                                                    </div>
-                                                    <div className="text-xs sm:text-sm text-gray-500 capitalize">
-                                                        {key}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-
+                                        
                                         {/* Technologies */}
                                         <div>
                                             <h3 className="text-sm sm:text-base lg:text-lg font-medium text-white mb-3 sm:mb-4">

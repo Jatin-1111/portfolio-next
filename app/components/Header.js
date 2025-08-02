@@ -314,26 +314,73 @@ export default function Header() {
                         })}
                     </motion.ul>
 
-                    {/* Mobile Menu Button with morphing animation */}
+                    {/* Mobile Menu Button with enhanced styling */}
                     <motion.button
                         onClick={handleToggle}
                         aria-label="Toggle Menu"
-                        className="lg:hidden relative z-50 p-2 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 text-gray-300 hover:text-gray-100 hover:bg-gray-700/50 transition-all duration-300"
+                        className="lg:hidden relative z-50 p-3 rounded-xl bg-gray-800/80 backdrop-blur-sm border border-gray-700/50 text-gray-300 hover:text-white hover:bg-gray-700/80 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all duration-300 shadow-lg"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={isOpen ? 'close' : 'menu'}
-                                initial={{ rotate: 180, opacity: 0 }}
+                                initial={{ rotate: 90, opacity: 0 }}
                                 animate={{ rotate: 0, opacity: 1 }}
-                                exit={{ rotate: -180, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
+                                exit={{ rotate: -90, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: "easeInOut" }}
+                                className="relative"
                             >
                                 {isOpen ? (
-                                    <HiX className="text-2xl" />
+                                    <div className="relative">
+                                        <HiX className="text-xl sm:text-2xl" />
+                                        {/* Close icon glow effect */}
+                                        <motion.div
+                                            className="absolute inset-0 bg-red-500/20 rounded-lg blur-md"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: [0, 0.5, 0] }}
+                                            transition={{ duration: 1.5, repeat: Infinity }}
+                                        />
+                                    </div>
                                 ) : (
-                                    <HiMenu className="text-2xl" />
+                                    <div className="relative">
+                                        {/* Hamburger icon with animated lines */}
+                                        <div className="w-6 h-6 flex flex-col justify-center items-center space-y-1">
+                                            <motion.div
+                                                className="w-5 h-0.5 bg-current rounded-full"
+                                                animate={{
+                                                    rotateZ: 0,
+                                                    y: 0,
+                                                    opacity: 1
+                                                }}
+                                                transition={{ duration: 0.3 }}
+                                            />
+                                            <motion.div
+                                                className="w-5 h-0.5 bg-current rounded-full"
+                                                animate={{
+                                                    opacity: 1,
+                                                    x: 0
+                                                }}
+                                                transition={{ duration: 0.3 }}
+                                            />
+                                            <motion.div
+                                                className="w-5 h-0.5 bg-current rounded-full"
+                                                animate={{
+                                                    rotateZ: 0,
+                                                    y: 0,
+                                                    opacity: 1
+                                                }}
+                                                transition={{ duration: 0.3 }}
+                                            />
+                                        </div>
+                                        {/* Menu icon glow effect */}
+                                        <motion.div
+                                            className="absolute inset-0 bg-blue-500/20 rounded-lg blur-md"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: [0, 0.3, 0] }}
+                                            transition={{ duration: 2, repeat: Infinity }}
+                                        />
+                                    </div>
                                 )}
                             </motion.div>
                         </AnimatePresence>
@@ -341,11 +388,11 @@ export default function Header() {
                 </nav>
             </motion.header>
 
-            {/* Mobile Menu Overlay with better blur */}
+            {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        className="sticky top-0 inset-x-0 h-screen bg-gray-900/90 backdrop-blur-md z-40 lg:hidden"
+                        className="fixed inset-0 bg-gray-900/90 backdrop-blur-md z-40 lg:hidden"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -360,7 +407,7 @@ export default function Header() {
                 {isOpen && (
                     <motion.div
                         ref={menuRef}
-                        className="sticky top-0 right-0 h-screen w-80 max-w-[85vw] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 shadow-2xl text-gray-100 flex flex-col lg:hidden z-50 border-l border-gray-700/50"
+                        className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 shadow-2xl text-gray-100 flex flex-col lg:hidden z-50 border-l border-gray-700/50"
                         variants={menuVariants}
                         initial="closed"
                         animate="open"
@@ -372,26 +419,31 @@ export default function Header() {
                     >
                         {/* Menu Header */}
                         <motion.div
-                            className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-700/50"
+                            className="flex items-center justify-between p-6 border-b border-gray-700/50 bg-gray-900/50"
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.2 }}
                         >
-                            <span className="text-lg sm:text-2xl font-serif text-gray-100">Navigation</span>
+                            <div className="flex items-center gap-3">
+                                <div className="p-2 bg-blue-500/10 rounded-xl">
+                                    <HiMenu className="w-5 h-5 text-blue-400" />
+                                </div>
+                                <span className="text-xl font-semibold text-gray-100">Menu</span>
+                            </div>
                             <motion.button
                                 onClick={handleToggle}
-                                className="p-2 rounded-lg text-gray-400 hover:text-gray-100 hover:bg-gray-700/50 transition-colors duration-300"
-                                whileHover={{ scale: 1.1 }}
+                                className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-all duration-300"
+                                whileHover={{ scale: 1.1, rotate: 90 }}
                                 whileTap={{ scale: 0.9 }}
                             >
-                                <HiX className="text-lg sm:text-xl" />
+                                <HiX className="text-xl" />
                             </motion.button>
                         </motion.div>
 
                         {/* Menu Items */}
-                        <div className="flex-1 py-6 px-4 sm:py-8 sm:px-6">
-                            <ul className="space-y-3 sm:space-y-4">
-                                {navItems.map(({ name, href, icon: Icon, color, activeClasses }, index) => {
+                        <div className="flex-1 py-8 px-6 overflow-y-auto">
+                            <ul className="space-y-4">
+                                {navItems.map(({ name, href, icon: Icon, color, activeClasses, iconColor }, index) => {
                                     const active = isActive(href);
                                     return (
                                         <motion.li
@@ -403,30 +455,52 @@ export default function Header() {
                                             <Link
                                                 href={href}
                                                 onClick={handleToggle}
-                                                className={`group relative flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl transition-all duration-300 border ${active
+                                                className={`group relative flex items-center gap-4 p-4 rounded-xl transition-all duration-300 border ${active
                                                         ? activeClasses
-                                                        : 'text-gray-300 hover:text-white hover:bg-gray-700/30 border-transparent'
+                                                        : 'text-gray-300 hover:text-white hover:bg-gray-700/30 border-transparent hover:border-gray-600/30'
                                                     }`}
                                             >
-                                                {/* Icon container with background */}
-                                                <div className={`relative p-2 rounded-lg transition-all duration-300 ${active ? 'bg-current bg-opacity-10' : 'bg-gray-700/30'
+                                                {/* Icon container with enhanced styling */}
+                                                <div className={`relative p-3 rounded-xl transition-all duration-300 ${active
+                                                        ? 'bg-white/10 shadow-lg'
+                                                        : 'bg-gray-700/50 group-hover:bg-gray-600/50'
                                                     }`}>
-                                                    <Icon className="text-lg sm:text-xl" />
+                                                    <Icon className={`text-xl ${active ? 'text-white' : iconColor}`} />
+                                                    {/* Icon glow effect */}
+                                                    {active && (
+                                                        <motion.div
+                                                            className={`absolute inset-0 bg-gradient-to-r ${color} opacity-20 rounded-xl blur-sm`}
+                                                            animate={{ opacity: [0.2, 0.4, 0.2] }}
+                                                            transition={{ duration: 2, repeat: Infinity }}
+                                                        />
+                                                    )}
                                                 </div>
 
                                                 {/* Text with better typography */}
-                                                <span className="font-medium tracking-wide text-base sm:text-lg">
-                                                    {name}
-                                                </span>
+                                                <div className="flex-1">
+                                                    <span className="font-semibold tracking-wide text-lg block">
+                                                        {name}
+                                                    </span>
+                                                    <span className="text-xs text-gray-500 mt-0.5 block">
+                                                        {href === '/' ? 'Homepage' : `Navigate to ${name.toLowerCase()}`}
+                                                    </span>
+                                                </div>
 
-                                                {/* Active indicator */}
+                                                {/* Active indicator with enhanced styling */}
                                                 {active && (
                                                     <motion.div
-                                                        className={`absolute right-3 sm:right-4 w-2 h-2 rounded-full bg-gradient-to-r ${color}`}
-                                                        initial={{ scale: 0 }}
-                                                        animate={{ scale: 1 }}
+                                                        className="flex items-center gap-2"
+                                                        initial={{ opacity: 0, scale: 0 }}
+                                                        animate={{ opacity: 1, scale: 1 }}
                                                         transition={{ delay: 0.1 }}
-                                                    />
+                                                    >
+                                                        <motion.div
+                                                            className={`w-2 h-2 rounded-full bg-gradient-to-r ${color}`}
+                                                            animate={{ scale: [1, 1.2, 1] }}
+                                                            transition={{ duration: 1.5, repeat: Infinity }}
+                                                        />
+                                                        <span className="text-xs text-gray-400 font-medium">Active</span>
+                                                    </motion.div>
                                                 )}
 
                                                 {/* Hover glow effect */}
@@ -442,14 +516,19 @@ export default function Header() {
 
                         {/* Menu Footer */}
                         <motion.div
-                            className="p-4 sm:p-6 border-t border-gray-700/50"
+                            className="p-6 border-t border-gray-700/50 bg-gray-900/50"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.8 }}
                         >
-                            <p className="text-xs sm:text-sm text-gray-500 text-center">
-                                © {new Date().getFullYear()} Jatin Kumar
-                            </p>
+                            <div className="text-center">
+                                <p className="text-sm text-gray-400 mb-2">
+                                    Full-Stack Developer
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                    © {new Date().getFullYear()} Jatin Kumar
+                                </p>
+                            </div>
                         </motion.div>
                     </motion.div>
                 )}
