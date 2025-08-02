@@ -58,7 +58,7 @@ export const metadata = {
     description: 'Full-Stack Web Developer specializing in Next.js, React.js, Node.js and MongoDB.',
     images: [
       {
-        url: '/og-image.jpg', // Will resolve to https://jatinx.tech/og-image.jpg
+        url: '/og-image.png', // Will resolve to https://jatinx.tech/og-image.png
         width: 1200,
         height: 630,
         alt: 'Jatin Kumar - Full-Stack Web Developer Portfolio'
