@@ -290,7 +290,7 @@ export async function POST(req) {
                             <p style="margin: 5px 0 0 0; color: #6B7280; font-size: 14px;">📧 off.jatin1111@gmail.com</p>
                             
                             <div class="social-links">
-                                <a href="https://jatin0111.vercel.app/" target="_blank">Portfolio</a>
+                                <a href="https://jatinx.tech/" target="_blank">Portfolio</a>
                                 <a href="https://linkedin.com/in/jatin1011" target="_blank">LinkedIn</a>
                                 <a href="https://github.com/Jatin-1111" target="_blank">GitHub</a>
                             </div>

@@ -11,7 +11,7 @@ const projects = [
         category: "Web Development",
         description: "An elegantly crafted portfolio showcasing professional accomplishments through modern web technologies. Built with Next.js and enhanced with Tailwind CSS for sophisticated styling and Framer Motion for fluid animations.",
         image: "/portfolio.png",
-        link: "https://jatin0111.vercel.app/",
+        link: "https://jatinx.tech/",
         github: "#",
         technologies: ["Next.js", "Tailwind CSS", "Framer Motion", "EmailJS"],
         highlights: [
