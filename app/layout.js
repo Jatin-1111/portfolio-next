@@ -1,6 +1,8 @@
+// app/layout.js
 import { Montserrat, Roboto, Fira_Code } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
+import LenisProvider from "./components/LenisProvider";
 
 // Load fonts with specific subsets and assign CSS variables for easy use
 const montserrat = Montserrat({
@@ -58,10 +60,12 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.variable} ${roboto.variable} ${firaCode.variable} text-textMain antialiased`}
       >
-        <Header />
-        <main className="min-h-screen">
-          {children}
-        </main>
+        <LenisProvider>
+          <Header />
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </LenisProvider>
       </body>
     </html>
   );

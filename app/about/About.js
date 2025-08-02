@@ -63,10 +63,10 @@ const ProfileTabs = () => {
     }, [currentTime]); // Only recalculate when currentTime changes
 
     const tabs = [
-        { id: 'experience', label: 'Experience', icon: <Briefcase className="w-5 h-5" /> },
-        { id: 'education', label: 'Education', icon: <GraduationCap className="w-5 h-5" /> },
-        { id: 'skills', label: 'Skills', icon: <Code className="w-5 h-5" /> },
-        { id: 'about', label: 'About me', icon: <User className="w-5 h-5" /> }
+        { id: 'experience', label: 'Experience', icon: <Briefcase className="w-4 h-4 sm:w-5 sm:h-5" />, color: 'from-blue-500 to-cyan-500' },
+        { id: 'education', label: 'Education', icon: <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />, color: 'from-green-500 to-emerald-500' },
+        { id: 'skills', label: 'Skills', icon: <Code className="w-4 h-4 sm:w-5 sm:h-5" />, color: 'from-purple-500 to-pink-500' },
+        { id: 'about', label: 'About me', icon: <User className="w-4 h-4 sm:w-5 sm:h-5" />, color: 'from-orange-500 to-red-500' }
     ];
 
     const experiences = [
@@ -164,11 +164,11 @@ const ProfileTabs = () => {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="space-y-8"
+                            className="space-y-6 sm:space-y-8"
                         >
-                            <div className="mb-8">
-                                <h2 className="text-3xl text-white font-light mb-2">Professional Experience</h2>
-                                <p className="text-gray-400">My journey in web development</p>
+                            <div className="mb-6 sm:mb-8">
+                                <h2 className="text-2xl sm:text-3xl lg:text-4xl text-white font-light mb-2">Professional Experience</h2>
+                                <p className="text-sm sm:text-base text-gray-400">My journey in web development</p>
                             </div>
 
                             {experiences.map((exp, index) => (
@@ -178,33 +178,36 @@ const ProfileTabs = () => {
                                     variants={staggerItemVariants}
                                     initial="hidden"
                                     animate="visible"
-                                    className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
+                                    className="bg-gray-800/50 rounded-xl p-4 sm:p-6 border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
                                 >
-                                    <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
-                                        <div>
-                                            <h3 className="text-xl text-white font-medium">{exp.title}</h3>
-                                            <p className="text-blue-400">{exp.company}</p>
-                                            <p className="text-gray-400 text-sm mt-1 flex items-center gap-1">
-                                                <MapPin className="w-3.5 h-3.5" /> {exp.location}
-                                            </p>
-                                        </div>
-                                        <div className="flex items-center">
-                                            <span className="text-blue-400 text-sm flex items-center gap-1">
-                                                <Clock className="w-3.5 h-3.5" />
-                                                {calculateExperiencePeriod(exp.startDate, exp.endDate)}
-                                            </span>
+                                    <div className="flex flex-col gap-4 mb-4">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4">
+                                            <div className="flex-1">
+                                                <h3 className="text-lg sm:text-xl text-white font-medium">{exp.title}</h3>
+                                                <p className="text-blue-400 text-sm sm:text-base">{exp.company}</p>
+                                                <p className="text-gray-400 text-xs sm:text-sm mt-1 flex items-center gap-1">
+                                                    <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+                                                    <span>{exp.location}</span>
+                                                </p>
+                                            </div>
+                                            <div className="flex items-center sm:justify-end">
+                                                <span className="text-blue-400 text-xs sm:text-sm flex items-center gap-1">
+                                                    <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 flex-shrink-0" />
+                                                    <span className="break-words">{calculateExperiencePeriod(exp.startDate, exp.endDate)}</span>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <p className="text-gray-300 mb-4">{exp.description}</p>
+                                    <p className="text-gray-300 text-sm sm:text-base mb-4 leading-relaxed">{exp.description}</p>
 
                                     {exp.achievements && exp.achievements.length > 0 && (
                                         <div className="mb-4">
                                             <h4 className="text-white text-sm font-medium mb-2">Key Achievements:</h4>
                                             <ul className="space-y-1">
                                                 {exp.achievements.map((achievement, i) => (
-                                                    <li key={i} className="text-gray-300 text-sm flex items-start gap-2">
-                                                        <ChevronRight className="w-3.5 h-3.5 text-blue-400 mt-1 flex-shrink-0" />
+                                                    <li key={i} className="text-gray-300 text-xs sm:text-sm flex items-start gap-2">
+                                                        <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-400 mt-1 flex-shrink-0" />
                                                         <span>{achievement}</span>
                                                     </li>
                                                 ))}
@@ -214,7 +217,7 @@ const ProfileTabs = () => {
 
                                     <div className="flex flex-wrap gap-2">
                                         {exp.technologies.map((tech, i) => (
-                                            <span key={i} className="px-3 py-1 bg-gray-900/70 text-blue-300 text-sm rounded-full border border-gray-700">
+                                            <span key={i} className="px-2 sm:px-3 py-1 bg-gray-900/70 text-blue-300 text-xs sm:text-sm rounded-full border border-gray-700">
                                                 {tech}
                                             </span>
                                         ))}
@@ -234,14 +237,14 @@ const ProfileTabs = () => {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="space-y-8"
+                            className="space-y-6 sm:space-y-8"
                         >
-                            <div className="mb-8">
-                                <h2 className="text-3xl text-white font-light mb-2">Education</h2>
-                                <p className="text-gray-400">My academic background and qualifications</p>
+                            <div className="mb-6 sm:mb-8">
+                                <h2 className="text-2xl sm:text-3xl lg:text-4xl text-white font-light mb-2">Education</h2>
+                                <p className="text-sm sm:text-base text-gray-400">My academic background and qualifications</p>
                             </div>
 
-                            <div className="space-y-6">
+                            <div className="space-y-4 sm:space-y-6">
                                 {education.map((edu, index) => (
                                     <motion.div
                                         key={index}
@@ -249,14 +252,14 @@ const ProfileTabs = () => {
                                         variants={staggerItemVariants}
                                         initial="hidden"
                                         animate="visible"
-                                        className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
+                                        className="bg-gray-800/50 rounded-xl p-4 sm:p-6 border border-gray-700 hover:border-green-500/50 transition-all duration-300"
                                     >
-                                        <h3 className="text-xl text-white font-medium mb-2">{edu.degree}</h3>
-                                        <p className="text-gray-300 mb-2">{edu.institution}</p>
-                                        <p className="text-blue-400 text-sm">{edu.duration}</p>
+                                        <h3 className="text-lg sm:text-xl text-white font-medium mb-2">{edu.degree}</h3>
+                                        <p className="text-gray-300 text-sm sm:text-base mb-2">{edu.institution}</p>
+                                        <p className="text-green-400 text-xs sm:text-sm">{edu.duration}</p>
 
                                         {edu.percentage && (
-                                            <p className="text-gray-300 text-sm mt-2">Percentage: {edu.percentage}</p>
+                                            <p className="text-gray-300 text-xs sm:text-sm mt-2">Percentage: {edu.percentage}</p>
                                         )}
 
                                         {edu.coursework && (
@@ -264,7 +267,7 @@ const ProfileTabs = () => {
                                                 <h4 className="text-white text-sm font-medium mb-2">Relevant Coursework:</h4>
                                                 <div className="flex flex-wrap gap-2">
                                                     {edu.coursework.map((course, i) => (
-                                                        <span key={i} className="px-3 py-1 bg-gray-900/70 text-blue-300 text-sm rounded-full">
+                                                        <span key={i} className="px-2 sm:px-3 py-1 bg-gray-900/70 text-green-300 text-xs sm:text-sm rounded-full">
                                                             {course}
                                                         </span>
                                                     ))}
@@ -287,32 +290,34 @@ const ProfileTabs = () => {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="space-y-8"
+                            className="space-y-6 sm:space-y-8"
                         >
-                            <div className="mb-8">
-                                <h2 className="text-3xl text-white font-light mb-2">Technical Skills</h2>
-                                <p className="text-gray-400">A comprehensive overview of my technical expertise</p>
+                            <div className="mb-6 sm:mb-8">
+                                <h2 className="text-2xl sm:text-3xl lg:text-4xl text-white font-light mb-2">Technical Skills</h2>
+                                <p className="text-sm sm:text-base text-gray-400">A comprehensive overview of my technical expertise</p>
                             </div>
 
-                            {skills.map((skillGroup, index) => (
-                                <motion.div
-                                    key={index}
-                                    custom={index}
-                                    variants={staggerItemVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    className="bg-gray-800/50 rounded-xl p-6 border border-gray-700 hover:border-blue-500/50 transition-all duration-300"
-                                >
-                                    <h3 className="text-xl text-white font-medium mb-4">{skillGroup.category}</h3>
-                                    <div className="flex flex-wrap gap-3">
-                                        {skillGroup.items.map((skill, idx) => (
-                                            <span key={idx} className="px-4 py-2 bg-gray-900/70 text-blue-300 rounded-lg text-sm">
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </motion.div>
-                            ))}
+                            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+                                {skills.map((skillGroup, index) => (
+                                    <motion.div
+                                        key={index}
+                                        custom={index}
+                                        variants={staggerItemVariants}
+                                        initial="hidden"
+                                        animate="visible"
+                                        className="bg-gray-800/50 rounded-xl p-4 sm:p-6 border border-gray-700 hover:border-purple-500/50 transition-all duration-300"
+                                    >
+                                        <h3 className="text-lg sm:text-xl text-white font-medium mb-3 sm:mb-4">{skillGroup.category}</h3>
+                                        <div className="flex flex-wrap gap-2 sm:gap-3">
+                                            {skillGroup.items.map((skill, idx) => (
+                                                <span key={idx} className="px-3 sm:px-4 py-1.5 sm:py-2 bg-gray-900/70 text-purple-300 rounded-lg text-xs sm:text-sm">
+                                                    {skill}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
                         </motion.div>
                     </AnimatePresence>
                 );
@@ -326,39 +331,39 @@ const ProfileTabs = () => {
                             initial="hidden"
                             animate="visible"
                             exit="exit"
-                            className="space-y-8"
+                            className="space-y-6 sm:space-y-8"
                         >
-                            <div className="flex flex-col lg:flex-row items-start gap-12">
+                            <div className="flex flex-col gap-6 sm:gap-8 lg:gap-12">
                                 <motion.div
-                                    className="space-y-6 w-full"
+                                    className="space-y-4 sm:space-y-6 w-full"
                                     variants={staggerItemVariants}
                                     custom={0}
                                     initial="hidden"
                                     animate="visible"
                                 >
                                     <div>
-                                        <h2 className="text-3xl text-white font-light mb-2">About Me</h2>
-                                        <p className="text-blue-400 text-xl">{about.title}</p>
+                                        <h2 className="text-2xl sm:text-3xl lg:text-4xl text-white font-light mb-2">About Me</h2>
+                                        <p className="text-orange-400 text-lg sm:text-xl lg:text-2xl">{about.title}</p>
                                     </div>
 
-                                    <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
-                                        <p className="text-gray-300 text-lg leading-relaxed">
+                                    <div className="bg-gray-800/50 rounded-xl p-4 sm:p-6 border border-gray-700">
+                                        <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed">
                                             {about.description}
                                         </p>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="grid grid-cols-1 gap-4 sm:gap-6">
                                         <motion.div
-                                            className="bg-gray-800/50 rounded-xl p-6 border border-gray-700"
+                                            className="bg-gray-800/50 rounded-xl p-4 sm:p-6 border border-gray-700"
                                             variants={staggerItemVariants}
                                             custom={2}
                                             initial="hidden"
                                             animate="visible"
                                         >
-                                            <h3 className="text-white text-lg font-medium mb-3">Soft Skills</h3>
+                                            <h3 className="text-white text-base sm:text-lg font-medium mb-3">Soft Skills</h3>
                                             <div className="flex flex-wrap gap-2">
                                                 {about.softSkills.map((skill, idx) => (
-                                                    <span key={idx} className="px-3 py-1 bg-gray-900/70 text-blue-300 text-sm rounded-full border border-gray-700">
+                                                    <span key={idx} className="px-2 sm:px-3 py-1 bg-gray-900/70 text-orange-300 text-xs sm:text-sm rounded-full border border-gray-700">
                                                         {skill}
                                                     </span>
                                                 ))}
@@ -377,30 +382,71 @@ const ProfileTabs = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white pt-28 md:pt-36 px-4 sm:px-6 lg:px-8 xl:px-16">
-            <div className="max-w-6xl mx-auto">
+        <div className="min-h-screen bg-gray-900 text-white pt-20 sm:pt-24 md:pt-28 lg:pt-32 xl:pt-36 px-4 sm:px-6 lg:px-8 xl:px-16">
+            <div className="max-w-7xl mx-auto">
+                {/* Page Header */}
+                <motion.div
+                    className="text-center mb-8 sm:mb-12 lg:mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-serif font-light tracking-tight mb-4">
+                        <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                            About Me
+                        </span>
+                    </h1>
+                    <motion.div
+                        className="h-0.5 sm:h-1 w-16 sm:w-20 lg:w-24 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto"
+                        initial={{ width: 0 }}
+                        animate={{ width: "6rem" }}
+                        transition={{ delay: 0.3, duration: 1 }}
+                    />
+                </motion.div>
+
                 {/* Main content with tabs */}
-                <div className="flex flex-col md:flex-row gap-8">
-                    {/* Sidebar with tabs */}
-                    <div className="md:w-72 space-y-4">
-                        {tabs.map(tab => (
-                            <button
-                                key={tab.id}
-                                className={`w-full py-4 px-6 rounded-lg text-left transition-all flex items-center gap-3 
-                  ${activeTab === tab.id
-                                        ? 'bg-blue-500 text-white'
-                                        : 'bg-gray-800 text-white hover:bg-gray-700'
-                                    }`}
-                                onClick={() => setActiveTab(tab.id)}
-                            >
-                                {tab.icon}
-                                <span>{tab.label}</span>
-                            </button>
-                        ))}
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 lg:gap-12">
+                    {/* Sidebar with tabs - Horizontal on mobile, vertical on desktop */}
+                    <div className="w-full lg:w-80 xl:w-96">
+                        {/* Mobile: Horizontal scrolling tabs */}
+                        <div className="lg:hidden mb-6">
+                            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                                {tabs.map(tab => (
+                                    <button
+                                        key={tab.id}
+                                        className={`flex-shrink-0 flex items-center gap-2 py-3 px-4 rounded-lg text-sm transition-all ${activeTab === tab.id
+                                            ? `bg-gradient-to-r ${tab.color} text-white`
+                                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                                            }`}
+                                        onClick={() => setActiveTab(tab.id)}
+                                    >
+                                        {tab.icon}
+                                        <span className="whitespace-nowrap">{tab.label}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Desktop: Vertical tabs */}
+                        <div className="hidden lg:block space-y-3 xl:space-y-4">
+                            {tabs.map(tab => (
+                                <button
+                                    key={tab.id}
+                                    className={`w-full py-3 xl:py-4 px-4 xl:px-6 rounded-lg text-left transition-all flex items-center gap-3 text-sm xl:text-base ${activeTab === tab.id
+                                        ? `bg-gradient-to-r ${tab.color} text-white shadow-lg`
+                                        : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+                                        }`}
+                                    onClick={() => setActiveTab(tab.id)}
+                                >
+                                    {tab.icon}
+                                    <span>{tab.label}</span>
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
                     {/* Content area */}
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                         {renderContent()}
                     </div>
                 </div>
