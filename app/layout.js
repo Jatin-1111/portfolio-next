@@ -79,7 +79,7 @@ export default function RootLayout({ children }) {
       <head>
         {/* Critical Resource Hints */}
         <link rel="preload" href="/img.jpg" as="image" />
-        <link rel="preload" href="/portfolio.png" as="image" />
+        <link rel="icon" href="/portfolio.png" type="image/png" />
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 
