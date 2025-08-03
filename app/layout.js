@@ -98,26 +98,12 @@ export default function RootLayout({ children }) {
         }} />
       </head>
       <body className={`${montserrat.variable} ${roboto.variable} ${firaCode.variable} critical-css`}>
-        {/* Add loading state */}
-        <div id="loading-screen" className="fixed inset-0 bg-gray-900 z-50 flex items-center justify-center">
-          <div className="animate-spin w-8 h-8 border-2 border-blue-500 rounded-full border-t-transparent"></div>
-        </div>
-
         <LenisProvider>
           <Header />
           <main className="min-h-screen">
             {children}
           </main>
         </LenisProvider>
-
-        {/* Remove loading screen after hydration */}
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            window.addEventListener('load', () => {
-              document.getElementById('loading-screen')?.remove();
-            });
-          `
-        }} />
       </body>
     </html>
   );

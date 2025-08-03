@@ -1,11 +1,25 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: [
-            "cdn.jsdelivr.net", // Devicons
-            "cdn-icons-png.flaticon.com", // Flaticon
-            "cdn.iconscout.com",
-            "avatars.githubusercontent.com",
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'cdn.jsdelivr.net',
+                // port: '', // Optional - omit for default ports
+                // pathname: '/**', // Optional - defaults to /**
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn-icons-png.flaticon.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'cdn.iconscout.com',
+            },
+            {
+                protocol: 'https',
+                hostname: 'avatars.githubusercontent.com',
+            },
         ],
     },
 };
