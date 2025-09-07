@@ -154,7 +154,7 @@ export default function Home() {
                   <Github className="w-6 h-6 sm:w-7 sm:h-7" />
                 </motion.a>
                 <motion.a
-                  href="https://linkedin.com/in/jatin1011"
+                  href="https://www.linkedin.com/in/jatin1011"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-400 hover:text-blue-400 transition-colors duration-300"

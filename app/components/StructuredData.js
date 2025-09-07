@@ -14,7 +14,7 @@ export default function StructuredData() {
         },
         "sameAs": [
             "https://github.com/Jatin-1111",
-            "https://linkedin.com/in/jatin1011",
+            "https://www.linkedin.com/in/jatin1011",
             "https://www.instagram.com/_jatin_1011/"
         ],
         "knowsAbout": [

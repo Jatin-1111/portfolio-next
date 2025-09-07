@@ -12,7 +12,7 @@ const projects = [
         description: "An elegantly crafted portfolio showcasing professional accomplishments through modern web technologies. Built with Next.js and enhanced with Tailwind CSS for sophisticated styling and Framer Motion for fluid animations.",
         image: "/portfolio.png",
         link: "https://jatinx.tech/",
-        github: "#",
+        github: "https://github.com/Jatin-1111/portfolio-next",
         technologies: ["Next.js", "Tailwind CSS", "Framer Motion", "EmailJS"],
         highlights: [
             "Responsive design principles",
@@ -32,7 +32,7 @@ const projects = [
         description: "A comprehensive social platform with advanced UI/UX implementation. Features extensive testing protocols for backend administration and review systems, ensuring optimal user experience and system reliability.",
         image: "/socialituplogo.png",
         link: "https://social-it-up.vercel.app/",
-        github: "#",
+        github: "https://github.com/Jatin-1111/Social-It-Up",
         technologies: ["Next.js", "Firebase", "Framer Motion", "ShadCN", "Tailwind CSS", "Gemini AI"],
         highlights: [
             "Real-time data synchronization",
@@ -52,7 +52,7 @@ const projects = [
         description: "A sophisticated educational platform leveraging modern web technologies to deliver an exceptional learning experience. Integrates React.js with Firebase for robust backend functionality and ShadCN for refined UI components.",
         image: "/tuclogo.png",
         link: "https://theuncodersuiet.vercel.app/",
-        github: "#",
+        github: "https://github.com/Jatin-1111/The-UnCoders",
         technologies: ["React.js", "Firebase", "ShadCN", "Authentication"],
         highlights: [
             "Adaptive learning system",
@@ -198,8 +198,8 @@ export default function ProjectShowcase({ autoplay = false }) {
                             <motion.button
                                 key={category}
                                 className={`px-4 sm:px-6 lg:px-8 py-2 sm:py-2.5 lg:py-3 rounded-xl text-xs sm:text-sm lg:text-base font-medium tracking-wide transition-all duration-300 ${selectedCategory === category
-                                        ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20'
-                                        : 'bg-gray-800/50 border border-gray-700/50 text-gray-400 hover:bg-gray-800 hover:text-white hover:border-gray-600/50'
+                                    ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20'
+                                    : 'bg-gray-800/50 border border-gray-700/50 text-gray-400 hover:bg-gray-800 hover:text-white hover:border-gray-600/50'
                                     }`}
                                 onClick={() => handleCategoryChange(category)}
                                 whileHover={{ y: -2, scale: 1.02 }}
@@ -375,8 +375,8 @@ export default function ProjectShowcase({ autoplay = false }) {
                                             key={index}
                                             onClick={() => setActive(index)}
                                             className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${index === active
-                                                    ? 'bg-gradient-to-r from-blue-500 to-indigo-600 scale-125'
-                                                    : 'bg-gray-600 hover:bg-gray-500'
+                                                ? 'bg-gradient-to-r from-blue-500 to-indigo-600 scale-125'
+                                                : 'bg-gray-600 hover:bg-gray-500'
                                                 }`}
                                         />
                                     ))}

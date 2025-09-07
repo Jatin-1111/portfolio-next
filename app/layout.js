@@ -46,6 +46,11 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    google: 'your-google-verification-code', // Add your Google Search Console verification code
+    yandex: 'your-yandex-verification-code', // Optional: Yandex verification
+    bing: 'your-bing-verification-code', // Optional: Bing verification
+  },
   alternates: {
     canonical: "https://jatinx.tech/",
   },

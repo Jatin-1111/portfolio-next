@@ -66,7 +66,8 @@ export default async function sitemap() {
 
     return [
         ...routes,
-        ...projectRoutes,
-        ...serviceRoutes
+        // Remove project and service routes until you create those pages
+        // ...projectRoutes,
+        // ...serviceRoutes
     ];
 }
