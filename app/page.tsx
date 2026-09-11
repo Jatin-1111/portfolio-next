@@ -71,9 +71,9 @@ export default function HomePage() {
                 <ArrowUpRight className="size-3.5" />
               </a>
               <p className="mt-5 text-sm leading-relaxed text-ink-muted">
-                Leading engineering on a four-application Next.js monorepo with
-                a shared Node.js backend — payments, bookings, notifications and
-                analytics across every surface.
+                Leading engineering on a Turborepo monorepo of three Next.js
+                applications over one shared TypeScript API — payments,
+                bookings, real-time delivery and layered access control.
               </p>
               <p className="label mt-6">{current.period}</p>
             </div>

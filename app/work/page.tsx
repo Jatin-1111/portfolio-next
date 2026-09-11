@@ -7,7 +7,7 @@ import { projects } from "@/lib/content/projects";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Selected engineering work — a four-application sports platform, a queued uptime monitoring service, and an agency platform with internal tooling.",
+    "Selected engineering work — a three-application sports platform, a queued uptime monitoring service, and an agency site with an internal operations suite.",
   alternates: { canonical: "/work" },
 };
 
