@@ -3,12 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
+import { Skills } from "@/components/site/skills";
 import { Section, SectionHeader } from "@/components/site/section";
 import {
   education,
   experience,
   involvement,
-  skills,
 } from "@/lib/content/experience";
 import { site } from "@/lib/site";
 
@@ -61,10 +61,12 @@ export default function AboutPage() {
               <a
                 href={site.resume}
                 download
+                type="application/pdf"
                 className="inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-sm text-paper transition-colors hover:bg-accent"
               >
                 <Download className="size-4" />
                 Download résumé
+                <span className="label text-paper/70">PDF</span>
               </a>
               <Link
                 href="/contact"
@@ -162,14 +164,7 @@ export default function AboutPage() {
       {/* -------------------------------------------------------------- Skills */}
       <Section className="border-t border-rule">
         <SectionHeader label="Toolkit" title="Technical skills" />
-        <dl className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {skills.map((group, i) => (
-            <Reveal key={group.group} delay={i * 0.04}>
-              <dt className="label border-b border-rule pb-3">{group.group}</dt>
-              <dd className="mt-4 text-ink-muted">{group.items.join(", ")}</dd>
-            </Reveal>
-          ))}
-        </dl>
+        <Skills />
       </Section>
 
       {/* --------------------------------------------------------- Involvement */}

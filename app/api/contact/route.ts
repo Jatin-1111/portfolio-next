@@ -9,6 +9,7 @@ const schema = z.object({
   company: z.string().max(160).optional(),
   intent: z.enum(["role", "freelance", "other"]),
   message: z.string().min(20).max(5000),
+  website: z.string().optional(),
 });
 
 const intentLabels: Record<z.infer<typeof schema>["intent"], string> = {
@@ -34,7 +35,7 @@ const shell = (body: string) => `
   <body style="margin:0;background:#faf9f7;padding:32px 16px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#16140f;">
     <div style="max-width:560px;margin:0 auto;background:#ffffff;border:1px solid #e3dfd7;padding:40px 32px;">
       ${body}
-      <p style="margin:40px 0 0;padding-top:20px;border-top:1px solid #e3dfd7;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#8c867c;">
+      <p style="margin:40px 0 0;padding-top:20px;border-top:1px solid #e3dfd7;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#6e6860;">
         ${escapeHtml(site.name)} · ${escapeHtml(site.role)}
       </p>
     </div>
@@ -53,6 +54,11 @@ export async function POST(req: Request) {
     );
   }
 
+  // Honeypot filled means a bot. Return success so it learns nothing.
+  if (data.website) {
+    return NextResponse.json({ ok: true }, { status: 200 });
+  }
+
   if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
     console.error("Contact form: EMAIL_USER / EMAIL_APP_PASSWORD not set");
     return NextResponse.json(
@@ -69,7 +75,7 @@ export async function POST(req: Request) {
 
   const row = (label: string, value: string) => `
     <tr>
-      <td style="padding:10px 0;border-bottom:1px solid #f3f1ed;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#8c867c;width:38%;">${label}</td>
+      <td style="padding:10px 0;border-bottom:1px solid #f3f1ed;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#6e6860;width:38%;">${label}</td>
       <td style="padding:10px 0;border-bottom:1px solid #f3f1ed;font-size:15px;color:#16140f;">${value}</td>
     </tr>`;
 
@@ -81,7 +87,7 @@ export async function POST(req: Request) {
       ${row("Company", company)}
       ${row("About", intent)}
     </table>
-    <p style="margin:28px 0 8px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#8c867c;">Message</p>
+    <p style="margin:28px 0 8px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#6e6860;">Message</p>
     <p style="margin:0;font-size:15px;line-height:1.65;color:#5f5a52;">${message}</p>
     <p style="margin:32px 0 0;">
       <a href="mailto:${email}" style="display:inline-block;background:#16140f;color:#faf9f7;padding:12px 24px;font-size:14px;text-decoration:none;">Reply to ${name}</a>

@@ -12,6 +12,8 @@ const schema = z.object({
   company: z.string().optional(),
   intent: z.enum(["role", "freelance", "other"]),
   message: z.string().min(20, "A little more detail helps — 20 characters minimum"),
+  // Honeypot: hidden from people, commonly auto-filled by bots
+  website: z.string().max(0).optional(),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -35,7 +37,7 @@ export function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { intent: "role" },
+    defaultValues: { intent: "role", website: "" },
   });
 
   const onSubmit = async (values: FormValues) => {
@@ -78,6 +80,18 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-10" noValidate>
+      {/* Honeypot — visually and semantically hidden, never announced */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          {...register("website")}
+        />
+      </div>
+
       <div className="grid gap-10 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="label">

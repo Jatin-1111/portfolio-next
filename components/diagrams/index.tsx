@@ -203,6 +203,11 @@ function Figure({
 }) {
   return (
     <figure className="my-10 border-y border-rule py-8">
+      {/*
+        The min-width keeps labels legible rather than letting the diagram
+        shrink to unreadable. overflow-x: auto then shows a scrollbar only when
+        the column is actually narrower than that — never when it fits.
+      */}
       <div className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0">
         <svg
           viewBox={viewBox}

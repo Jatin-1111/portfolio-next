@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
+import { Skills } from "@/components/site/skills";
 import { Section, SectionHeader } from "@/components/site/section";
 import { featuredProjects } from "@/lib/content/projects";
-import { experience, skills } from "@/lib/content/experience";
+import { experience } from "@/lib/content/experience";
 import { site } from "@/lib/site";
 
 export default function HomePage() {
@@ -46,10 +47,12 @@ export default function HomePage() {
               <a
                 href={site.resume}
                 download
+                type="application/pdf"
                 className="inline-flex items-center gap-2 border border-rule-strong px-6 py-3.5 text-sm text-ink transition-colors hover:border-ink"
               >
                 <Download className="size-4" />
                 Résumé
+                <span className="label">PDF</span>
               </a>
             </div>
           </Reveal>
@@ -161,16 +164,7 @@ export default function HomePage() {
       <Section className="border-t border-rule">
         <SectionHeader label="Toolkit" title="What I work with" />
 
-        <dl className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {skills.map((group, i) => (
-            <Reveal key={group.group} delay={i * 0.04}>
-              <dt className="label border-b border-rule pb-3">{group.group}</dt>
-              <dd className="mt-4 text-ink-muted">
-                {group.items.join(", ")}
-              </dd>
-            </Reveal>
-          ))}
-        </dl>
+        <Skills />
       </Section>
 
       {/* ----------------------------------------------------------------- CTA */}

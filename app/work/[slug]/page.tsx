@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { Diagram } from "@/components/diagrams";
+import { CaseStudyNav } from "@/components/site/case-study-nav";
+import { ReadingProgress } from "@/components/site/reading-progress";
+import { slugify } from "@/lib/utils";
 import { getProject, projects } from "@/lib/content/projects";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -36,9 +39,14 @@ export default async function ProjectPage({ params }: Params) {
 
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
+  const toc = project.sections.map((s) => ({
+    id: slugify(s.heading),
+    heading: s.heading,
+  }));
 
   return (
     <article>
+      <ReadingProgress />
       {/* --------------------------------------------------------------- Head */}
       <header className="shell border-b border-rule pb-14 pt-16 md:pt-24">
         <Link
@@ -79,7 +87,7 @@ export default async function ProjectPage({ params }: Params) {
       </header>
 
       {/* ---------------------------------------------------- Spec + narrative */}
-      <div className="shell grid gap-12 py-16 md:grid-cols-[1fr_2fr] md:gap-16 md:py-20">
+      <div className="shell grid gap-12 py-16 md:grid-cols-[220px_1fr] md:gap-12 md:py-20 lg:gap-16">
         {/* Spec column */}
         <aside className="md:sticky md:top-28 md:self-start">
           <dl className="space-y-6">
@@ -100,22 +108,29 @@ export default async function ProjectPage({ params }: Params) {
               </dd>
             </div>
           </dl>
+
+          <CaseStudyNav sections={toc} />
         </aside>
 
-        {/* Narrative column */}
-        <div className="max-w-2xl">
+        {/* Narrative column — prose keeps a readable measure, figures run wider */}
+        <div className="min-w-0">
           {project.sections.map((section, i) => (
             <Reveal key={section.heading} delay={i * 0.04}>
-              <section className="mb-14 last:mb-0">
-                <h2 className="font-display text-heading text-ink">
-                  {section.heading}
-                </h2>
-                <div className="mt-5 space-y-5">
-                  {section.body.map((paragraph, j) => (
-                    <p key={j} className="text-lead text-ink-muted">
-                      {paragraph}
-                    </p>
-                  ))}
+              <section
+                id={slugify(section.heading)}
+                className="mb-14 scroll-mt-28 last:mb-0"
+              >
+                <div className="max-w-2xl">
+                  <h2 className="font-display text-heading text-ink">
+                    {section.heading}
+                  </h2>
+                  <div className="mt-5 space-y-5">
+                    {section.body.map((paragraph, j) => (
+                      <p key={j} className="text-lead text-ink-muted">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
                 </div>
                 {section.diagram && <Diagram name={section.diagram} />}
               </section>

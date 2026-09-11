@@ -13,7 +13,9 @@
   /* Ink */
   --color-ink: #16140f;
   --color-ink-muted: #5f5a52;
-  --color-ink-faint: #8c867c;
+  /* Darkened from #8c867c, which measured 3.43:1 on paper — below the 4.5:1
+     WCAG AA floor. This tone holds the same warm grey at ~4.8:1. */
+  --color-ink-faint: #6e6860;
 
   /* Rules */
   --color-rule: #e3dfd7;
@@ -140,5 +142,47 @@
 
   .link-rule:hover {
     background-size: 100% 1px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Print — recruiters do print these. Drop the chrome, keep the content, and
+   expose link targets that are otherwise only visible on hover.
+   --------------------------------------------------------------------------- */
+@media print {
+  header,
+  footer,
+  nav[aria-label="Sections"] {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  .shell {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #444;
+    word-break: break-all;
+  }
+
+  figure,
+  section,
+  li {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
   }
 }
