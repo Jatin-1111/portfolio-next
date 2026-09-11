@@ -49,7 +49,7 @@ export const projects: Project[] = [
     links: [{ label: "Live site", href: "https://powermysport.com" }],
     facts: [
       { label: "Role", value: "Lead Full-Stack Engineer" },
-      { label: "Team", value: "2 engineers, reporting to founder" },
+      { label: "Team", value: "2 developers reporting to me; I report to the founder" },
       { label: "Timeline", value: "Jan 2026 — present" },
       { label: "Status", value: "In production" },
     ],
@@ -58,7 +58,7 @@ export const projects: Project[] = [
         heading: "The problem",
         body: [
           "Three audiences needed genuinely different products: players booking venues and coaching, a community space with its own feed and messaging, and an operations team administering all of it. Building them as independent stacks would have meant three copies of authentication, three notification pipelines and three deployment setups to keep in step.",
-          "The constraint was a two-person team. Whatever the architecture was, very few people had to be able to maintain it.",
+          "The constraint was a three-person engineering team — two developers and me. Whatever the architecture was, very few people had to be able to hold it in their heads and maintain it.",
         ],
       },
       {

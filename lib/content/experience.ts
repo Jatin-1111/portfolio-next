@@ -16,7 +16,7 @@ export const experience: Experience[] = [
     role: "Lead Full-Stack Engineer",
     period: "Jan 2026 — Present",
     start: "2026-01-01",
-    context: "Part-time · 2-person team · Reporting to founder",
+    context: "Part-time · Leading 2 developers · Reporting to the founder",
     href: "https://powermysport.com",
     points: [
       "Lead engineering on a Turborepo monorepo of three Next.js applications — client, admin and community — over a single domain-organised TypeScript API and a shared types package.",
