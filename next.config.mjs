@@ -1,8 +1,5 @@
-import createMDX from "@next/mdx";
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ["ts", "tsx", "mdx"],
   experimental: {
     optimizePackageImports: ["lucide-react", "framer-motion"],
   },
@@ -24,6 +21,4 @@ const nextConfig = {
   },
 };
 
-const withMDX = createMDX({});
-
-export default withMDX(nextConfig);
+export default nextConfig;

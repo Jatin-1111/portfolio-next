@@ -4,11 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { site } from "@/lib/site";
-import type { NavItem } from "@/lib/site";
+import { nav, site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function Header({ nav }: { nav: NavItem[] }) {
+export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 

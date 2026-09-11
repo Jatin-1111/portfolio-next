@@ -230,6 +230,7 @@ export const projects: Project[] = [
           "Every internal route is disabled in production at the edge: middleware checks the environment and rewrites requests to the admin, review, bug, ratings and chat panels to a 404 rather than rendering a login screen.",
           "The reasoning is that a login page is an advertisement — it tells a stranger the tooling exists and invites attempts against it. Returning a 404 means the surface is not discoverable at all in the environments where it isn't in use.",
         ],
+        diagram: "edge-gating",
       },
       {
         heading: "Motion as structure",

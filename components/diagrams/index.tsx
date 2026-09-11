@@ -457,6 +457,71 @@ function QueueSplit() {
 }
 
 /* ---------------------------------------------------------------------------
+   Social It Up — edge gating of the internal surface
+   --------------------------------------------------------------------------- */
+
+function EdgeGating() {
+  return (
+    <Figure
+      title="Middleware gating of internal routes by environment"
+      caption="Public pages render normally. Internal routes return a 404 in production rather than a login screen, so the tooling is not discoverable at all — while staying reachable in the environments where the team uses it."
+      viewBox="0 0 880 350"
+      minWidth={700}
+    >
+      <Node x={10} y={150} w={130} label="Request" sub="ANY PATH" tone="muted" />
+      <Node
+        x={190}
+        y={150}
+        w={180}
+        label="middleware.js"
+        sub="RUNS AT THE EDGE"
+        tone="accent"
+      />
+
+      <Arrow from={[140, 179]} to={[186, 179]} />
+
+      {/* Public */}
+      <Node x={466} y={40} w={204} label="Public route" sub="WORK · SERVICES" />
+      <Node x={716} y={40} w={140} label="Rendered" tone="muted" />
+      <Elbow points={[[370, 179], [418, 179], [418, 69], [462, 69]]} />
+      <Arrow from={[670, 69]} to={[712, 69]} />
+
+      {/* Protected in production */}
+      <Node
+        x={466}
+        y={150}
+        w={204}
+        label="Internal route"
+        sub="IN PRODUCTION"
+        tone="accent"
+      />
+      <Node x={716} y={150} w={140} label="404" tone="accent" />
+      <Arrow from={[370, 179]} to={[462, 179]} accent />
+      <Arrow from={[670, 179]} to={[712, 179]} accent />
+      <Label x={786} y={232} tone="accent">
+        NOT DISCOVERABLE
+      </Label>
+
+      {/* Protected elsewhere */}
+      <Node
+        x={466}
+        y={262}
+        w={204}
+        label="Internal route"
+        sub="DEV / PREVIEW"
+      />
+      <Node x={716} y={262} w={140} label="Panel" tone="muted" />
+      <Elbow points={[[370, 179], [418, 179], [418, 291], [462, 291]]} />
+      <Arrow from={[670, 291]} to={[712, 291]} />
+
+      <Label x={568} y={340}>
+        ADMIN · REVIEW · BUG · RATINGS · CHAT
+      </Label>
+    </Figure>
+  );
+}
+
+/* ---------------------------------------------------------------------------
    Registry
    --------------------------------------------------------------------------- */
 
@@ -464,6 +529,7 @@ export const diagrams = {
   "payment-outbox": PaymentOutbox,
   monorepo: Monorepo,
   "queue-split": QueueSplit,
+  "edge-gating": EdgeGating,
 } as const;
 
 export type DiagramKey = keyof typeof diagrams;

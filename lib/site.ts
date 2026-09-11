@@ -23,11 +23,8 @@ export const socials = [
   { label: "Email", href: `mailto:${site.email}` },
 ] as const;
 
-export type NavItem = { label: string; href: string };
-
-export const nav: NavItem[] = [
+export const nav = [
   { label: "Work", href: "/work" },
-  { label: "Notes", href: "/notes" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
-];
+] as const;
