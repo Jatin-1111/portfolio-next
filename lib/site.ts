@@ -4,7 +4,7 @@
  * metadata, canonicals, sitemap and structured data all read from it.
  */
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://jatin-kumar.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://portfolio-jatin-kumar.vercel.app";
 
 export const site = {
   name: "Jatin Kumar",
