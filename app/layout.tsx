@@ -4,7 +4,8 @@ import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { StructuredData } from "@/components/site/structured-data";
-import { SITE_URL, site } from "@/lib/site";
+import { SITE_URL, nav, site } from "@/lib/site";
+import { notes } from "@/lib/content/notes";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -74,6 +75,12 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // The Notes section only appears in navigation once something is published,
+  // so the link never leads to an empty page.
+  const navItems = nav.filter(
+    (item) => item.href !== "/notes" || notes.length > 0,
+  );
+
   return (
     <html lang="en" className="scroll-pt-24">
       <body
@@ -86,9 +93,9 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <Header />
+        <Header nav={navItems} />
         <main id="main">{children}</main>
-        <Footer />
+        <Footer nav={navItems} />
       </body>
     </html>
   );

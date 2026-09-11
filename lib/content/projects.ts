@@ -1,8 +1,12 @@
+import type { DiagramKey } from "@/components/diagrams";
+
 export type ProjectLink = { label: string; href: string };
 
 export type CaseSection = {
   heading: string;
   body: string[];
+  /** Optional architecture diagram rendered after the prose */
+  diagram?: DiagramKey;
 };
 
 export type Project = {
@@ -64,6 +68,7 @@ export const projects: Project[] = [
           "A single TypeScript Express API backs all three, organised by domain rather than by technical layer: client, admin, community and shop each own their controllers, models, services and socket handlers, over a shared layer for the concerns that genuinely cross domains. It means a booking rule changes in one place and every surface sees it.",
           "One detail worth recording: Turborepo's build cache initially declared no outputs for the shared packages, so a cache hit would skip their compile and restore no `dist` — producing a green local build and a red CI build from the same commit. The fix was declaring `dist/**` as a build output.",
         ],
+        diagram: "monorepo",
       },
       {
         heading: "Making payments survive failure",
@@ -73,6 +78,7 @@ export const projects: Project[] = [
           "Verified events are then persisted, not processed inline. Each one is written to a webhook event record keyed by a unique event id — so a provider retry is recognised as a duplicate rather than applied twice — and a message is enqueued to a transactional outbox. A background worker claims outbox messages atomically with a findOneAndUpdate, so two instances never process the same message, and failures retry on exponential backoff with jitter up to six attempts before being marked failed.",
           "The result is that reconciliation is decoupled from the provider's HTTP timeout. PhonePe gets an immediate acknowledgement; the actual order transition happens durably, in order, and exactly once.",
         ],
+        diagram: "payment-outbox",
       },
       {
         heading: "Real-time across instances",
@@ -146,6 +152,7 @@ export const projects: Project[] = [
           "Checks are scheduled as BullMQ jobs on Redis and executed outside the API process entirely. There are two queues and two workers: one that performs health checks, and one that delivers alerts.",
           "Splitting them matters. A slow or failing mail provider stalls only the alert worker; health checks keep running and keep recording state. The two run as independent processes under PM2, so either can be restarted or scaled without touching the other.",
         ],
+        diagram: "queue-split",
       },
       {
         heading: "Alerting on change, not on failure",

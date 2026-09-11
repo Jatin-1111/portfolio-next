@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
+import { Diagram } from "@/components/diagrams";
 import { getProject, projects } from "@/lib/content/projects";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -116,6 +117,7 @@ export default async function ProjectPage({ params }: Params) {
                     </p>
                   ))}
                 </div>
+                {section.diagram && <Diagram name={section.diagram} />}
               </section>
             </Reveal>
           ))}

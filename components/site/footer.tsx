@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { nav, site, socials } from "@/lib/site";
+import { site, socials } from "@/lib/site";
+import type { NavItem } from "@/lib/site";
 
-export function Footer() {
+export function Footer({ nav }: { nav: NavItem[] }) {
   return (
     <footer className="mt-32 border-t border-rule">
       <div className="shell py-16 md:py-20">
