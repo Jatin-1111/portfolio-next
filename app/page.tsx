@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
+import { Rise } from "@/components/site/rise";
 import { Skills } from "@/components/site/skills";
 import { Section, SectionHeader } from "@/components/site/section";
 import { featuredProjects } from "@/lib/content/projects";
@@ -14,20 +15,20 @@ export default function HomePage() {
     <>
       {/* ---------------------------------------------------------------- Hero */}
       <section className="shell border-b border-rule pb-16 pt-20 md:pb-24 md:pt-32">
-        <Reveal immediate>
+        <Rise>
           <p className="label">
             {site.role} · {site.location}
           </p>
-        </Reveal>
+        </Rise>
 
-        <Reveal delay={0.06} immediate>
+        <Rise delay={0.06}>
           <h1 className="mt-8 max-w-[16ch] font-display text-display font-medium text-ink">
             I build web systems that hold up in production.
           </h1>
-        </Reveal>
+        </Rise>
 
         <div className="mt-12 grid gap-10 border-t border-rule pt-10 md:grid-cols-[1.1fr_1fr] md:gap-16">
-          <Reveal delay={0.12} immediate>
+          <Rise delay={0.12}>
             <p className="max-w-xl text-lead text-ink-muted">
               Full-stack developer with a year of shipping production software —
               payments over webhooks, real-time features, background job queues,
@@ -55,10 +56,10 @@ export default function HomePage() {
                 <span className="label">PDF</span>
               </a>
             </div>
-          </Reveal>
+          </Rise>
 
           {/* Currently — the strongest single credential, given its own frame */}
-          <Reveal delay={0.18} immediate>
+          <Rise delay={0.18}>
             <div className="border-t border-ink pt-5 md:border-l md:border-t-0 md:pl-8 md:pt-0">
               <p className="label">Currently</p>
               <p className="mt-4 font-display text-heading text-ink">
@@ -80,7 +81,7 @@ export default function HomePage() {
               </p>
               <p className="label mt-6">{current.period}</p>
             </div>
-          </Reveal>
+          </Rise>
         </div>
       </section>
 

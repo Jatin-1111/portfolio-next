@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
+import { Rise } from "@/components/site/rise";
 import { Diagram } from "@/components/diagrams";
 import { CaseStudyNav } from "@/components/site/case-study-nav";
 import { ReadingProgress } from "@/components/site/reading-progress";
@@ -57,17 +58,17 @@ export default async function ProjectPage({ params }: Params) {
           <span className="link-rule">All work</span>
         </Link>
 
-        <Reveal immediate>
+        <Rise>
           <h1 className="mt-10 max-w-[18ch] font-display text-display font-medium text-ink">
             {project.name}
           </h1>
           <p className="mt-6 max-w-2xl text-lead text-ink-muted">
             {project.tagline}
           </p>
-        </Reveal>
+        </Rise>
 
         {project.links.length > 0 && (
-          <Reveal delay={0.1} immediate>
+          <Rise delay={0.1}>
             <div className="mt-10 flex flex-wrap gap-3">
               {project.links.map((link) => (
                 <a
@@ -82,14 +83,15 @@ export default async function ProjectPage({ params }: Params) {
                 </a>
               ))}
             </div>
-          </Reveal>
+          </Rise>
         )}
       </header>
 
       {/* ---------------------------------------------------- Spec + narrative */}
       <div className="shell grid gap-12 py-16 md:grid-cols-[220px_1fr] md:gap-12 md:py-20 lg:gap-16">
-        {/* Spec column */}
-        <aside className="md:sticky md:top-28 md:self-start">
+        {/* Spec column — part of the article, not complementary to it, so this
+            is a div rather than an aside (an aside nested in main is invalid) */}
+        <div className="md:sticky md:top-28 md:self-start">
           <dl className="space-y-6">
             {project.facts.map((fact) => (
               <div key={fact.label} className="border-t border-rule pt-3">
@@ -110,7 +112,7 @@ export default async function ProjectPage({ params }: Params) {
           </dl>
 
           <CaseStudyNav sections={toc} />
-        </aside>
+        </div>
 
         {/* Narrative column — prose keeps a readable measure, figures run wider */}
         <div className="min-w-0">

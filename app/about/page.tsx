@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
+import { Rise } from "@/components/site/rise";
 import { Skills } from "@/components/site/skills";
 import { Section, SectionHeader } from "@/components/site/section";
 import {
@@ -24,15 +25,15 @@ export default function AboutPage() {
     <>
       {/* --------------------------------------------------------------- Intro */}
       <section className="shell border-b border-rule pb-16 pt-20 md:pt-28">
-        <Reveal immediate>
+        <Rise>
           <p className="label">About</p>
           <h1 className="mt-8 max-w-[20ch] font-display text-display font-medium text-ink">
             Engineering student by enrolment, shipping engineer by practice.
           </h1>
-        </Reveal>
+        </Rise>
 
         <div className="mt-12 grid gap-10 border-t border-rule pt-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
-          <Reveal delay={0.1} immediate>
+          <Rise delay={0.1}>
             <div className="max-w-xl space-y-5 text-lead text-ink-muted">
               <p>
                 I&apos;m {site.name}, a full-stack developer based in{" "}
@@ -75,9 +76,9 @@ export default function AboutPage() {
                 Get in touch
               </Link>
             </div>
-          </Reveal>
+          </Rise>
 
-          <Reveal delay={0.16} immediate>
+          <Rise delay={0.16}>
             <div className="border-t border-ink pt-5 md:border-l md:border-t-0 md:pl-8 md:pt-0">
               <Image
                 src="/portrait.jpg"
@@ -103,7 +104,7 @@ export default function AboutPage() {
                 <li>Backend and full-stack work</li>
               </ul>
             </div>
-          </Reveal>
+          </Rise>
         </div>
       </section>
 

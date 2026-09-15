@@ -208,11 +208,20 @@ function Figure({
         shrink to unreadable. overflow-x: auto then shows a scrollbar only when
         the column is actually narrower than that — never when it fits.
       */}
-      <div className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0">
+      {/*
+        tabIndex makes the scroll container reachable by keyboard. Without it a
+        keyboard-only user cannot pan a diagram that overflows its column
+        (axe: scrollable-region-focusable).
+      */}
+      <div
+        tabIndex={0}
+        role="group"
+        aria-label={title}
+        className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0"
+      >
         <svg
           viewBox={viewBox}
           role="img"
-          aria-label={title}
           style={{ minWidth }}
           className="h-auto w-full"
         >

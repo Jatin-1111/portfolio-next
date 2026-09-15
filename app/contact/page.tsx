@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Reveal } from "@/components/site/reveal";
+import { Rise } from "@/components/site/rise";
 import { ContactForm } from "@/components/site/contact-form";
 import { site, socials } from "@/lib/site";
 
@@ -14,7 +14,7 @@ export default function ContactPage() {
   return (
     <>
       <section className="shell border-b border-rule pb-14 pt-20 md:pt-28">
-        <Reveal immediate>
+        <Rise>
           <p className="label">Contact</p>
           <h1 className="mt-8 max-w-[16ch] font-display text-display font-medium text-ink">
             Let&apos;s start a conversation.
@@ -24,15 +24,15 @@ export default function ContactPage() {
             work. Tell me what you&apos;re building and what you need — I read
             and reply to everything, usually within a day.
           </p>
-        </Reveal>
+        </Rise>
       </section>
 
       <div className="shell grid gap-14 py-16 md:grid-cols-[2fr_1fr] md:gap-20 md:py-20">
-        <Reveal immediate>
+        <Rise>
           <ContactForm />
-        </Reveal>
+        </Rise>
 
-        <Reveal delay={0.1} immediate>
+        <Rise delay={0.1}>
           <aside className="md:border-l md:border-rule md:pl-10">
             <p className="label">Direct</p>
             <a
@@ -67,7 +67,7 @@ export default function ContactPage() {
               Available remotely across time zones
             </p>
           </aside>
-        </Reveal>
+        </Rise>
       </div>
     </>
   );

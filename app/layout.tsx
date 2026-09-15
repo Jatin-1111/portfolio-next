@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
 import { StructuredData } from "@/components/site/structured-data";
+import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, site } from "@/lib/site";
 
 const inter = Inter({
@@ -89,6 +90,7 @@ export default function RootLayout({
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );

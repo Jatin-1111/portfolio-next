@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
+import { Rise } from "@/components/site/rise";
 import { projects } from "@/lib/content/projects";
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export default function WorkPage() {
   return (
     <>
       <section className="shell border-b border-rule pb-14 pt-20 md:pt-28">
-        <Reveal immediate>
+        <Rise>
           <p className="label">Work</p>
           <h1 className="mt-8 max-w-[20ch] font-display text-display font-medium text-ink">
             Three systems, explained properly.
@@ -26,7 +27,7 @@ export default function WorkPage() {
             would defend in a technical interview. Client work is described at
             the architecture level; no proprietary code or interfaces are shown.
           </p>
-        </Reveal>
+        </Rise>
       </section>
 
       <div className="shell pb-10">
