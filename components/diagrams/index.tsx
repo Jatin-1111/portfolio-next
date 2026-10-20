@@ -206,7 +206,7 @@ function Figure({
       {/*
         The min-width keeps labels legible rather than letting the diagram
         shrink to unreadable. overflow-x: auto then shows a scrollbar only when
-        the column is actually narrower than that — never when it fits.
+        the column is actually narrower than that, never when it fits.
       */}
       {/*
         tabIndex makes the scroll container reachable by keyboard. Without it a
@@ -236,7 +236,7 @@ function Figure({
 }
 
 /* ---------------------------------------------------------------------------
-   PowerMySport — payment webhook reconciliation
+   PowerMySport: payment webhook reconciliation
    --------------------------------------------------------------------------- */
 
 function PaymentOutbox() {
@@ -247,7 +247,7 @@ function PaymentOutbox() {
       viewBox="0 0 880 330"
       minWidth={720}
     >
-      {/* Row 1 — receive path */}
+      {/* Row 1: receive path */}
       <Node x={10} y={40} w={120} label="PhonePe" sub="PROVIDER" tone="muted" />
       <Node
         x={186}
@@ -273,7 +273,7 @@ function PaymentOutbox() {
       {/* Immediate ack back to provider */}
       <Elbow points={[[270, 98], [270, 126], [70, 126], [70, 102]]} dashed />
       <Label x={172} y={140}>
-        200 OK — IMMEDIATELY
+        200 OK, IMMEDIATELY
       </Label>
 
       {/* Annotations */}
@@ -284,7 +284,7 @@ function PaymentOutbox() {
         RETRY = DUPLICATE, NOT REAPPLIED
       </Label>
 
-      {/* Row 2 — worker path */}
+      {/* Row 2: worker path */}
       <Node
         x={648}
         y={216}
@@ -319,7 +319,7 @@ function PaymentOutbox() {
 }
 
 /* ---------------------------------------------------------------------------
-   PowerMySport — monorepo topology
+   PowerMySport: monorepo topology
    --------------------------------------------------------------------------- */
 
 function Monorepo() {
@@ -355,7 +355,7 @@ function Monorepo() {
 
       {/* API */}
       <Label x={10} y={248} anchor="start" tone="muted">
-        AWS ELASTIC BEANSTALK — DOCKER VIA ECR
+        AWS ELASTIC BEANSTALK: DOCKER VIA ECR
       </Label>
       <rect
         x={10}
@@ -388,7 +388,7 @@ function Monorepo() {
 
       <Elbow points={[[421, 216], [421, 258]]} accent />
 
-      {/* Datastores — their own row, so nothing overlaps the API bar */}
+      {/* Datastores, their own row, so nothing overlaps the API bar */}
       <Node x={296} y={372} w={120} h={56} label="MongoDB" tone="muted" />
       <Node x={440} y={372} w={120} h={56} label="Redis" sub="PUB/SUB" tone="muted" />
 
@@ -403,14 +403,14 @@ function Monorepo() {
 }
 
 /* ---------------------------------------------------------------------------
-   Ping Pilott — split queues
+   Ping Pilott: split queues
    --------------------------------------------------------------------------- */
 
 function QueueSplit() {
   return (
     <Figure
       title="Split monitor and alert queues with status-transition alerting"
-      caption="Two queues and two workers. Health checks keep running and recording state even when alert delivery is slow or failing — the failure modes stay separate."
+      caption="Two queues and two workers. Health checks keep running and recording state even when alert delivery is slow or failing; the failure modes stay separate."
       viewBox="0 0 880 350"
       minWidth={720}
     >
@@ -442,9 +442,9 @@ function QueueSplit() {
       />
       <Elbow points={[[475, 98], [475, 146]]} accent />
 
-      {/* No branch — recorded, but nothing is sent */}
+      {/* No branch: recorded, but nothing is sent */}
       <Label x={475} y={228} tone="muted">
-        NO — RECORDED, NO ALERT
+        NO: RECORDED, NO ALERT
       </Label>
 
       {/* Alert path */}
@@ -471,14 +471,14 @@ function QueueSplit() {
 }
 
 /* ---------------------------------------------------------------------------
-   Social It Up — edge gating of the internal surface
+   Social It Up: edge gating of the internal surface
    --------------------------------------------------------------------------- */
 
 function EdgeGating() {
   return (
     <Figure
       title="Middleware gating of internal routes by environment"
-      caption="Public pages render normally. Internal routes return a 404 in production rather than a login screen, so the tooling is not discoverable at all — while staying reachable in the environments where the team uses it."
+      caption="Public pages render normally. Internal routes return a 404 in production rather than a login screen, so the tooling is not discoverable at all, while staying reachable in the environments where the team uses it."
       viewBox="0 0 880 350"
       minWidth={700}
     >

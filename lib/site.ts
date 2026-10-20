@@ -1,6 +1,6 @@
 /**
  * Single source of truth for site-wide identity.
- * Swap SITE_URL here (or set NEXT_PUBLIC_SITE_URL) when the domain changes —
+ * Swap SITE_URL here (or set NEXT_PUBLIC_SITE_URL) when the domain changes.
  * metadata, canonicals, sitemap and structured data all read from it.
  */
 export const SITE_URL =
@@ -14,7 +14,7 @@ export const site = {
   location: "Chandigarh, India",
   resume: "/jatin-kumar-resume.pdf",
   description:
-    "Full-stack developer building production web systems with TypeScript, Next.js and Node.js — payments, real-time features, background queues and cloud deployment.",
+    "Full-stack developer building production web systems with TypeScript, Next.js and Node.js: payments, real-time features, background queues and cloud deployment.",
 } as const;
 
 export const socials = [

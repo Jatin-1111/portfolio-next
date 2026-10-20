@@ -18,13 +18,13 @@ export default function Error({
 
   return (
     <section className="shell flex min-h-[60vh] flex-col justify-center py-24">
-      <p className="label">Something went wrong</p>
-      <h1 className="mt-8 max-w-[18ch] font-display text-display font-medium text-ink">
+      <p className="eyebrow">Something went wrong</p>
+      <h1 className="mt-8 max-w-[18ch] font-display text-display font-normal text-ink">
         That didn&apos;t load.
       </h1>
       <p className="mt-6 max-w-lg text-lead text-ink-muted">
         An unexpected error stopped this page from rendering. Trying again often
-        works — if it doesn&apos;t, email me at{" "}
+        works. If it doesn&apos;t, email me at{" "}
         <a
           href={`mailto:${site.email}`}
           className="link-rule text-ink hover:text-accent"
@@ -42,14 +42,14 @@ export default function Error({
         <button
           type="button"
           onClick={reset}
-          className="group inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-sm text-paper transition-colors hover:bg-accent"
+          className="btn group inline-flex items-center gap-2 rounded-md bg-ink px-6 py-3.5 text-sm text-paper hover:bg-accent"
         >
           <RotateCw className="size-4 transition-transform duration-500 group-hover:rotate-180" />
           Try again
         </button>
         <Link
           href="/"
-          className="group inline-flex items-center gap-2 border border-rule-strong px-6 py-3.5 text-sm text-ink transition-colors hover:border-ink"
+          className="btn group inline-flex items-center gap-2 rounded-md border border-rule-strong px-6 py-3.5 text-sm text-ink hover:border-ink"
         >
           <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
           Back home

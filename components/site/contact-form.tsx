@@ -11,7 +11,7 @@ const schema = z.object({
   email: z.string().email("Please enter a valid email address"),
   company: z.string().optional(),
   intent: z.enum(["role", "freelance", "other"]),
-  message: z.string().min(20, "A little more detail helps — 20 characters minimum"),
+  message: z.string().min(20, "A little more detail helps, 20 characters minimum"),
   // Honeypot: hidden from people, commonly auto-filled by bots
   website: z.string().max(0).optional(),
 });
@@ -64,7 +64,7 @@ export function ContactForm() {
           <p className="font-display text-heading">Message sent.</p>
         </div>
         <p className="mt-4 max-w-md text-ink-muted">
-          Thanks for reaching out — a confirmation is on its way to your inbox,
+          Thanks for reaching out. A confirmation is on its way to your inbox,
           and I&apos;ll reply personally within a day.
         </p>
         <button
@@ -80,7 +80,7 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-10" noValidate>
-      {/* Honeypot — visually and semantically hidden, never announced */}
+      {/* Honeypot: visually and semantically hidden, never announced */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
         <label htmlFor="website">Website</label>
         <input
@@ -94,7 +94,7 @@ export function ContactForm() {
 
       <div className="grid gap-10 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="label">
+          <label htmlFor="name" className="subhead">
             Name
           </label>
           <input
@@ -110,7 +110,7 @@ export function ContactForm() {
         </div>
 
         <div>
-          <label htmlFor="email" className="label">
+          <label htmlFor="email" className="subhead">
             Email
           </label>
           <input
@@ -128,8 +128,8 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="company" className="label">
-          Company <span className="normal-case tracking-normal">(optional)</span>
+        <label htmlFor="company" className="subhead">
+          Company <span>(optional)</span>
         </label>
         <input
           id="company"
@@ -140,12 +140,12 @@ export function ContactForm() {
       </div>
 
       <fieldset>
-        <legend className="label">What&apos;s this about</legend>
+        <legend className="subhead">What&apos;s this about</legend>
         <div className="mt-4 flex flex-wrap gap-3">
           {intents.map((intent) => (
             <label
               key={intent.value}
-              className="cursor-pointer border border-rule px-4 py-2.5 text-sm text-ink-muted transition-colors has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-paper hover:border-ink-faint"
+              className="cursor-pointer rounded-md border border-rule px-4 py-2.5 text-sm text-ink-muted transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-accent has-[:checked]:border-ink has-[:checked]:bg-ink has-[:checked]:text-paper hover:border-ink-faint"
             >
               <input
                 type="radio"
@@ -160,7 +160,7 @@ export function ContactForm() {
       </fieldset>
 
       <div>
-        <label htmlFor="message" className="label">
+        <label htmlFor="message" className="subhead">
           Message
         </label>
         <textarea
@@ -180,7 +180,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="group inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-sm text-paper transition-colors hover:bg-accent disabled:opacity-60"
+          className="btn group inline-flex items-center gap-2 rounded-md bg-ink px-6 py-3.5 text-sm text-paper hover:bg-accent disabled:opacity-60"
         >
           {isSubmitting ? (
             <>

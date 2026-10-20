@@ -18,7 +18,7 @@ const intentLabels: Record<z.infer<typeof schema>["intent"], string> = {
   other: "Other",
 };
 
-/** Values land inside an HTML email — escape before interpolating. */
+/** Values land inside an HTML email, escape before interpolating. */
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
 
   const name = escapeHtml(data.name);
   const email = escapeHtml(data.email);
-  const company = data.company ? escapeHtml(data.company) : "—";
+  const company = data.company ? escapeHtml(data.company) : "Not given";
   const intent = intentLabels[data.intent];
   const message = escapeHtml(data.message).replace(/\n/g, "<br />");
 
@@ -98,7 +98,7 @@ export async function POST(req: Request) {
     <p style="margin:0;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#b8400f;">Message received</p>
     <h1 style="margin:12px 0 24px;font-size:26px;letter-spacing:-0.02em;font-weight:600;">Thanks, ${name}.</h1>
     <p style="margin:0 0 16px;font-size:15px;line-height:1.65;color:#5f5a52;">
-      Your message came through and I'll read it properly — expect a personal reply within a day.
+      Your message came through and I'll read it properly. Expect a personal reply within a day.
     </p>
     <p style="margin:0 0 24px;font-size:15px;line-height:1.65;color:#5f5a52;">
       For reference, here's what you sent:
@@ -123,7 +123,7 @@ export async function POST(req: Request) {
         from: process.env.EMAIL_USER,
         to: process.env.EMAIL_USER,
         replyTo: data.email,
-        subject: `${intent} — ${data.name}`,
+        subject: `${intent} | ${data.name}`,
         html: adminHtml,
       }),
       transporter.sendMail({

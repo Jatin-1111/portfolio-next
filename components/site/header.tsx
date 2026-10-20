@@ -66,7 +66,7 @@ export function Header() {
       <div className="shell flex h-16 items-center justify-between md:h-20">
         <Link
           href="/"
-          className="font-display text-[0.95rem] font-medium tracking-tight text-ink"
+          className="font-display text-xl tracking-tight text-ink"
         >
           {site.name}
           <span className="text-accent">.</span>
@@ -96,7 +96,7 @@ export function Header() {
             download
             type="application/pdf"
             aria-label="Download résumé (PDF)"
-            className="border border-ink px-4 py-2 text-sm text-ink transition-colors hover:bg-ink hover:text-paper"
+            className="btn rounded-md border border-ink px-4 py-2 text-sm text-ink hover:bg-ink hover:text-paper"
           >
             Résumé
           </a>

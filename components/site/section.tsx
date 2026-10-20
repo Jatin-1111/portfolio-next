@@ -14,8 +14,8 @@ export function SectionHeader({
   return (
     <div className="flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-5">
       <div>
-        <p className="label">{label}</p>
-        <h2 className="mt-3 font-display text-title text-ink">{title}</h2>
+        <p className="eyebrow">{label}</p>
+        <h2 className="mt-5 font-display text-title text-ink">{title}</h2>
       </div>
       {link && (
         <Link

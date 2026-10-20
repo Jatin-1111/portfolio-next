@@ -2,7 +2,7 @@ export type Experience = {
   company: string;
   role: string;
   period: string;
-  /** Sort key — ISO start date, newest first */
+  /** Sort key, ISO start date, newest first */
   start: string;
   context: string;
   href?: string;
@@ -14,14 +14,14 @@ export const experience: Experience[] = [
   {
     company: "PowerMySport",
     role: "Lead Full-Stack Engineer",
-    period: "Jan 2026 — Present",
+    period: "Jan 2026 to Present",
     start: "2026-01-01",
     context: "Part-time · Leading 2 developers · Reporting to the founder",
     href: "https://powermysport.com",
     points: [
-      "Lead engineering on a Turborepo monorepo of three Next.js applications — client, admin and community — over a single domain-organised TypeScript API and a shared types package.",
+      "Lead engineering on a Turborepo monorepo of three Next.js applications (client, admin and community) over a single domain-organised TypeScript API and a shared types package.",
       "Built PhonePe payment reconciliation that survives failure: HMAC-verified webhooks, idempotent event storage keyed by event id, and a transactional outbox whose worker claims messages atomically and retries on exponential backoff.",
-      "Scaled Socket.IO across instances with the Redis adapter, and implemented layered authorization — player, parent, coach, venue-lister and expert accounts alongside five permission-templated admin roles.",
+      "Scaled Socket.IO across instances with the Redis adapter, and implemented layered authorization: player, parent, coach, venue-lister and expert accounts alongside five permission-templated admin roles.",
       "Shipped an AI assistant with typed tool access over live platform data, using Gemini embeddings and cosine-similarity retrieval with a model fallback chain.",
       "Deployed the frontends to Vercel and the containerised API to AWS Elastic Beanstalk via ECR, with git-SHA-tagged images and numbered schema migrations.",
     ],
@@ -40,7 +40,7 @@ export const experience: Experience[] = [
   {
     company: "Zeerostock Ventures",
     role: "Full-Stack Developer",
-    period: "Dec 2025 — Feb 2026",
+    period: "Dec 2025 to Feb 2026",
     start: "2025-12-01",
     context: "Freelance",
     points: [
@@ -54,7 +54,7 @@ export const experience: Experience[] = [
   {
     company: "Uniqus Edutech Solutions",
     role: "Full-Stack Developer",
-    period: "Jan 2025 — Jul 2025",
+    period: "Jan 2025 to Jul 2025",
     start: "2025-01-01",
     context: "Part-time · 5-person team · Reporting to founder",
     points: [
@@ -76,22 +76,22 @@ export const involvement: Involvement[] = [
   {
     role: "Web Development Team Lead",
     org: "GDSC, UIET Panjab University",
-    period: "Sep 2025 — Present",
+    period: "Sep 2025 to Present",
   },
   {
     role: "Web Development Team Member",
     org: "GDSC, UIET Panjab University",
-    period: "Dec 2024 — Sep 2025",
+    period: "Dec 2024 to Sep 2025",
   },
   {
     role: "Social Media Sub-Head",
     org: "Euphoria, UIET",
-    period: "Jul 2025 — May 2026",
+    period: "Jul 2025 to May 2026",
   },
   {
     role: "Member",
     org: "Euphoria, UIET",
-    period: "Oct 2024 — Jul 2025",
+    period: "Oct 2024 to Jul 2025",
   },
 ];
 

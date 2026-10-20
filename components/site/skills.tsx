@@ -11,12 +11,12 @@ export function Skills() {
       {skills.map((group, i) => (
         <Reveal key={group.group} delay={i * 0.04}>
           <div className="border-t border-ink pt-4">
-            <p className="label">{group.group}</p>
+            <p className="subhead">{group.group}</p>
             <ul className="mt-4 flex flex-wrap gap-2">
               {group.items.map((item) => (
                 <li
                   key={item}
-                  className="border border-rule bg-paper-raised px-2.5 py-1.5 font-mono text-xs text-ink-muted"
+                  className="rounded-md bg-paper-raised px-2.5 py-1.5 font-mono shadow-[0_1px_2px_rgb(60_40_20/0.08)] text-xs text-ink-muted"
                 >
                   {item}
                 </li>

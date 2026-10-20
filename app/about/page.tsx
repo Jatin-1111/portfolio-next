@@ -16,7 +16,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Full-stack developer in Chandigarh — production experience across payments, real-time systems, background queues and cloud deployment, alongside a B.E. in Information Technology.",
+    "Full-stack developer in Chandigarh with production experience across payments, real-time systems, background queues and cloud deployment, alongside a B.E. in Information Technology.",
   alternates: { canonical: "/about" },
 };
 
@@ -26,19 +26,19 @@ export default function AboutPage() {
       {/* --------------------------------------------------------------- Intro */}
       <section className="shell border-b border-rule pb-16 pt-20 md:pt-28">
         <Rise>
-          <p className="label">About</p>
-          <h1 className="mt-8 max-w-[20ch] font-display text-display font-medium text-ink">
+          <p className="eyebrow">About</p>
+          <h1 className="mt-8 max-w-[20ch] font-display text-display font-normal text-ink">
             Engineering student by enrolment, shipping engineer by practice.
           </h1>
         </Rise>
 
         <div className="mt-12 grid gap-10 border-t border-rule pt-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
           <Rise delay={0.1}>
-            <div className="max-w-xl space-y-5 text-lead text-ink-muted">
+            <div className="max-w-xl space-y-5 text-[1.0625rem] leading-[1.7] text-ink-muted [&>p:first-child]:text-lead [&>p:first-child]:text-ink">
               <p>
                 I&apos;m {site.name}, a full-stack developer based in{" "}
                 {site.location}. I&apos;m in the middle of a B.E. in Information
-                Technology at UIET, Panjab University — and in parallel
+                Technology at UIET, Panjab University, and in parallel
                 I&apos;ve spent the last year working on software that real
                 people depend on.
               </p>
@@ -46,8 +46,8 @@ export default function AboutPage() {
                 That has meant three roles running at once: leading engineering
                 on a live sports platform, delivering a B2B marketplace as a
                 freelancer, and building a student management system with a
-                small team. Different products, but the same recurring problems
-                — how money moves safely, how state stays consistent across
+                small team. Different products, but the same recurring problems:
+                how money moves safely, how state stays consistent across
                 clients, how a system behaves when something upstream fails.
               </p>
               <p>
@@ -63,7 +63,7 @@ export default function AboutPage() {
                 href={site.resume}
                 download
                 type="application/pdf"
-                className="inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-sm text-paper transition-colors hover:bg-accent"
+                className="inline-flex items-center gap-2 btn rounded-md bg-ink px-6 py-3.5 text-sm text-paper hover:bg-accent"
               >
                 <Download className="size-4" />
                 Download résumé
@@ -79,7 +79,7 @@ export default function AboutPage() {
           </Rise>
 
           <Rise delay={0.16}>
-            <div className="border-t border-ink pt-5 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+            <div className="surface p-6 md:p-7">
               <Image
                 src="/portrait.jpg"
                 alt={site.name}
@@ -87,17 +87,17 @@ export default function AboutPage() {
                 height={1000}
                 priority
                 sizes="(min-width: 768px) 20rem, 60vw"
-                className="mb-10 w-40 max-w-full border border-rule object-cover sm:w-48 md:w-full md:max-w-[17rem]"
+                className="mb-8 w-40 max-w-full rounded-lg object-cover sm:w-48 md:w-full"
               />
 
-              <p className="label">Education</p>
+              <p className="subhead">Education</p>
               <p className="mt-4 font-display text-heading text-ink">
                 {education.degree}
               </p>
               <p className="mt-2 text-ink-muted">{education.school}</p>
               <p className="label mt-3">{education.period}</p>
 
-              <p className="label mt-10">Open to</p>
+              <p className="subhead mt-10">Open to</p>
               <ul className="mt-4 space-y-2 text-ink-muted">
                 <li>Full-time engineering roles</li>
                 <li>Selective freelance projects</li>
@@ -132,9 +132,9 @@ export default function AboutPage() {
                       role.company
                     )}
                   </h3>
-                  <p className="mt-3 text-ink">{role.role}</p>
+                  <p className="mt-3 font-medium text-ink">{role.role}</p>
                   <p className="label mt-3">{role.period}</p>
-                  <p className="mt-3 text-sm text-ink-faint">{role.context}</p>
+                  <p className="mt-3 text-sm text-ink-muted">{role.context}</p>
                 </div>
 
                 <div>
@@ -142,7 +142,7 @@ export default function AboutPage() {
                     {role.points.map((point, j) => (
                       <li
                         key={j}
-                        className="border-l border-rule pl-5 text-ink-muted"
+                        className="border-l-2 border-rule-strong pl-5 leading-relaxed text-ink-muted"
                       >
                         {point}
                       </li>
@@ -176,7 +176,7 @@ export default function AboutPage() {
             <Reveal as="li" key={`${item.org}-${item.period}`} delay={i * 0.04}>
               <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-b border-rule py-6">
                 <div>
-                  <p className="text-ink">{item.role}</p>
+                  <p className="font-medium text-ink">{item.role}</p>
                   <p className="mt-1 text-sm text-ink-muted">{item.org}</p>
                 </div>
                 <span className="label">{item.period}</span>
@@ -194,7 +194,7 @@ export default function AboutPage() {
           </h2>
           <Link
             href="/contact"
-            className="group mt-8 inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-sm text-paper transition-colors hover:bg-accent"
+            className="group mt-8 inline-flex items-center gap-2 btn rounded-md bg-ink px-6 py-3.5 text-sm text-paper hover:bg-accent"
           >
             Get in touch
             <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
