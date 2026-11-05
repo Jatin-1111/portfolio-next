@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
-import { Reveal } from "@/components/site/reveal";
+import { Rule } from "@/components/site/rule";
 import { Rise } from "@/components/site/rise";
 import { Skills } from "@/components/site/skills";
 import { Section, SectionHeader } from "@/components/site/section";
@@ -24,7 +24,8 @@ export default function AboutPage() {
   return (
     <>
       {/* --------------------------------------------------------------- Intro */}
-      <section className="shell border-b border-rule pb-16 pt-20 md:pt-28">
+      <section className="shell relative pb-16 pt-20 md:pt-28">
+        <Rule edge="bottom" />
         <Rise>
           <p className="eyebrow">About</p>
           <h1 className="mt-8 max-w-[20ch] font-display text-display font-normal text-ink">
@@ -32,7 +33,8 @@ export default function AboutPage() {
           </h1>
         </Rise>
 
-        <div className="mt-12 grid gap-10 border-t border-rule pt-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
+        <div className="relative mt-12 grid gap-10 pt-10 md:grid-cols-[1.2fr_1fr] md:gap-16">
+          <Rule edge="top" inset={false} />
           <Rise delay={0.1}>
             <div className="max-w-xl space-y-5 text-[1.0625rem] leading-[1.7] text-ink-muted [&>p:first-child]:text-lead [&>p:first-child]:text-ink">
               <p>
@@ -113,8 +115,8 @@ export default function AboutPage() {
         <SectionHeader label="Experience" title="Roles in full" />
 
         <div className="mt-2">
-          {experience.map((role, i) => (
-            <Reveal key={role.company} delay={i * 0.05}>
+          {experience.map((role) => (
+            <div data-reveal key={role.company}>
               <div className="grid gap-6 border-b border-rule py-12 md:grid-cols-[1fr_2fr] md:gap-12">
                 <div className="md:sticky md:top-28 md:self-start">
                   <h3 className="font-display text-heading text-ink">
@@ -157,7 +159,7 @@ export default function AboutPage() {
                   </ul>
                 </div>
               </div>
-            </Reveal>
+            </div>
           ))}
         </div>
       </Section>
@@ -172,8 +174,8 @@ export default function AboutPage() {
       <Section className="border-t border-rule">
         <SectionHeader label="Beyond work" title="Leadership & community" />
         <ul className="mt-2">
-          {involvement.map((item, i) => (
-            <Reveal as="li" key={`${item.org}-${item.period}`} delay={i * 0.04}>
+          {involvement.map((item) => (
+            <li data-reveal key={`${item.org}-${item.period}`}>
               <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-b border-rule py-6">
                 <div>
                   <p className="font-medium text-ink">{item.role}</p>
@@ -181,15 +183,15 @@ export default function AboutPage() {
                 </div>
                 <span className="label">{item.period}</span>
               </div>
-            </Reveal>
+            </li>
           ))}
         </ul>
       </Section>
 
       {/* ----------------------------------------------------------------- CTA */}
       <Section className="border-t border-rule">
-        <Reveal>
-          <h2 className="max-w-[18ch] font-display text-title text-ink">
+        <div data-reveal>
+          <h2 data-mask className="max-w-[18ch] font-display text-title text-ink">
             Let&apos;s talk about what you&apos;re building.
           </h2>
           <Link
@@ -199,7 +201,7 @@ export default function AboutPage() {
             Get in touch
             <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-        </Reveal>
+        </div>
       </Section>
     </>
   );

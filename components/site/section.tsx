@@ -12,10 +12,18 @@ export function SectionHeader({
   link?: { label: string; href: string };
 }) {
   return (
-    <div className="flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-5">
+    <div className="relative flex flex-wrap items-end justify-between gap-4 pb-5">
+      {/* Hairline is an element, not a border, so it can draw in on scroll */}
+      <span
+        data-rule
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-px bg-rule"
+      />
       <div>
         <p className="eyebrow">{label}</p>
-        <h2 className="mt-5 font-display text-title text-ink">{title}</h2>
+        <h2 data-mask className="mt-5 font-display text-title text-ink">
+          {title}
+        </h2>
       </div>
       {link && (
         <Link

@@ -1,4 +1,3 @@
-import { Reveal } from "@/components/site/reveal";
 import { skills } from "@/lib/content/experience";
 
 /**
@@ -8,8 +7,8 @@ import { skills } from "@/lib/content/experience";
 export function Skills() {
   return (
     <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-      {skills.map((group, i) => (
-        <Reveal key={group.group} delay={i * 0.04}>
+      {skills.map((group) => (
+        <div data-reveal key={group.group}>
           <div className="border-t border-ink pt-4">
             <p className="subhead">{group.group}</p>
             <ul className="mt-4 flex flex-wrap gap-2">
@@ -23,7 +22,7 @@ export function Skills() {
               ))}
             </ul>
           </div>
-        </Reveal>
+        </div>
       ))}
     </div>
   );

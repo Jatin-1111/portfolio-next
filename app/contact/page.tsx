@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Rise } from "@/components/site/rise";
+import { Rule } from "@/components/site/rule";
 import { ContactForm } from "@/components/site/contact-form";
 import { site, socials } from "@/lib/site";
 
@@ -13,7 +14,8 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="shell border-b border-rule pb-14 pt-20 md:pt-28">
+      <section className="shell relative pb-14 pt-20 md:pt-28">
+        <Rule edge="bottom" />
         <Rise>
           <p className="eyebrow">Contact</p>
           <h1 className="mt-8 max-w-[16ch] font-display text-display font-normal text-ink">

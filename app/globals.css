@@ -301,6 +301,75 @@
     }
   }
 
+  /* Route change: a quick fade, see app/template.tsx */
+  .page-in {
+    animation: page-in 0.35s var(--ease-out-editorial) both;
+  }
+
+  @keyframes page-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Mobile menu: panel eases down, links follow one after another */
+  .menu-in {
+    animation: menu-in 0.3s var(--ease-out-editorial) both;
+  }
+
+  .menu-link {
+    animation: menu-link 0.45s var(--ease-out-editorial) both;
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes menu-link {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Hero headline: each word rises out of its own mask. CSS, so it runs at
+     first paint with the server-rendered HTML rather than after hydration. */
+  .word-mask {
+    display: inline-block;
+    overflow: hidden;
+    padding-block: 0.12em;
+    margin-block: -0.12em;
+    vertical-align: bottom;
+  }
+
+  .word {
+    display: inline-block;
+    animation: word-rise 0.9s var(--ease-out-editorial) both;
+  }
+
+  @keyframes word-rise {
+    from {
+      transform: translateY(105%);
+    }
+    to {
+      transform: none;
+    }
+  }
+
   /* Underline that draws on hover, the single link idiom of the site */
   .link-rule {
     background-image: linear-gradient(currentColor, currentColor);

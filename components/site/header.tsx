@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -17,6 +18,14 @@ export function Header() {
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  // Hairline under the header only appears once content scrolls beneath it
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Lock scroll while the mobile menu is open
   useEffect(() => {
@@ -62,7 +71,12 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-rule bg-paper/85 backdrop-blur-md">
+    <header
+      className={cn(
+        "sticky top-0 z-50 border-b bg-paper/85 backdrop-blur-md transition-[border-color] duration-300",
+        scrolled ? "border-rule" : "border-transparent",
+      )}
+    >
       <div className="shell flex h-16 items-center justify-between md:h-20">
         <Link
           href="/"
@@ -119,16 +133,17 @@ export function Header() {
         <div
           id="mobile-menu"
           ref={menuRef}
-          className="border-t border-rule bg-paper md:hidden"
+          className="menu-in border-t border-rule bg-paper md:hidden"
         >
           <div className="shell flex flex-col py-4">
-            {nav.map((item) => (
+            {nav.map((item, i) => (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={pathname.startsWith(item.href) ? "page" : undefined}
+                style={{ animationDelay: `${0.05 + i * 0.05}s` }}
                 className={cn(
-                  "border-b border-rule py-4 font-display text-heading",
+                  "menu-link border-b border-rule py-4 font-display text-heading",
                   pathname.startsWith(item.href) ? "text-accent" : "text-ink",
                 )}
               >
@@ -138,7 +153,8 @@ export function Header() {
             <a
               href={site.resume}
               download
-              className="py-4 font-display text-heading text-accent"
+              style={{ animationDelay: `${0.05 + nav.length * 0.05}s` }}
+              className="menu-link py-4 font-display text-heading text-accent"
             >
               Résumé
             </a>

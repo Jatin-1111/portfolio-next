@@ -4,8 +4,8 @@ import { nav, site, socials } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="mt-32 border-t border-rule bg-paper-sunken">
-      <div className="shell py-16 md:py-24">
-        <p className="eyebrow">Get in touch</p>
+      <div data-reveal className="shell py-16 md:py-24">
+        <p className="eyebrow flex! w-fit">Get in touch</p>
         <a
           href={`mailto:${site.email}`}
           className="link-rule mt-5 inline-block break-all font-display text-[clamp(1.75rem,5vw,3.5rem)] leading-tight tracking-[-0.02em] text-ink hover:text-accent"
@@ -14,7 +14,12 @@ export function Footer() {
         </a>
         <p className="mt-3 text-ink-muted">{site.location}</p>
 
-        <div className="mt-16 flex flex-col gap-8 border-t border-rule pt-8 md:flex-row md:items-center md:justify-between">
+        <div className="relative mt-16 flex flex-col gap-8 pt-8 md:flex-row md:items-center md:justify-between">
+          <span
+            data-rule
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 h-px bg-rule"
+          />
           <nav aria-label="Footer" className="flex flex-wrap gap-x-7 gap-y-3">
             {nav.map((item) => (
               <Link

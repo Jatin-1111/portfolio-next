@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import { SpotlightLink } from "@/components/site/spotlight-link";
-import { Reveal } from "@/components/site/reveal";
+import { Rule } from "@/components/site/rule";
 import { Rise } from "@/components/site/rise";
 import { projects } from "@/lib/content/projects";
 
@@ -15,7 +15,8 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <>
-      <section className="shell border-b border-rule pb-14 pt-20 md:pt-28">
+      <section className="shell relative pb-14 pt-20 md:pt-28">
+        <Rule edge="bottom" />
         <Rise>
           <p className="eyebrow">Work</p>
           <h1 className="mt-8 max-w-[20ch] font-display text-display font-normal text-ink">
@@ -33,7 +34,7 @@ export default function WorkPage() {
       <div className="shell pb-10 pt-14">
         <ul className="grid gap-5">
           {projects.map((project, i) => (
-            <Reveal as="li" key={project.slug} delay={i * 0.06}>
+            <li data-reveal key={project.slug}>
               <SpotlightLink
                 href={`/work/${project.slug}`}
                 className="surface group grid gap-8 p-7 md:grid-cols-[5rem_1fr] md:p-10"
@@ -71,7 +72,7 @@ export default function WorkPage() {
                   </div>
                 </div>
               </SpotlightLink>
-            </Reveal>
+            </li>
           ))}
         </ul>
       </div>

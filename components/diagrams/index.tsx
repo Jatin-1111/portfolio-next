@@ -220,6 +220,7 @@ function Figure({
         className="-mx-6 overflow-x-auto px-6 md:mx-0 md:px-0"
       >
         <svg
+          data-diagram
           viewBox={viewBox}
           role="img"
           style={{ minWidth }}

@@ -3,6 +3,8 @@ import { Inter, Newsreader, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/site/header";
 import { Footer } from "@/components/site/footer";
+import { SmoothScroll } from "@/components/site/smooth-scroll";
+import { PageMotion } from "@/components/site/page-motion";
 import { StructuredData } from "@/components/site/structured-data";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, site } from "@/lib/site";
@@ -82,6 +84,8 @@ export default function RootLayout({
     >
       <body className="antialiased">
         <StructuredData />
+        <SmoothScroll />
+        <PageMotion />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"

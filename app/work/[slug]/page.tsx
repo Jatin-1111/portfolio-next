@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { Reveal } from "@/components/site/reveal";
+import { Rule } from "@/components/site/rule";
 import { Rise } from "@/components/site/rise";
 import { Diagram } from "@/components/diagrams";
 import { CaseStudyNav } from "@/components/site/case-study-nav";
@@ -49,7 +49,8 @@ export default async function ProjectPage({ params }: Params) {
     <article>
       <ReadingProgress />
       {/* --------------------------------------------------------------- Head */}
-      <header className="shell border-b border-rule pb-14 pt-16 md:pt-24">
+      <header className="shell relative pb-14 pt-16 md:pt-24">
+        <Rule edge="bottom" />
         <Link
           href="/work"
           className="group inline-flex items-center gap-2 text-sm text-ink-muted transition-colors hover:text-accent"
@@ -92,7 +93,7 @@ export default async function ProjectPage({ params }: Params) {
         {/* Spec column: part of the article, not complementary to it, so this
             is a div rather than an aside (an aside nested in main is invalid) */}
         <div className="md:sticky md:top-28 md:self-start">
-          <dl className="surface space-y-5 p-5">
+          <dl data-reveal className="surface space-y-5 p-5">
             {project.facts.map((fact) => (
               <div key={fact.label} className="border-t border-rule pt-3 first:border-t-0 first:pt-0">
                 <dt className="subhead">{fact.label}</dt>
@@ -117,7 +118,7 @@ export default async function ProjectPage({ params }: Params) {
         {/* Narrative column: prose keeps a readable measure, figures run wider */}
         <div className="min-w-0">
           {project.sections.map((section, i) => (
-            <Reveal key={section.heading} delay={i * 0.04}>
+            <div data-reveal key={section.heading}>
               <section
                 id={slugify(section.heading)}
                 className="mb-14 scroll-mt-28 last:mb-0"
@@ -126,7 +127,7 @@ export default async function ProjectPage({ params }: Params) {
                   <p className="eyebrow tabular-nums">
                     {String(i + 1).padStart(2, "0")}
                   </p>
-                  <h2 className="mt-3 font-display text-title text-ink">
+                  <h2 data-mask className="mt-3 font-display text-title text-ink">
                     {section.heading}
                   </h2>
                   <div className="mt-6 space-y-5">
@@ -146,7 +147,7 @@ export default async function ProjectPage({ params }: Params) {
                 </div>
                 {section.diagram && <Diagram name={section.diagram} />}
               </section>
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>

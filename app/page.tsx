@@ -1,6 +1,6 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
-import { Reveal } from "@/components/site/reveal";
 import { SpotlightLink } from "@/components/site/spotlight-link";
 import { Rise } from "@/components/site/rise";
 import { Skills } from "@/components/site/skills";
@@ -15,13 +15,32 @@ function bentoSpan(count: number, i: number) {
   return i === 0 ? "md:col-span-6" : "md:col-span-3";
 }
 
+/** One word of the hero headline: masked, then lifted into place by CSS. */
+function Word({ i, children }: { i: number; children: ReactNode }) {
+  return (
+    <span className="word-mask">
+      <span className="word" style={{ animationDelay: `${0.1 + i * 0.07}s` }}>
+        {children}
+      </span>
+    </span>
+  );
+}
+
 export default function HomePage() {
   const current = experience[0];
 
   return (
     <>
       {/* ---------------------------------------------------------------- Hero */}
-      <section className="shell border-b border-rule pb-16 pt-20 md:pb-24 md:pt-32">
+      <section
+        data-hero
+        className="shell relative pb-16 pt-20 md:pb-24 md:pt-32"
+      >
+        <span
+          data-rule
+          aria-hidden="true"
+          className="absolute inset-x-6 bottom-0 h-px bg-rule md:inset-x-10"
+        />
         <Rise>
           <p className="label flex flex-wrap items-center gap-x-3 gap-y-2">
             <span className="status-dot" aria-hidden="true" />
@@ -33,14 +52,41 @@ export default function HomePage() {
           </p>
         </Rise>
 
-        <Rise delay={0.06}>
-          <h1 className="mt-8 max-w-[14ch] font-display text-[clamp(3.25rem,9vw,7rem)] font-normal leading-[0.94] tracking-[-0.035em] text-ink">
-            I build web systems that <span className="em-serif">hold up</span>{" "}
-            in production.
-          </h1>
-        </Rise>
+        <h1
+          data-hero-title
+          aria-label="I build web systems that hold up in production."
+          className="mt-8 max-w-[14ch] font-display text-[clamp(3.25rem,9vw,7rem)] font-normal leading-[0.94] tracking-[-0.035em] text-ink"
+        >
+          <span aria-hidden="true">
+            <Word i={0}>I</Word> <Word i={1}>build</Word> <Word i={2}>web</Word>{" "}
+            <Word i={3}>systems</Word> <Word i={4}>that</Word>{" "}
+            <span className="em-serif relative inline-block">
+              <Word i={5}>hold</Word> <Word i={6}>up</Word>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 200 12"
+                className="absolute -bottom-[0.06em] left-0 h-auto w-full overflow-visible"
+              >
+                <path
+                  data-hero-underline
+                  d="M2 8 C 40 2, 80 11, 120 6 S 180 4, 198 7"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>{" "}
+            <Word i={7}>in</Word> <Word i={8}>production.</Word>
+          </span>
+        </h1>
 
-        <div className="mt-12 grid gap-10 border-t border-rule pt-10 md:grid-cols-[1.1fr_1fr] md:gap-16">
+        <div className="relative mt-12 grid gap-10 pt-10 md:grid-cols-[1.1fr_1fr] md:gap-16">
+          <span
+            data-hero-rule
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 h-px bg-rule-strong"
+          />
           <Rise delay={0.12}>
             <p className="max-w-xl text-lead text-ink">
               Full-stack developer with a year of shipping production software:
@@ -73,6 +119,7 @@ export default function HomePage() {
 
           {/* Currently: the strongest single credential, given its own frame */}
           <Rise delay={0.18}>
+            <div data-hero-card>
             <div className="surface p-7 md:p-8">
               <p className="subhead">Currently</p>
               <p className="mt-4 font-display text-heading text-ink">
@@ -94,6 +141,7 @@ export default function HomePage() {
               </p>
               <p className="label mt-6">{current.period}</p>
             </div>
+            </div>
           </Rise>
         </div>
       </section>
@@ -108,10 +156,9 @@ export default function HomePage() {
 
         <ul className="mt-12 grid gap-5 md:grid-cols-6">
           {featuredProjects.map((project, i) => (
-            <Reveal
-              as="li"
+            <li
+              data-reveal
               key={project.slug}
-              delay={i * 0.06}
               className={bentoSpan(featuredProjects.length, i)}
             >
               <SpotlightLink
@@ -140,7 +187,7 @@ export default function HomePage() {
                   ))}
                 </ul>
               </SpotlightLink>
-            </Reveal>
+            </li>
           ))}
         </ul>
       </Section>
@@ -154,8 +201,8 @@ export default function HomePage() {
         />
 
         <ul className="mt-2">
-          {experience.map((role, i) => (
-            <Reveal as="li" key={role.company} delay={i * 0.06}>
+          {experience.map((role) => (
+            <li data-reveal key={role.company}>
               <div className="grid gap-2 border-b border-rule py-8 md:grid-cols-[1fr_2fr] md:gap-10">
                 <div>
                   <h3 className="font-display text-xl tracking-tight text-ink">
@@ -171,7 +218,7 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
+            </li>
           ))}
         </ul>
       </Section>
@@ -185,7 +232,7 @@ export default function HomePage() {
 
       {/* ----------------------------------------------------------------- CTA */}
       <Section className="border-t border-rule">
-        <Reveal>
+        <div data-reveal>
           <p className="eyebrow">Next</p>
           <h2 className="mt-6 max-w-[18ch] font-display text-title text-ink">
             Hiring, or have something to build?
@@ -209,7 +256,7 @@ export default function HomePage() {
               {site.email}
             </a>
           </div>
-        </Reveal>
+        </div>
       </Section>
     </>
   );
