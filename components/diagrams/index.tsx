@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { XrayToggle } from "./xray-toggle";
 
 /* ---------------------------------------------------------------------------
    Diagram primitives
@@ -189,18 +190,31 @@ function Label({
 
 /** Wrapper: scrolls horizontally on narrow screens instead of squashing. */
 function Figure({
+  bare = false,
   title,
   caption,
   viewBox,
   minWidth,
   children,
 }: {
+  bare?: boolean;
   title: string;
   caption: string;
   viewBox: string;
   minWidth: number;
   children: ReactNode;
 }) {
+  // Preview on the work index: decoration beside a link that names the
+  // project, so it is hidden from assistive tech and never builds on scroll.
+  if (bare) {
+    return (
+      <svg data-diagram-bare viewBox={viewBox} aria-hidden="true" className="h-auto w-full">
+        <Defs />
+        {children}
+      </svg>
+    );
+  }
+
   return (
     <figure className="my-10 border-y border-rule py-8">
       {/*
@@ -231,7 +245,10 @@ function Figure({
           {children}
         </svg>
       </div>
-      <figcaption className="mt-6 text-sm text-ink-faint">{caption}</figcaption>
+      <figcaption className="mt-6 flex flex-col gap-4 text-sm text-ink-faint sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+        <span className="max-w-xl">{caption}</span>
+        <XrayToggle />
+      </figcaption>
     </figure>
   );
 }
@@ -240,9 +257,10 @@ function Figure({
    PowerMySport: payment webhook reconciliation
    --------------------------------------------------------------------------- */
 
-function PaymentOutbox() {
+function PaymentOutbox({ bare }: { bare?: boolean }) {
   return (
     <Figure
+      bare={bare}
       title="PhonePe webhook reconciliation through a transactional outbox"
       caption="The provider is acknowledged immediately; the order transition happens durably in a worker. Signature verification, a unique event id and atomic claiming are what make it exactly-once."
       viewBox="0 0 880 330"
@@ -323,9 +341,10 @@ function PaymentOutbox() {
    PowerMySport: monorepo topology
    --------------------------------------------------------------------------- */
 
-function Monorepo() {
+function Monorepo({ bare }: { bare?: boolean }) {
   return (
     <Figure
+      bare={bare}
       title="Turborepo monorepo topology across three applications and one API"
       caption="Three deployable frontends, one shared types package, one domain-organised API. The storefront is a route group inside the client app, not a fourth deployment."
       viewBox="0 0 880 470"
@@ -407,9 +426,10 @@ function Monorepo() {
    Ping Pilott: split queues
    --------------------------------------------------------------------------- */
 
-function QueueSplit() {
+function QueueSplit({ bare }: { bare?: boolean }) {
   return (
     <Figure
+      bare={bare}
       title="Split monitor and alert queues with status-transition alerting"
       caption="Two queues and two workers. Health checks keep running and recording state even when alert delivery is slow or failing; the failure modes stay separate."
       viewBox="0 0 880 350"
@@ -475,9 +495,10 @@ function QueueSplit() {
    Social It Up: edge gating of the internal surface
    --------------------------------------------------------------------------- */
 
-function EdgeGating() {
+function EdgeGating({ bare }: { bare?: boolean }) {
   return (
     <Figure
+      bare={bare}
       title="Middleware gating of internal routes by environment"
       caption="Public pages render normally. Internal routes return a 404 in production rather than a login screen, so the tooling is not discoverable at all, while staying reachable in the environments where the team uses it."
       viewBox="0 0 880 350"
@@ -549,7 +570,14 @@ export const diagrams = {
 
 export type DiagramKey = keyof typeof diagrams;
 
-export function Diagram({ name }: { name: DiagramKey }) {
+export function Diagram({
+  name,
+  bare = false,
+}: {
+  name: DiagramKey;
+  /** Just the drawing: no frame, caption or controls (work index preview) */
+  bare?: boolean;
+}) {
   const Component = diagrams[name];
-  return <Component />;
+  return <Component bare={bare} />;
 }

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { ArrowUpRight } from "lucide-react";
-import { SpotlightLink } from "@/components/site/spotlight-link";
 import { Rule } from "@/components/site/rule";
 import { Rise } from "@/components/site/rise";
+import { WorkIndex, type WorkItem } from "@/components/site/work-index";
+import { Diagram } from "@/components/diagrams";
 import { projects } from "@/lib/content/projects";
 
 export const metadata: Metadata = {
@@ -13,68 +13,54 @@ export const metadata: Metadata = {
 };
 
 export default function WorkPage() {
+  const items: WorkItem[] = projects.map((p) => ({
+    slug: p.slug,
+    name: p.name,
+    tagline: p.tagline,
+    year: p.year,
+    role: p.role,
+    stack: p.stack,
+    previewHeading: p.sections.find((s) => s.diagram)?.heading,
+  }));
+
+  // Each project's first architecture diagram, rendered on the server and
+  // handed to the client list as the X-ray preview.
+  const previews = projects.map((p) => {
+    const key = p.sections.find((s) => s.diagram)?.diagram;
+    return key ? <Diagram key={p.slug} name={key} bare /> : null;
+  });
+
+  const years = projects.map((p) => Number(p.year));
+
   return (
     <>
       <section className="shell relative pb-14 pt-20 md:pt-28">
         <Rule edge="bottom" />
         <Rise>
           <p className="eyebrow">Work</p>
-          <h1 className="mt-8 max-w-[20ch] font-display text-display font-normal text-ink">
+          <h1 className="mt-8 max-w-[18ch] font-display text-display font-normal text-ink">
             Three systems, explained properly.
           </h1>
-          <p className="mt-8 max-w-2xl text-lead text-ink-muted">
-            Each of these is written up as a case study rather than a
-            screenshot: the problem, the architecture, and the decisions I
-            would defend in a technical interview. Client work is described at
-            the architecture level; no proprietary code or interfaces are shown.
-          </p>
+        </Rise>
+        <Rise delay={0.08}>
+          <div className="mt-8 grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+            <p className="max-w-2xl text-lead text-ink-muted">
+              Each of these is written up as a case study rather than a
+              screenshot: the problem, the architecture, and the decisions I
+              would defend in a technical interview. Client work is described
+              at the architecture level; no proprietary code or interfaces are
+              shown.
+            </p>
+            <p className="label tabular-nums md:text-right">
+              {String(projects.length).padStart(2, "0")} case studies ·{" "}
+              {Math.min(...years)} to {Math.max(...years)}
+            </p>
+          </div>
         </Rise>
       </section>
 
-      <div className="shell pb-10 pt-14">
-        <ul className="grid gap-5">
-          {projects.map((project, i) => (
-            <li data-reveal key={project.slug}>
-              <SpotlightLink
-                href={`/work/${project.slug}`}
-                className="surface group grid gap-8 p-7 md:grid-cols-[5rem_1fr] md:p-10"
-              >
-                <span className="font-display text-5xl text-ink-faint/60 tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-
-                <div>
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-                    <h2 className="font-display text-title text-ink transition-colors group-hover:text-accent">
-                      {project.name}
-                    </h2>
-                    <span className="label">
-                      {project.year} · {project.role}
-                    </span>
-                  </div>
-
-                  <p className="mt-4 max-w-2xl text-lead text-ink-muted">
-                    {project.summary}
-                  </p>
-
-                  <div className="mt-8 flex flex-wrap items-center justify-between gap-6 border-t border-rule pt-6">
-                    <ul className="flex flex-wrap gap-x-4 gap-y-2">
-                      {project.stack.map((tech) => (
-                        <li key={tech} className="label">
-                          {tech}
-                        </li>
-                      ))}
-                    </ul>
-                    <span className="inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors group-hover:text-accent">
-                      Read case study
-                      <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </span>
-                  </div>
-                </div>
-              </SpotlightLink>
-            </li>
-          ))}
-        </ul>
+      <div className="shell pb-24 pt-14 md:pt-16">
+        <WorkIndex items={items} previews={previews} />
       </div>
     </>
   );

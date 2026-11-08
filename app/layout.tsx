@@ -81,7 +81,20 @@ export default function RootLayout({
     <html
       lang="en"
       className={`scroll-pt-24 ${inter.variable} ${newsreader.variable} ${mono.variable}`}
+      // The inline script below adds a class before hydration
+      suppressHydrationWarning
     >
+      <head>
+        {/* Runs before first paint: opts into the hero's drawn start states
+            only when motion is welcome, so reduced-motion visitors and
+            no-JS visitors always get the finished, static page. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if(window.matchMedia('(prefers-reduced-motion: no-preference)').matches)document.documentElement.classList.add('motion')",
+          }}
+        />
+      </head>
       <body className="antialiased">
         <StructuredData />
         <SmoothScroll />
