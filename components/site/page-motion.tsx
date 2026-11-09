@@ -148,24 +148,30 @@ export function PageMotion() {
       // annotations). 0.95s end to end. Inline styles are cleared afterwards
       // so hover and X-ray mode (CSS) take over.
       q("[data-diagram]").forEach((svg) => {
-        const nodes = svg.querySelectorAll(":scope > g");
-        const solid = svg.querySelectorAll(":scope > line:not([stroke-dasharray]), :scope > path:not([stroke-dasharray])");
-        const dashed = svg.querySelectorAll(":scope > line[stroke-dasharray], :scope > path[stroke-dasharray]");
-        const labels = svg.querySelectorAll(":scope > text");
-        gsap.set([nodes, dashed, labels], { opacity: 0 });
+        // Plain arrays, not NodeLists: GSAP passes an empty NodeList nested in
+        // a target array through as a target itself and then throws on it
+        // (some diagrams have no dashed connectors).
+        const all = (sel: string) => [...svg.querySelectorAll<SVGElement>(sel)];
+        const nodes = all(":scope > g");
+        const solid = all(":scope > line:not([stroke-dasharray]), :scope > path:not([stroke-dasharray])");
+        const dashed = all(":scope > line[stroke-dasharray], :scope > path[stroke-dasharray]");
+        const labels = all(":scope > text");
+        const faded = [...nodes, ...dashed, ...labels];
+        if (!faded.length && !solid.length) return;
+        gsap.set(faded, { opacity: 0 });
         gsap.set(nodes, { y: 8 });
         gsap.set(solid, { drawSVG: "0%" });
         gsap
           .timeline({
             scrollTrigger: { trigger: svg, start: "top 82%", once: true },
             onComplete: () => {
-              gsap.set([nodes, dashed, labels], { clearProps: "opacity,transform" });
+              gsap.set(faded, { clearProps: "opacity,transform" });
               gsap.set(solid, { clearProps: "strokeDasharray,strokeDashoffset" });
             },
           })
           .to(nodes, { opacity: 1, y: 0, duration: 0.4, stagger: { amount: 0.25 } }, 0)
           .to(solid, { drawSVG: "100%", duration: 0.45, ease: "power2.inOut", stagger: { amount: 0.2 } }, 0.25)
-          .to([dashed, labels], { opacity: 1, duration: 0.3, stagger: { amount: 0.15 } }, 0.5);
+          .to([...dashed, ...labels], { opacity: 1, duration: 0.3, stagger: { amount: 0.15 } }, 0.5);
       });
 
       // Cards and rows rise in, staggered in reading order when they arrive together.
