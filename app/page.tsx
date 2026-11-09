@@ -1,8 +1,7 @@
-import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { SpotlightLink } from "@/components/site/spotlight-link";
-import { Rise } from "@/components/site/rise";
+import { Hero } from "@/components/site/hero";
 import { Skills } from "@/components/site/skills";
 import { Section, SectionHeader } from "@/components/site/section";
 import { featuredProjects } from "@/lib/content/projects";
@@ -15,136 +14,10 @@ function bentoSpan(count: number, i: number) {
   return i === 0 ? "md:col-span-6" : "md:col-span-3";
 }
 
-/** One word of the hero headline: masked, then lifted into place by CSS. */
-function Word({ i, children }: { i: number; children: ReactNode }) {
-  return (
-    <span className="word-mask">
-      <span className="word" style={{ animationDelay: `${0.1 + i * 0.07}s` }}>
-        {children}
-      </span>
-    </span>
-  );
-}
-
 export default function HomePage() {
-  const current = experience[0];
-
   return (
     <>
-      {/* ---------------------------------------------------------------- Hero */}
-      <section
-        data-hero
-        className="shell relative pb-16 pt-20 md:pb-24 md:pt-32"
-      >
-        <span
-          data-rule
-          aria-hidden="true"
-          className="absolute inset-x-6 bottom-0 h-px bg-rule md:inset-x-10"
-        />
-        <Rise>
-          <p className="label flex flex-wrap items-center gap-x-3 gap-y-2">
-            <span className="status-dot" aria-hidden="true" />
-            <span>Open to roles and select freelance work</span>
-            <span aria-hidden="true">·</span>
-            <span>
-              {site.role}, {site.location}
-            </span>
-          </p>
-        </Rise>
-
-        <h1
-          data-hero-title
-          aria-label="I build web systems that hold up in production."
-          className="mt-8 max-w-[14ch] font-display text-[clamp(3.25rem,9vw,7rem)] font-normal leading-[0.94] tracking-[-0.035em] text-ink"
-        >
-          <span aria-hidden="true">
-            <Word i={0}>I</Word> <Word i={1}>build</Word> <Word i={2}>web</Word>{" "}
-            <Word i={3}>systems</Word> <Word i={4}>that</Word>{" "}
-            <span className="em-serif relative inline-block">
-              <Word i={5}>hold</Word> <Word i={6}>up</Word>
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 200 12"
-                className="absolute -bottom-[0.06em] left-0 h-auto w-full overflow-visible"
-              >
-                <path
-                  data-hero-underline
-                  d="M2 8 C 40 2, 80 11, 120 6 S 180 4, 198 7"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>{" "}
-            <Word i={7}>in</Word> <Word i={8}>production.</Word>
-          </span>
-        </h1>
-
-        <div className="relative mt-12 grid gap-10 pt-10 md:grid-cols-[1.1fr_1fr] md:gap-16">
-          <span
-            data-hero-rule
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 h-px bg-rule-strong"
-          />
-          <Rise delay={0.12}>
-            <p className="max-w-xl text-lead text-ink">
-              Full-stack developer with a year of shipping production software:
-              payments over webhooks, real-time features, background job queues,
-              role-based access control and cloud deployment. I&apos;ve owned
-              projects end to end across freelance, part-time and team-lead
-              roles.
-            </p>
-
-            <div className="mt-10 flex flex-wrap items-center gap-3">
-              <Link
-                href="/work"
-                className="group inline-flex items-center gap-2 btn rounded-md bg-ink px-6 py-3.5 text-sm text-paper hover:bg-accent"
-              >
-                View selected work
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <a
-                href={site.resume}
-                download
-                type="application/pdf"
-                className="btn inline-flex items-center gap-2 rounded-md border border-rule-strong px-6 py-3.5 text-sm text-ink hover:border-ink"
-              >
-                <Download className="size-4" />
-                Résumé
-                <span className="label">PDF</span>
-              </a>
-            </div>
-          </Rise>
-
-          {/* Currently: the strongest single credential, given its own frame */}
-          <Rise delay={0.18}>
-            <div data-hero-card>
-            <div className="surface p-7 md:p-8">
-              <p className="subhead">Currently</p>
-              <p className="mt-4 font-display text-heading text-ink">
-                {current.role}
-              </p>
-              <a
-                href={current.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group mt-1 inline-flex items-center gap-1 text-ink-muted transition-colors hover:text-accent"
-              >
-                <span className="link-rule">{current.company}</span>
-                <ArrowUpRight className="size-3.5" />
-              </a>
-              <p className="mt-5 leading-relaxed text-ink-muted">
-                Leading engineering on a Turborepo monorepo of three Next.js
-                applications over one shared TypeScript API: payments,
-                bookings, real-time delivery and layered access control.
-              </p>
-              <p className="label mt-6">{current.period}</p>
-            </div>
-            </div>
-          </Rise>
-        </div>
-      </section>
+      <Hero />
 
       {/* -------------------------------------------------------- Selected work */}
       <Section>
