@@ -102,7 +102,7 @@ export const education = {
 };
 
 export const skills: { group: string; items: string[] }[] = [
-  { group: "Languages", items: ["TypeScript", "JavaScript", "SQL"] },
+  { group: "Languages", items: ["TypeScript", "JavaScript", "Python", "C++", "C", "SQL"] },
   {
     group: "Frontend",
     items: ["React.js", "Next.js", "Tailwind CSS", "Framer Motion", "Redux"],
