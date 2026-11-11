@@ -239,6 +239,56 @@
     background-size: 100% 1px;
   }
 
+  /* ---- Hero backdrop (components/site/hero-backdrop.tsx) ---- */
+  .hero-backdrop {
+    opacity: 1;
+    transition: opacity 1.4s var(--ease-out-expo);
+  }
+
+  html.build .hero-backdrop {
+    opacity: 0;
+  }
+
+  .hero-bg-dim {
+    filter: brightness(0.5);
+  }
+
+  /* Darken, no tint: a heavy fade behind the headline on the left, a lighter
+     one over the right, and a fade into the page at the bottom */
+  .hero-scrim {
+    background:
+      linear-gradient(
+        90deg,
+        rgb(11 11 13 / 0.92) 0%,
+        rgb(11 11 13 / 0.74) 36%,
+        rgb(11 11 13 / 0.4) 68%,
+        rgb(11 11 13 / 0.28) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgb(11 11 13 / 0.55) 0%,
+        transparent 24%,
+        transparent 52%,
+        var(--color-bg) 100%
+      );
+  }
+
+  /* Neutral flashlight: a brighter copy of the photo shown through a soft
+     circle at the pointer */
+  .hero-bg-lit {
+    opacity: 0.55;
+    -webkit-mask-image: radial-gradient(
+      circle 18rem at var(--mx, -9999px) var(--my, -9999px),
+      #000 0%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      circle 18rem at var(--mx, -9999px) var(--my, -9999px),
+      #000 0%,
+      transparent 100%
+    );
+  }
+
   /* Small mono tag, used for stack and skill lists */
   .chip {
     display: inline-block;

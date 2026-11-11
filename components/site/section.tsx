@@ -10,14 +10,18 @@ export function Section({
   tag,
   children,
   className = "",
+  background,
 }: {
   id: string;
   tag: string;
   children: ReactNode;
   className?: string;
+  /** Full-bleed layer behind the section content */
+  background?: ReactNode;
 }) {
   return (
     <section id={id} data-section={id} className="relative">
+      {background}
       <div className={`shell relative py-14 md:py-20 ${className}`}>
         <span
           className="frame-outline"
