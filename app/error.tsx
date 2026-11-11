@@ -19,15 +19,15 @@ export default function Error({
   return (
     <section className="shell flex min-h-[60vh] flex-col justify-center py-24">
       <p className="eyebrow">Something went wrong</p>
-      <h1 className="mt-8 max-w-[18ch] font-display text-display font-normal text-ink">
+      <h1 className="mt-8 max-w-[18ch] font-display text-display font-normal text-fg">
         That didn&apos;t load.
       </h1>
-      <p className="mt-6 max-w-lg text-lead text-ink-muted">
+      <p className="mt-6 max-w-lg text-lead text-fg-muted">
         An unexpected error stopped this page from rendering. Trying again often
         works. If it doesn&apos;t, email me at{" "}
         <a
           href={`mailto:${site.email}`}
-          className="link-rule text-ink hover:text-accent"
+          className="link-rule text-fg hover:text-accent"
         >
           {site.email}
         </a>{" "}
@@ -42,14 +42,14 @@ export default function Error({
         <button
           type="button"
           onClick={reset}
-          className="btn group inline-flex items-center gap-2 rounded-md bg-ink px-6 py-3.5 text-sm text-paper hover:bg-accent"
+          className="btn group inline-flex items-center gap-2 rounded-md bg-fg px-6 py-3.5 text-sm text-bg hover:bg-accent"
         >
           <RotateCw className="size-4 transition-transform duration-500 group-hover:rotate-180" />
           Try again
         </button>
         <Link
           href="/"
-          className="btn group inline-flex items-center gap-2 rounded-md border border-rule-strong px-6 py-3.5 text-sm text-ink hover:border-ink"
+          className="btn group inline-flex items-center gap-2 rounded-md border border-line-strong px-6 py-3.5 text-sm text-fg hover:border-fg"
         >
           <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-1" />
           Back home

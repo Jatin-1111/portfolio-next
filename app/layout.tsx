@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Newsreader, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/site/header";
-import { Footer } from "@/components/site/footer";
-import { SmoothScroll } from "@/components/site/smooth-scroll";
-import { PageMotion } from "@/components/site/page-motion";
+import { Nav } from "@/components/site/nav";
+import { NavSpy } from "@/components/site/nav-spy";
+import { BuildIntro } from "@/components/build/build-intro";
 import { StructuredData } from "@/components/site/structured-data";
 import { Analytics } from "@vercel/analytics/next";
 import { SITE_URL, site } from "@/lib/site";
@@ -80,34 +79,37 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`scroll-pt-24 ${inter.variable} ${newsreader.variable} ${mono.variable}`}
-      // The inline script below adds a class before hydration
+      className={`${inter.variable} ${newsreader.variable} ${mono.variable}`}
+      // The inline script below adds the `build` class before hydration
       suppressHydrationWarning
     >
       <head>
-        {/* Runs before first paint: opts into the hero's drawn start states
-            only when motion is welcome, so reduced-motion visitors and
-            no-JS visitors always get the finished, static page. */}
+        {/* Runs before first paint. First visit in a session: opt into the
+            build-up intro (CSS hides every [data-b] piece while html.build
+            is set). Return visits and deep links get the finished page.
+            The timeout is a failsafe so content can never stay hidden. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "if(window.matchMedia('(prefers-reduced-motion: no-preference)').matches)document.documentElement.classList.add('motion')",
+              "(function(){try{var d=document.documentElement;if(sessionStorage.getItem('pf-built')||location.hash)return;d.classList.add('build');window.__pfFailsafe=setTimeout(function(){d.classList.remove('build')},30000)}catch(e){}})()",
           }}
         />
       </head>
       <body className="antialiased">
         <StructuredData />
-        <SmoothScroll />
-        <PageMotion />
+        <div className="canvas-grid" aria-hidden="true" />
+        <Nav />
+        <NavSpy />
+        <BuildIntro />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-fg focus:px-4 focus:py-2 focus:text-bg"
         >
           Skip to content
         </a>
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
+        <main id="main" className="relative z-10">
+          {children}
+        </main>
         <Analytics />
       </body>
     </html>

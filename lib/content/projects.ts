@@ -1,4 +1,5 @@
-import type { DiagramKey } from "@/components/diagrams";
+/** Key of an architecture diagram; the dark diagram set is rebuilt in a later step */
+export type DiagramKey = "monorepo" | "payment-outbox" | "queue-split" | "edge-gating";
 
 export type ProjectLink = { label: string; href: string };
 

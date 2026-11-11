@@ -25,8 +25,8 @@ export default function GlobalError({
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
-          background: "#faf9f7",
-          color: "#16140f",
+          background: "#0b0b0d",
+          color: "#f1eee8",
           fontFamily:
             "ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif",
         }}
@@ -38,7 +38,7 @@ export default function GlobalError({
               fontSize: "0.6875rem",
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "#6e6860",
+              color: "#8a867e",
             }}
           >
             Something went wrong
@@ -59,11 +59,11 @@ export default function GlobalError({
               margin: "1.5rem 0 0",
               fontSize: "1.0625rem",
               lineHeight: 1.6,
-              color: "#5f5a52",
+              color: "#b3afa6",
             }}
           >
             Please try again. If this keeps happening, email{" "}
-            <a href="mailto:off.jatin1111@gmail.com" style={{ color: "#b8400f" }}>
+            <a href="mailto:off.jatin1111@gmail.com" style={{ color: "#ff8a5c" }}>
               off.jatin1111@gmail.com
             </a>
             .
@@ -74,8 +74,8 @@ export default function GlobalError({
             style={{
               marginTop: "2.5rem",
               border: 0,
-              background: "#16140f",
-              color: "#faf9f7",
+              background: "#f1eee8",
+              color: "#0b0b0d",
               padding: "0.875rem 1.5rem",
               fontSize: "0.875rem",
               cursor: "pointer",
