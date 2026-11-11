@@ -22,7 +22,7 @@ export function Hero() {
           >
             <span className="status-dot" aria-hidden="true" />
             <span>Open to roles and select freelance work</span>
-            <span className="text-fg-faint/70">
+            <span className="text-fg-faint">
               · {site.role}, {site.location}
             </span>
           </p>

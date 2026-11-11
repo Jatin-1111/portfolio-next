@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { Section, SectionHead } from "./section";
 import { projects } from "@/lib/content/projects";
 
@@ -60,15 +60,33 @@ export function Work() {
               ))}
             </ul>
 
+            <details className="group mt-6 border-t border-line pt-1">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-sm text-fg transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
+                More detail
+                <ChevronDown className="size-4 transition-transform duration-300 group-open:rotate-180" />
+              </summary>
+              <p className="mt-2 text-sm leading-relaxed text-fg-muted">
+                {project.summary}
+              </p>
+              <dl className="mt-4 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-[auto_1fr]">
+                {project.facts.map((fact) => (
+                  <div key={fact.label} className="contents">
+                    <dt className="label pt-0.5">{fact.label}</dt>
+                    <dd className="text-fg-muted">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </details>
+
             {project.links.length > 0 && (
-              <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+              <div className="mt-2 flex flex-wrap gap-x-5">
                 {project.links.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-rule inline-flex items-center gap-1 text-sm text-fg-muted hover:text-accent"
+                    className="link-rule inline-flex min-h-11 items-center gap-1 text-sm text-fg-muted hover:text-accent"
                   >
                     {link.label}
                     <ArrowUpRight className="size-3.5" />
