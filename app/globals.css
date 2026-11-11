@@ -2,42 +2,35 @@
 
 /* ---------------------------------------------------------------------------
    Design tokens
-   Editorial light: warm paper ground, near-black ink, one rust accent.
+   Dark editorial: near-black ground, soft off-white text, one warm accent.
+   Cursor colours (--color-cursor-*) are used only by the build-up intro.
    --------------------------------------------------------------------------- */
 @theme {
   /* Surfaces */
-  --color-paper: #f7f4ee;
-  --color-paper-raised: #ffffff;
-  --color-paper-sunken: #efeae1;
+  --color-bg: #0b0b0d;
+  --color-surface: #131316;
+  --color-surface-raised: #1a1a1f;
 
-  /* Ink */
-  --color-ink: #16140f;
-  --color-ink-muted: #4d483f;
-  /* Darkened from #8c867c, which measured 3.43:1 on paper, below the 4.5:1
-     WCAG AA floor. This tone holds the same warm grey at ~4.8:1. */
-  --color-ink-faint: #6e6860;
+  /* Text. fg-faint holds ~5.4:1 on bg, above the 4.5:1 AA floor */
+  --color-fg: #f1eee8;
+  --color-fg-muted: #b3afa6;
+  --color-fg-faint: #8a867e;
 
-  /* Rules */
-  --color-rule: #e3dfd7;
-  --color-rule-strong: #cdc7bb;
+  /* Lines */
+  --color-line: #232328;
+  --color-line-strong: #34343b;
 
-  /* Accent */
-  --color-accent: #b8400f;
-  --color-accent-hover: #8f3009;
-  --color-accent-wash: #fbeee7;
-
-  /* On the ink surface of the hero illustration. The rust accent is ~3:1 on
-     ink, too low for small text, so it lightens to the same hue at ~7:1. */
-  --color-accent-on-ink: #f08a5d;
-  --color-ok-on-ink: #7fc493;
-  --color-on-ink-muted: #a39d92;
+  /* Accent: the portfolio's rust, lifted for a dark ground (~8:1 on bg) */
+  --color-accent: #ff8a5c;
+  --color-accent-strong: #ff6f3a;
+  --color-accent-wash: rgb(255 138 92 / 0.1);
+  --color-ok: #7fd49a;
 
   /* Type */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
   --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
 
-  /* Editorial display scale */
   --text-display: clamp(2.75rem, 7vw, 5.25rem);
   --text-display--line-height: 0.98;
   --text-display--letter-spacing: -0.03em;
@@ -54,26 +47,41 @@
   --text-lead--line-height: 1.55;
   --text-lead--letter-spacing: -0.011em;
 
-  /* Editorial label: small, mono, tracked out */
   --text-label: 0.8125rem;
   --text-label--line-height: 1;
-  --text-label--letter-spacing: 0.14em;
-
-  /* Layout */
-  --spacing-gutter: 1.5rem;
+  --text-label--letter-spacing: 0.02em;
 
   /* Motion */
-  --ease-out-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
   * {
-    border-color: var(--color-rule);
+    border-color: var(--color-line);
   }
 
   html {
-    scroll-behavior: smooth;
+    color-scheme: dark;
     -webkit-text-size-adjust: 100%;
+    background-color: var(--color-bg);
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    scrollbar-gutter: stable;
+  }
+
+  /* Large screens: everything is sized in rem, so raising the root size
+     scales type, spacing and the diagram together instead of leaving a small
+     page floating in a big window */
+  @media (min-width: 1920px) {
+    html {
+      font-size: 112.5%;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    html {
+      font-size: 125%;
+    }
   }
 
   h1,
@@ -89,8 +97,8 @@
   body {
     font-size: 1.0625rem;
     line-height: 1.65;
-    background-color: var(--color-paper);
-    color: var(--color-ink);
+    background-color: var(--color-bg);
+    color: var(--color-fg);
     font-family: var(--font-sans);
     font-feature-settings: "cv11", "ss01";
     -webkit-font-smoothing: antialiased;
@@ -100,7 +108,7 @@
 
   ::selection {
     background-color: var(--color-accent);
-    color: var(--color-paper);
+    color: var(--color-bg);
   }
 
   :focus-visible {
@@ -108,24 +116,10 @@
     outline-offset: 3px;
     border-radius: 2px;
   }
-
-  /* Respect reduced-motion: disable all transitions and animation */
-  @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-    }
-  }
 }
 
 @layer components {
-  /* Page shell: consistent measure across every route */
+  /* Page shell: one consistent measure for the whole SPA */
   .shell {
     width: 100%;
     max-width: 72rem;
@@ -139,28 +133,48 @@
     }
   }
 
-  /* Small tracked-out mono label used for section eyebrows and metadata */
+  /* Wider measure as the window grows (px ≈ 1280, 1584, 1920) */
+  @media (min-width: 1536px) {
+    .shell {
+      max-width: 80rem;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .shell {
+      max-width: 88rem;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .shell {
+      max-width: 96rem;
+    }
+  }
+
+  /* Faint blueprint grid behind the page, so empty space reads as a canvas
+     the AI is drawing on rather than a blank screen */
+  .canvas-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.025) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 80%);
+  }
+
+  /* Small mono label for eyebrows and metadata */
   .label {
     font-family: var(--font-mono);
     font-size: var(--text-label);
     line-height: 1;
-    letter-spacing: 0.02em;
-    color: var(--color-ink-faint);
+    letter-spacing: var(--text-label--letter-spacing);
+    color: var(--color-fg-faint);
   }
 
-  /* Paper grain: fixed, inert, breaks the digital flatness of the ground */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    pointer-events: none;
-    opacity: 0.35;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.36  0 0 0 0 0.28  0 0 0 0.07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  }
-
-  /* Section eyebrow: accent, with a short leading rule. Sits above h1/h2 */
   .eyebrow {
     display: inline-flex;
     align-items: center;
@@ -168,7 +182,7 @@
     font-family: var(--font-mono);
     font-size: var(--text-label);
     line-height: 1;
-    letter-spacing: 0.02em;
+    letter-spacing: var(--text-label--letter-spacing);
     color: var(--color-accent);
   }
 
@@ -179,16 +193,6 @@
     background: currentColor;
   }
 
-  /* Sub-head inside a panel or column: quieter than an eyebrow, stronger than metadata */
-  .subhead {
-    font-family: var(--font-mono);
-    font-size: var(--text-label);
-    line-height: 1;
-    letter-spacing: 0.02em;
-    font-weight: 500;
-    color: var(--color-ink);
-  }
-
   /* Italic serif emphasis inside display headings */
   .em-serif {
     font-style: italic;
@@ -196,67 +200,65 @@
     color: var(--color-accent);
   }
 
-  /* Raised surface with a warm, tinted shadow (single light source, top left) */
+  /* Raised surface for cards */
   .surface {
-    background: var(--color-paper-raised);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
     border-radius: 0.875rem;
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.8) inset,
-      0 1px 2px rgb(60 40 20 / 0.06),
-      0 12px 32px -16px rgb(60 40 20 / 0.18);
     transition:
-      transform 0.45s var(--ease-out-editorial),
-      box-shadow 0.45s var(--ease-out-editorial);
+      border-color 0.35s var(--ease-out-expo),
+      transform 0.35s var(--ease-out-expo);
   }
 
   a.surface:hover {
-    transform: translateY(-3px);
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.8) inset,
-      0 2px 4px rgb(60 40 20 / 0.06),
-      0 24px 48px -20px rgb(184 64 15 / 0.28);
+    border-color: var(--color-line-strong);
+    transform: translateY(-2px);
   }
 
-  a.surface:active {
-    transform: translateY(0) scale(0.995);
+  .btn {
+    transition:
+      background-color 0.25s var(--ease-out-expo),
+      border-color 0.25s var(--ease-out-expo),
+      transform 0.25s var(--ease-out-expo);
   }
 
-  /* Cursor-lit surface: a soft accent wash follows the pointer (hover devices only) */
-  .spotlight {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
+  .btn:active {
+    transform: scale(0.98);
   }
 
-  .spotlight::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    opacity: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      26rem circle at var(--mx, 50%) var(--my, 50%),
-      rgb(184 64 15 / 0.09),
-      transparent 70%
-    );
-    transition: opacity 0.4s var(--ease-out-editorial);
+  /* Underline that draws on hover: the single link idiom of the site */
+  .link-rule {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.35s var(--ease-out-expo);
   }
 
-  @media (hover: hover) {
-    .spotlight:hover::before {
-      opacity: 1;
-    }
+  .link-rule:hover {
+    background-size: 100% 1px;
   }
 
-  /* Live status dot */
+  /* Small mono tag, used for stack and skill lists */
+  .chip {
+    display: inline-block;
+    padding: 0.375rem 0.625rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.375rem;
+    background: var(--color-surface-raised);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--color-fg-muted);
+  }
+
   .status-dot {
     position: relative;
     display: inline-block;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 9999px;
-    background: #3f7d4e;
+    background: var(--color-ok);
   }
 
   .status-dot::after {
@@ -265,7 +267,7 @@
     inset: 0;
     border-radius: inherit;
     background: inherit;
-    animation: ping 2.4s var(--ease-out-editorial) infinite;
+    animation: ping 2.4s var(--ease-out-expo) infinite;
   }
 
   @keyframes ping {
@@ -279,275 +281,146 @@
     }
   }
 
-  .btn {
-    transition:
-      background-color 0.25s var(--ease-out-editorial),
-      transform 0.25s var(--ease-out-editorial),
-      border-color 0.25s var(--ease-out-editorial);
-  }
-
-  .btn:active {
-    transform: scale(0.98);
-  }
-
-  /* Above-the-fold entrance. CSS rather than JS so it runs at first paint
-     instead of waiting for hydration, see components/site/rise.tsx. */
-  .rise {
-    animation: rise 0.6s var(--ease-out-editorial) both;
-  }
-
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  /* Route change: a quick fade, see app/template.tsx */
-  .page-in {
-    animation: page-in 0.35s var(--ease-out-editorial) both;
-  }
-
-  @keyframes page-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  /* Mobile menu: panel eases down, links follow one after another */
-  .menu-in {
-    animation: menu-in 0.3s var(--ease-out-editorial) both;
-  }
-
-  .menu-link {
-    animation: menu-link 0.45s var(--ease-out-editorial) both;
-  }
-
-  @keyframes menu-in {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  @keyframes menu-link {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  /* Hero headline: each word rises out of its own mask. CSS, so it runs at
-     first paint with the server-rendered HTML rather than after hydration. */
-  .word-mask {
-    display: inline-block;
+  /* ---- Build-up intro (components/build) ----
+     While <html> has the `build` class, every [data-b] piece is hidden and
+     GSAP reveals it. The class is added by an inline script before first
+     paint, and removed when the build finishes, so no-JS visitors and return
+     visits always get the finished page. */
+  html.build {
     overflow: hidden;
-    padding-block: 0.12em;
-    margin-block: -0.12em;
-    vertical-align: bottom;
+    scroll-behavior: auto;
   }
 
-  .word {
-    display: inline-block;
-    /* Spring-like settle (see lib/motion.ts): fast, then still, no overshoot */
-    animation: word-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+  html.build [data-b] {
+    opacity: 0;
+    transition: none !important;
   }
 
-  /* ---- Hero system illustration (components/site/system-morph.tsx) ----
-     Default (no JS, or reduced motion): a static dark log of all six steps.
-     Motion mode: one shape on a fixed stage, states stacked, GSAP morphs it. */
-  .morph-shell {
-    overflow: hidden;
-    border-radius: 1.125rem;
-    background: var(--color-ink);
-    box-shadow: 0 24px 48px -24px rgb(22 20 15 / 0.45);
-  }
-
-  .morph-state + .morph-state {
-    border-top: 1px solid rgb(247 244 238 / 0.08);
-  }
-
-  .morph-state[data-shape="card"] {
-    max-width: 100%;
-  }
-
-  .morph-controls {
+  /* Dashed section outline: only exists while the page is being scaffolded */
+  .frame-outline {
     display: none;
+    position: absolute;
+    inset: 0.75rem 0.25rem;
+    border: 1px dashed var(--color-line-strong);
+    border-radius: 0.75rem;
+    pointer-events: none;
   }
 
-  /* Accent dot that pulses while the request is in flight */
-  .morph-pulse,
-  .morph-live {
-    width: 0.5rem;
-    height: 0.5rem;
-    flex: none;
+  html.build .frame-outline {
+    display: block;
+  }
+
+  .build-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 70;
+  }
+
+  .bc {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+
+  .bc-arrow {
+    display: block;
+    filter: drop-shadow(0 3px 6px rgb(0 0 0 / 0.5))
+      drop-shadow(0 0 10px color-mix(in srgb, var(--c) 45%, transparent));
+  }
+
+  /* Click ripple, centred on the pointer tip */
+  .bc-ring {
+    position: absolute;
+    left: 3px;
+    top: 2px;
+    width: 26px;
+    height: 26px;
+    margin: -13px 0 0 -13px;
+    border: 1.5px solid var(--c);
     border-radius: 9999px;
-    background: var(--color-accent-on-ink);
+    opacity: 0;
   }
 
-  .morph-live {
-    background: var(--color-ok-on-ink);
+  .bc-name {
+    position: absolute;
+    left: 16px;
+    top: 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px 4px 7px;
+    border-radius: 9999px;
+    white-space: nowrap;
+    font: 600 11px/1 var(--font-sans);
+    letter-spacing: 0.01em;
+    color: #0b0b0d;
+    background: var(--c);
+    box-shadow:
+      0 0 0 1.5px rgb(255 255 255 / 0.9),
+      0 4px 12px rgb(0 0 0 / 0.45);
   }
 
-  @media (prefers-reduced-motion: no-preference) {
-    /* The shape's canvas: a sunken paper panel, so the morph has a frame
-       to live in instead of floating in empty column space */
-    .motion .morph-stage {
-      display: flex;
-      height: 22rem;
-      align-items: center;
-      justify-content: center;
-      border-radius: 1.25rem;
-      background: var(--color-paper-sunken);
-      box-shadow: inset 0 0 0 1px var(--color-rule);
-    }
-
-    /* Before hydration the shell is the opening beat: a single accent dot */
-    .motion .morph-shell {
-      position: relative;
-      width: 12px;
-      height: 12px;
-      border-radius: 9999px;
-      background: var(--color-accent-on-ink);
-    }
-
-    .motion .morph-state {
-      position: absolute;
-      top: 0;
-      left: 0;
-      visibility: hidden;
-      opacity: 0;
-      border-top: 0;
-      /* Page gutters (3rem) plus a 1rem margin inside the panel each side */
-      max-width: calc(100vw - 5rem);
-    }
-
-    .motion .morph-state[data-shape="pill"] {
-      width: max-content;
-    }
-
-    .motion .morph-controls {
-      display: flex;
-    }
-
-    .motion .morph-pulse {
-      animation: ping-soft 1.2s ease-in-out infinite alternate;
-    }
+  .bs {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    border: 1.5px solid var(--c);
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--c) 7%, transparent);
   }
 
-  @keyframes ping-soft {
-    to {
-      opacity: 0.35;
-    }
+  .bs i {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: #0b0b0d;
+    border: 1.5px solid var(--c);
   }
 
-  /* Start states for the hero drawing, set before first paint so nothing
-     flashes in its final state and then jumps back. The "motion" class is
-     added by an inline script in app/layout.tsx only when the visitor has no
-     reduced-motion preference; PageMotion (GSAP) animates these to rest. */
-  @media (prefers-reduced-motion: no-preference) {
-    .motion [data-hero-rule] {
-      transform: scaleX(0);
-      transform-origin: left;
-    }
-    .motion [data-hero-underline] {
-      stroke-dasharray: 1;
-      stroke-dashoffset: 1;
-    }
-    .motion [data-type] {
-      clip-path: inset(0 100% 0 0);
-    }
-    /* Work index rows wait for their entrance (components/site/work-index.tsx) */
-    .motion [data-work-row] {
-      opacity: 0;
-    }
+  .bs i:nth-child(1) {
+    left: -5px;
+    top: -5px;
+  }
+  .bs i:nth-child(2) {
+    right: -5px;
+    top: -5px;
+  }
+  .bs i:nth-child(3) {
+    left: -5px;
+    bottom: -5px;
+  }
+  .bs i:nth-child(4) {
+    right: -5px;
+    bottom: -5px;
   }
 
-  @keyframes word-rise {
-    from {
-      transform: translateY(105%);
-    }
-    to {
-      transform: none;
-    }
-  }
-
-  /* ---- Architecture diagrams (components/diagrams) ----
-     Hover a part to light it, like pointing at one component of an engine.
-     X-ray: everything off the critical (accent) path steps back. */
-  [data-diagram] > g rect {
-    transition: stroke 0.25s var(--ease-out-editorial);
-  }
-
-  [data-diagram] > g:hover rect {
-    stroke: var(--color-accent);
-  }
-
-  /* Work index preview: drawn at roughly half size, so the 9.5px mono
-     annotations would be unreadable. Keep the structure and the component
-     names, enlarged; the full annotated version lives on the case study. */
-  [data-diagram-bare] text[font-size="9.5"] {
-    display: none;
-  }
-
-  [data-diagram-bare] text[font-size="13"] {
-    font-size: 16px;
-    transform: translateY(4px);
-    transform-box: fill-box;
-  }
-
-  /* Armed on first X-ray use only, so it never fights GSAP's build tweens */
-  [data-diagram].xray-armed > * {
-    transition: opacity 0.35s var(--ease-out-editorial);
-  }
-
-  [data-diagram].is-xray > g:not(:has(rect[stroke="var(--color-accent)"])),
-  [data-diagram].is-xray > :is(line, path):not([stroke="var(--color-accent)"]),
-  [data-diagram].is-xray > text:not([fill="var(--color-accent)"]) {
-    opacity: 0.22;
-  }
-
-  /* Underline that draws on hover, the single link idiom of the site */
-  .link-rule {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 1px;
-    transition: background-size 0.35s var(--ease-out-editorial);
-  }
-
-  .link-rule:hover {
-    background-size: 100% 1px;
+  .frame-tag {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-50%);
+    padding-inline: 0.5rem;
+    background: var(--color-bg);
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    line-height: 1;
+    color: var(--color-fg-faint);
   }
 }
 
 /* ---------------------------------------------------------------------------
-   Print: recruiters do print these. Drop the chrome, keep the content, and
-   expose link targets that are otherwise only visible on hover.
+   Print: drop the chrome, keep the content, expose link targets.
    --------------------------------------------------------------------------- */
 @media print {
-  header,
-  footer,
-  nav[aria-label="Sections"] {
-    display: none !important;
-  }
-
-  body::before {
+  .canvas-grid {
     display: none;
   }
 
@@ -567,17 +440,5 @@
     font-size: 9pt;
     color: #444;
     word-break: break-all;
-  }
-
-  figure,
-  section,
-  li {
-    break-inside: avoid;
-  }
-
-  h1,
-  h2,
-  h3 {
-    break-after: avoid;
   }
 }
