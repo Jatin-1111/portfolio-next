@@ -1,6 +1,7 @@
 import { ArrowRight, Download } from "lucide-react";
 import { Section } from "./section";
 import { SystemDiagram } from "./system-diagram";
+import { HeroBackdrop } from "./hero-backdrop";
 import { experience } from "@/lib/content/experience";
 import { site } from "@/lib/site";
 
@@ -9,6 +10,7 @@ export function Hero() {
     <Section
       id="hero"
       tag="<Hero />"
+      background={<HeroBackdrop />}
       className="pt-28 md:pt-36 lg:flex lg:min-h-[min(100svh,70rem)] lg:items-center"
     >
       <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
