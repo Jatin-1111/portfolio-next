@@ -1,3 +1,4 @@
+import { MobileMenu } from "./mobile-menu";
 import { nav, site } from "@/lib/site";
 
 export function Nav() {
@@ -8,7 +9,10 @@ export function Nav() {
       className="fixed inset-x-0 top-0 z-40 border-b border-line bg-bg/75 backdrop-blur-md"
     >
       <div className="shell flex h-16 items-center justify-between">
-        <a href="#hero" className="font-display text-xl tracking-tight text-fg">
+        <a
+          href="#hero"
+          className="inline-flex min-h-11 items-center font-display text-xl tracking-tight text-fg"
+        >
           {site.name}
           <span className="text-accent">.</span>
         </a>
@@ -23,14 +27,15 @@ export function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="hidden rounded-md px-3 py-2 text-sm text-fg-muted transition-colors hover:text-fg aria-[current=true]:text-fg sm:inline-block"
+              className="hidden min-h-11 items-center rounded-md px-3 text-sm text-fg-muted transition-colors hover:text-fg aria-[current=true]:text-fg sm:inline-flex"
             >
               {link.label}
             </a>
           ))}
+          <MobileMenu links={nav} />
           <a
             href={site.resume}
-            className="btn rounded-md border border-line-strong px-4 py-2 text-sm text-fg hover:border-accent hover:text-accent"
+            className="btn inline-flex min-h-11 items-center rounded-md border border-line-strong px-4 text-sm text-fg hover:border-accent hover:text-accent"
           >
             Resume
           </a>

@@ -1,5 +1,6 @@
 import { ArrowRight, Download } from "lucide-react";
 import { Section } from "./section";
+import { CopyEmail } from "./copy-email";
 import { site, socials } from "@/lib/site";
 
 export function Contact() {
@@ -47,6 +48,7 @@ export function Contact() {
           <Download className="size-4" />
           Resume
         </a>
+        <CopyEmail email={site.email} />
       </div>
 
       <ul
@@ -60,7 +62,7 @@ export function Contact() {
               href={s.href}
               target={s.href.startsWith("http") ? "_blank" : undefined}
               rel="noopener noreferrer"
-              className="link-rule text-sm text-fg-muted hover:text-fg"
+              className="link-rule inline-flex min-h-11 items-center text-sm text-fg-muted hover:text-fg"
             >
               {s.label}
             </a>

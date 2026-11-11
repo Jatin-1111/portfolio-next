@@ -86,12 +86,13 @@ export default function RootLayout({
       <head>
         {/* Runs before first paint. First visit in a session: opt into the
             build-up intro (CSS hides every [data-b] piece while html.build
-            is set). Return visits and deep links get the finished page.
-            The timeout is a failsafe so content can never stay hidden. */}
+            is set). Return visits, deep links and visitors who prefer reduced
+            motion get the finished page. The timeout is a failsafe so content
+            can never stay hidden if scripts fail to load. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var d=document.documentElement;if(sessionStorage.getItem('pf-built')||location.hash)return;d.classList.add('build');window.__pfFailsafe=setTimeout(function(){d.classList.remove('build')},30000)}catch(e){}})()",
+              "(function(){try{var d=document.documentElement;if(sessionStorage.getItem('pf-built')||location.hash||matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('build');window.__pfFailsafe=setTimeout(function(){d.classList.remove('build')},8000)}catch(e){}})()",
           }}
         />
       </head>

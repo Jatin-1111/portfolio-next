@@ -63,7 +63,8 @@ type Job = {
 
 export type BuildHandle = {
   play: () => void;
-  skip: () => void;
+  /** End the intro now. keepScroll leaves the page where the visitor is. */
+  skip: (keepScroll?: boolean) => void;
   kill: () => void;
   /** Dev aid: pause and jump to a time, in seconds */
   seek: (t: number) => void;
@@ -130,7 +131,7 @@ function targetsFor(el: Element, fx: Fx): Element[] {
   }
 }
 
-export function createBuild(layer: HTMLElement): BuildHandle {
+export function createBuild(layer: HTMLElement, hud?: HTMLElement): BuildHandle {
   const root = document.documentElement;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
@@ -359,7 +360,16 @@ export function createBuild(layer: HTMLElement): BuildHandle {
   const { jobs } = schedule(D);
 
   /* --------------------------------------------------------------- 4. build */
-  const master = gsap.timeline({ paused: true });
+  const master = gsap.timeline({
+    paused: true,
+    onUpdate: () => {
+      if (!hud) return;
+      const p = master.progress();
+      hud.style.setProperty("--p", String(p));
+      const n = hud.querySelector("[data-progress]");
+      if (n) n.textContent = `${Math.floor(p * 100)}%`;
+    },
+  });
   const cursorList = CURSORS.map((c) => cursorEl.get(c.id)!).filter(Boolean);
   CURSORS.forEach((c) => {
     gsap.set(cursorEl.get(c.id)!, { x: spawn[c.id].x, y: spawn[c.id].y, autoAlpha: 0 });
@@ -576,11 +586,11 @@ export function createBuild(layer: HTMLElement): BuildHandle {
   const frames = pieces.filter((p) => p.isFrame).map((p) => p.el);
 
   let finished = false;
-  const finish = () => {
+  const finish = (keepScroll = false) => {
     if (finished) return;
     finished = true;
     master.kill();
-    window.scrollTo(0, 0);
+    if (keepScroll !== true) window.scrollTo(0, 0);
     root.classList.remove("build");
     gsap.set(allTargets, {
       clearProps:
@@ -609,7 +619,7 @@ export function createBuild(layer: HTMLElement): BuildHandle {
     play: () => {
       master.play(0);
     },
-    skip: finish,
+    skip: (keepScroll) => finish(keepScroll === true),
     seek: (t: number) => {
       master.pause();
       master.seek(t);

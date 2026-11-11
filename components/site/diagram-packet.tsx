@@ -39,13 +39,17 @@ export function DiagramPacket({
       tl.to(dot, { autoAlpha: 0, duration: 0.3 });
     };
 
-    const sync = () => (root.classList.contains("build") ? stop() : start());
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () =>
+      root.classList.contains("build") || reduce.matches ? stop() : start();
+    reduce.addEventListener("change", sync);
     sync();
     const mo = new MutationObserver(sync);
     mo.observe(root, { attributes: true, attributeFilter: ["class"] });
 
     return () => {
       mo.disconnect();
+      reduce.removeEventListener("change", sync);
       tl?.kill();
     };
   }, [route]);

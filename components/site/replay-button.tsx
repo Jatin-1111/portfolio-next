@@ -6,9 +6,9 @@ export function ReplayButton() {
     <button
       type="button"
       onClick={() => window.dispatchEvent(new Event("portfolio:replay"))}
-      className="link-rule text-sm text-fg-muted hover:text-accent"
+      className="link-rule inline-flex min-h-11 items-center px-1 text-sm text-fg-muted hover:text-accent"
     >
-      Replay the build
+      Replay intro
     </button>
   );
 }
